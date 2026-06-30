@@ -1,0 +1,30 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor files
+.idea/
+.vscode/
+/.agents/
+*.swp
+*.swo
+
+# Backend dependencies and environment
+/backend/vendor/
+/backend/node_modules/
+/backend/.env
+/backend/storage/logs/*.log
+/backend/bootstrap/cache/*.php
+
+# Frontend dependencies, build output, and environment
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.env
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

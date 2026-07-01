@@ -47,6 +47,14 @@ class Category extends Model
     }
 
     /**
+     * Get the products assigned to the category.
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    /**
      * Scope the query to active categories.
      */
     public function scopeActive(Builder $query): Builder

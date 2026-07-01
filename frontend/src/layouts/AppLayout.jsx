@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.js'
+import { isAdminUser } from '../utils/userRoles.js'
 
 function AppLayout() {
   const { isAuthenticated, user } = useAuth()
@@ -21,13 +22,24 @@ function AppLayout() {
                 Home
               </NavLink>
               {isAuthenticated ? (
-                <Link className="account-nav-button" to="/account">
-                  <span className="account-nav-avatar">
-                    {user?.name?.charAt(0)?.toUpperCase() || 'A'}
-                  </span>
-                  <span className="d-none d-sm-inline">My account</span>
-                  <i className="bi bi-arrow-up-right" aria-hidden="true" />
-                </Link>
+                <>
+                  {isAdminUser(user) && (
+                    <Link
+                      className="admin-nav-link d-none d-md-inline-flex"
+                      to="/admin/dashboard"
+                    >
+                      <i className="bi bi-speedometer2" aria-hidden="true" />
+                      Admin
+                    </Link>
+                  )}
+                  <Link className="account-nav-button" to="/account">
+                    <span className="account-nav-avatar">
+                      {user?.name?.charAt(0)?.toUpperCase() || 'A'}
+                    </span>
+                    <span className="d-none d-sm-inline">My account</span>
+                    <i className="bi bi-arrow-up-right" aria-hidden="true" />
+                  </Link>
+                </>
               ) : (
                 <>
                   <Link className="btn btn-link nav-login-link" to="/login">

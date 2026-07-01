@@ -1,0 +1,19 @@
+import { Link } from 'react-router-dom'
+
+function AdminQuickActionCard({ action }) {
+  return (
+    <Link className="admin-quick-action" to={action.path}>
+      <span className="admin-quick-action-icon" aria-hidden="true">
+        <i className={`bi ${action.icon}`} />
+      </span>
+      <span className="admin-quick-action-copy">
+        <strong>{action.label}</strong>
+        <small>{action.description}</small>
+      </span>
+      <span className="admin-planned-badge">Planned</span>
+      <i className="bi bi-arrow-up-right admin-quick-action-arrow" aria-hidden="true" />
+    </Link>
+  )
+}
+
+export default AdminQuickActionCard

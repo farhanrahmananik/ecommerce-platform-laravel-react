@@ -1,8 +1,12 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { useAuth } from '../../hooks/useAuth.js'
 import { getApiErrorMessage } from '../../utils/apiErrors.js'
+import {
+  getPrimaryRoleLabel,
+  isAdminUser,
+} from '../../utils/userRoles.js'
 
 const dashboardCards = [
   {
@@ -32,7 +36,7 @@ function AccountDashboardPage() {
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const roleLabel = user?.roles?.[0]?.name || user?.role?.name || 'Customer'
+  const roleLabel = getPrimaryRoleLabel(user)
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
@@ -120,6 +124,12 @@ function AccountDashboardPage() {
               <i className="bi bi-grid" aria-hidden="true" />
               Foundation preview
             </span>
+            {isAdminUser(user) && (
+              <Link className="btn btn-brand" to="/admin/dashboard">
+                <i className="bi bi-speedometer2" aria-hidden="true" />
+                Admin Dashboard
+              </Link>
+            )}
           </div>
 
           <div className="row g-4">

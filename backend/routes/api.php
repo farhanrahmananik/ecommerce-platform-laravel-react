@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -13,4 +14,5 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
     // TODO(Role & Permission Management): Add admin-role middleware after persisted role data exists.
     Route::get('/admin/dashboard/summary', DashboardController::class);
+    Route::apiResource('/admin/categories', CategoryController::class);
 });

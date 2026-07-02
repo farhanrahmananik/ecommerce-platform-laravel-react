@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\ProductImageController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Cart\CartController;
+use App\Http\Controllers\Api\Cart\CartItemController;
 use App\Http\Controllers\Api\Storefront\StorefrontCategoryController;
 use App\Http\Controllers\Api\Storefront\StorefrontProductController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +21,12 @@ Route::get('/storefront/products/{slug}', [StorefrontProductController::class, '
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
+
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart/items', [CartItemController::class, 'store']);
+    Route::patch('/cart/items/{cartItem}', [CartItemController::class, 'update']);
+    Route::delete('/cart/items/{cartItem}', [CartItemController::class, 'destroy']);
+    Route::delete('/cart', [CartController::class, 'destroy']);
 
     // TODO(Role & Permission Management): Add admin-role middleware after persisted role data exists.
     Route::get('/admin/dashboard/summary', DashboardController::class);

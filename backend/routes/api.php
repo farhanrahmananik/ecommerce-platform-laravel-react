@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Admin\ProductImageController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Cart\CartController;
 use App\Http\Controllers\Api\Cart\CartItemController;
+use App\Http\Controllers\Api\Checkout\CheckoutController;
 use App\Http\Controllers\Api\Storefront\StorefrontCategoryController;
 use App\Http\Controllers\Api\Storefront\StorefrontProductController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::patch('/cart/items/{cartItem}', [CartItemController::class, 'update']);
     Route::delete('/cart/items/{cartItem}', [CartItemController::class, 'destroy']);
     Route::delete('/cart', [CartController::class, 'destroy']);
+
+    Route::post('/checkout', [CheckoutController::class, 'store']);
 
     // TODO(Role & Permission Management): Add admin-role middleware after persisted role data exists.
     Route::get('/admin/dashboard/summary', DashboardController::class);

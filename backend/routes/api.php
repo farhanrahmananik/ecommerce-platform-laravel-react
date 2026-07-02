@@ -5,10 +5,15 @@ use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\ProductImageController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Storefront\StorefrontCategoryController;
+use App\Http\Controllers\Api\Storefront\StorefrontProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
+
+Route::get('/storefront/categories', [StorefrontCategoryController::class, 'index']);
+Route::get('/storefront/products', [StorefrontProductController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/auth/me', [AuthController::class, 'me']);

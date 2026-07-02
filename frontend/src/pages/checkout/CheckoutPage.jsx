@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import { useAuth } from '../../hooks/useAuth.js'
 import { useCart } from '../../hooks/useCart.js'
 import { checkout as submitCheckout } from '../../services/checkoutService.js'
+import { validateCoupon } from '../../services/couponService.js'
 import {
   getApiErrorMessage,
   getValidationErrors,
@@ -29,6 +30,22 @@ function formatAmount(value) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount)
+}
+
+function formatCouponExpiry(value) {
+  if (!value) {
+    return null
+  }
+
+  const date = new Date(value)
+
+  return Number.isNaN(date.getTime())
+    ? null
+    : new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(date)
 }
 
 function initialCheckoutForm(user) {
@@ -172,7 +189,18 @@ function CheckoutPage() {
   const [fieldErrors, setFieldErrors] = useState({})
   const [generalError, setGeneralError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [couponCode, setCouponCode] = useState('')
+  const [appliedCoupon, setAppliedCoupon] = useState(null)
+  const [couponError, setCouponError] = useState('')
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false)
   const navigate = useNavigate()
+  const couponMatchesCart =
+    !appliedCoupon ||
+    Number(appliedCoupon.cart_subtotal) === Number(subtotal)
+  const activeCoupon = couponMatchesCart ? appliedCoupon : null
+  const visibleCouponError = couponMatchesCart
+    ? couponError
+    : 'Your cart total changed. Please apply the coupon again.'
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -201,6 +229,78 @@ function CheckoutPage() {
     fetchCart().catch(() => undefined)
   }
 
+  const handleCouponCodeChange = (event) => {
+    setCouponCode(event.target.value.toUpperCase())
+    setCouponError('')
+    setFieldErrors((current) => {
+      const nextErrors = { ...current }
+
+      delete nextErrors.code
+      delete nextErrors.coupon_code
+
+      return nextErrors
+    })
+  }
+
+  const handleApplyCoupon = async (event) => {
+    event.preventDefault()
+    const normalizedCode = couponCode.trim().toUpperCase()
+
+    if (!normalizedCode) {
+      setCouponError('Enter a coupon code to continue.')
+
+      return
+    }
+
+    setIsValidatingCoupon(true)
+    setCouponError('')
+
+    try {
+      const response = await validateCoupon({ code: normalizedCode })
+      const coupon = response?.data ?? response
+
+      setCouponCode(coupon.code)
+      setAppliedCoupon(coupon)
+      setFieldErrors((current) => {
+        const nextErrors = { ...current }
+
+        delete nextErrors.code
+        delete nextErrors.coupon_code
+
+        return nextErrors
+      })
+    } catch (validationError) {
+      const validationErrors = getValidationErrors(validationError)
+      const message =
+        validationErrors.code?.[0] ||
+        validationErrors.coupon_code?.[0] ||
+        validationErrors.cart?.[0] ||
+        getApiErrorMessage(
+          validationError,
+          'We could not validate this coupon. Please try again.',
+        )
+
+      setAppliedCoupon(null)
+      setCouponError(message)
+    } finally {
+      setIsValidatingCoupon(false)
+    }
+  }
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null)
+    setCouponCode('')
+    setCouponError('')
+    setFieldErrors((current) => {
+      const nextErrors = { ...current }
+
+      delete nextErrors.code
+      delete nextErrors.coupon_code
+
+      return nextErrors
+    })
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     setIsSubmitting(true)
@@ -208,8 +308,15 @@ function CheckoutPage() {
     setGeneralError('')
 
     try {
-      const response = await submitCheckout(form)
+      const checkoutPayload = activeCoupon
+        ? { ...form, coupon_code: activeCoupon.code }
+        : form
+      const response = await submitCheckout(checkoutPayload)
       const order = response?.data ?? response
+
+      setAppliedCoupon(null)
+      setCouponCode('')
+      setCouponError('')
 
       try {
         await fetchCart()
@@ -244,10 +351,17 @@ function CheckoutPage() {
     } catch (checkoutError) {
       const validationErrors = getValidationErrors(checkoutError)
       const hasValidationErrors = Object.keys(validationErrors).length > 0
+      const checkoutCouponError = validationErrors.coupon_code?.[0]
 
       setFieldErrors(validationErrors)
+      if (checkoutCouponError) {
+        setCouponError(checkoutCouponError)
+      }
       setGeneralError(
         validationErrors.cart?.[0] ||
+          (checkoutCouponError
+            ? 'Your coupon needs attention before this order can be placed.'
+            : null) ||
           (hasValidationErrors
             ? 'Please review the highlighted checkout fields.'
             : getApiErrorMessage(
@@ -613,18 +727,107 @@ function CheckoutPage() {
                 ))}
               </div>
 
+              <section className="checkout-coupon" aria-labelledby="checkout-coupon-title">
+                <div className="checkout-coupon__heading">
+                  <span aria-hidden="true">
+                    <i className="bi bi-ticket-perforated" />
+                  </span>
+                  <div>
+                    <h3 id="checkout-coupon-title">Have a coupon?</h3>
+                    <p>Apply one promotion code to this order.</p>
+                  </div>
+                </div>
+
+                {activeCoupon ? (
+                  <div className="checkout-coupon-applied" role="status">
+                    <div className="checkout-coupon-applied__code">
+                      <span aria-hidden="true">
+                        <i className="bi bi-check-circle-fill" />
+                      </span>
+                      <div>
+                        <small>Coupon applied</small>
+                        <strong>{activeCoupon.code}</strong>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleRemoveCoupon}
+                        disabled={isSubmitting}
+                        aria-label={`Remove coupon ${activeCoupon.code}`}
+                      >
+                        <i className="bi bi-x-circle" aria-hidden="true" />
+                        Remove
+                      </button>
+                    </div>
+                    <div className="checkout-coupon-applied__summary">
+                      <span>
+                        Saving <strong>{formatAmount(activeCoupon.discount_amount)}</strong>
+                      </span>
+                      {formatCouponExpiry(activeCoupon.expires_at) && (
+                        <span>
+                          Expires {formatCouponExpiry(activeCoupon.expires_at)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <form className="checkout-coupon-form" onSubmit={handleApplyCoupon} noValidate>
+                    <div>
+                      <i className="bi bi-percent" aria-hidden="true" />
+                      <input
+                        type="text"
+                        value={couponCode}
+                        onChange={handleCouponCodeChange}
+                        placeholder="Enter coupon code"
+                        aria-label="Coupon code"
+                        aria-invalid={Boolean(visibleCouponError)}
+                        aria-describedby={visibleCouponError ? 'checkout-coupon-error' : undefined}
+                        maxLength="50"
+                        disabled={isValidatingCoupon || isSubmitting}
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={isValidatingCoupon || isSubmitting}
+                    >
+                      {isValidatingCoupon ? (
+                        <span className="spinner-border spinner-border-sm" aria-hidden="true" />
+                      ) : (
+                        'Apply'
+                      )}
+                    </button>
+                  </form>
+                )}
+
+                {visibleCouponError && (
+                  <div className="checkout-coupon-error" id="checkout-coupon-error" role="alert">
+                    <i className="bi bi-exclamation-circle" aria-hidden="true" />
+                    <span>{visibleCouponError}</span>
+                  </div>
+                )}
+              </section>
+
               <dl className="checkout-totals">
                 <div>
                   <dt>Subtotal</dt>
-                  <dd>{formatAmount(subtotal)}</dd>
+                  <dd>{formatAmount(activeCoupon?.cart_subtotal ?? subtotal)}</dd>
                 </div>
                 <div>
                   <dt>Shipping</dt>
                   <dd>Free</dd>
                 </div>
+                {activeCoupon && (
+                  <div className="checkout-discount-row">
+                    <dt>
+                      Discount <small>{activeCoupon.code}</small>
+                    </dt>
+                    <dd>- {formatAmount(activeCoupon.discount_amount)}</dd>
+                  </div>
+                )}
                 <div className="checkout-total-row">
                   <dt>Total</dt>
-                  <dd>{formatAmount(total)}</dd>
+                  <dd>
+                    {formatAmount(activeCoupon?.total_after_discount ?? total)}
+                  </dd>
                 </div>
               </dl>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { useAuth } from '../hooks/useAuth.js'
 import { getApiErrorMessage } from '../utils/apiErrors.js'
@@ -7,7 +7,7 @@ import { getPrimaryRoleLabel } from '../utils/userRoles.js'
 
 const navigationItems = [
   { label: 'Dashboard', icon: 'bi-grid-1x2', path: '/admin/dashboard', active: true },
-  { label: 'Categories', icon: 'bi-tags', path: '/admin/categories' },
+  { label: 'Categories', icon: 'bi-tags', path: '/admin/categories', active: true },
   { label: 'Products', icon: 'bi-box-seam', path: '/admin/products' },
   { label: 'Orders', icon: 'bi-receipt', path: '/admin/orders' },
   { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons' },
@@ -18,7 +18,11 @@ function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const { user, logout } = useAuth()
+  const location = useLocation()
   const navigate = useNavigate()
+  const isCategoryArea = location.pathname.startsWith('/admin/categories')
+  const currentSection = isCategoryArea ? 'Categories' : 'Dashboard'
+  const currentArea = isCategoryArea ? 'Catalog' : 'Overview'
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
@@ -144,8 +148,8 @@ function AdminLayout() {
               <i className="bi bi-list" aria-hidden="true" />
             </button>
             <div>
-              <span className="admin-breadcrumb">Admin / Overview</span>
-              <strong>Dashboard</strong>
+              <span className="admin-breadcrumb">Admin / {currentArea}</span>
+              <strong>{currentSection}</strong>
             </div>
           </div>
 

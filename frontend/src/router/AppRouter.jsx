@@ -7,6 +7,9 @@ import AppLayout from '../layouts/AppLayout.jsx'
 import AuthLayout from '../layouts/AuthLayout.jsx'
 import AccountDashboardPage from '../pages/account/AccountDashboardPage.jsx'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage.jsx'
+import CategoryCreatePage from '../pages/admin/categories/CategoryCreatePage.jsx'
+import CategoryEditPage from '../pages/admin/categories/CategoryEditPage.jsx'
+import CategoryListPage from '../pages/admin/categories/CategoryListPage.jsx'
 import LoginPage from '../pages/auth/LoginPage.jsx'
 import RegisterPage from '../pages/auth/RegisterPage.jsx'
 import NotFoundPage from '../pages/errors/NotFoundPage.jsx'
@@ -34,6 +37,9 @@ function AppRouter() {
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboardPage />} />
+          <Route path="categories" element={<CategoryListPage />} />
+          <Route path="categories/create" element={<CategoryCreatePage />} />
+          <Route path="categories/:id/edit" element={<CategoryEditPage />} />
         </Route>
       </Route>
     </Routes>

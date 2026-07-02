@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function AdminQuickActionCard({ action }) {
+function AdminQuickActionCard({ action, available = false }) {
   return (
     <Link className="admin-quick-action" to={action.path}>
       <span className="admin-quick-action-icon" aria-hidden="true">
@@ -10,7 +10,7 @@ function AdminQuickActionCard({ action }) {
         <strong>{action.label}</strong>
         <small>{action.description}</small>
       </span>
-      <span className="admin-planned-badge">Planned</span>
+      {!available && <span className="admin-planned-badge">Planned</span>}
       <i className="bi bi-arrow-up-right admin-quick-action-arrow" aria-hidden="true" />
     </Link>
   )

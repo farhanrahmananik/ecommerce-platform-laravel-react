@@ -38,7 +38,7 @@ function AdminRoute() {
           <p>
             {roleInformationMissing
               ? 'Your authenticated profile does not include role information yet. Admin access will become available after the Role & Permission Management scope is implemented.'
-              : 'Your account does not have a Super Admin or Store Manager role.'}
+              : 'Your account does not have a Super Admin, Store Manager, or Admin role.'}
           </p>
 
           <div className="admin-access-actions">

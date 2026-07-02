@@ -1,4 +1,4 @@
-const adminRoleKeys = new Set(['super_admin', 'store_manager'])
+const adminRoleKeys = new Set(['super_admin', 'store_manager', 'admin'])
 
 function normalizeRole(role) {
   if (typeof role === 'string') {

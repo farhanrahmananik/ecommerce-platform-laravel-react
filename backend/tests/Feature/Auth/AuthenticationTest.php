@@ -33,12 +33,14 @@ class AuthenticationTest extends TestCase
             ->assertJsonPath('message', 'Registration successful.')
             ->assertJsonPath('data.user.name', 'Example Customer')
             ->assertJsonPath('data.user.email', 'customer@example.com')
+            ->assertJsonPath('data.user.role', 'customer')
             ->assertJsonPath('data.user.email_verified_at', null)
             ->assertJsonMissingPath('data.user.password');
 
         $user = User::query()->where('email', 'customer@example.com')->firstOrFail();
 
         $this->assertAuthenticatedAs($user);
+        $this->assertSame('customer', $user->role);
         $this->assertTrue(Hash::check('secure-password', $user->password));
     }
 
@@ -63,6 +65,7 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create([
             'password' => Hash::make('correct-password'),
+            'role' => 'admin',
         ]);
 
         $response = $this->postJson('/api/auth/login', [
@@ -75,6 +78,7 @@ class AuthenticationTest extends TestCase
             ->assertJsonPath('message', 'Login successful.')
             ->assertJsonPath('data.user.id', $user->id)
             ->assertJsonPath('data.user.email', $user->email)
+            ->assertJsonPath('data.user.role', 'admin')
             ->assertJsonMissingPath('data.user.password');
 
         $this->assertAuthenticatedAs($user);
@@ -106,7 +110,9 @@ class AuthenticationTest extends TestCase
 
     public function test_an_authenticated_user_can_access_the_current_user_endpoint(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'role' => 'super_admin',
+        ]);
 
         $response = $this
             ->actingAs($user, 'web')
@@ -115,7 +121,8 @@ class AuthenticationTest extends TestCase
         $response
             ->assertOk()
             ->assertJsonPath('data.user.id', $user->id)
-            ->assertJsonPath('data.user.email', $user->email);
+            ->assertJsonPath('data.user.email', $user->email)
+            ->assertJsonPath('data.user.role', 'super_admin');
     }
 
     public function test_an_authenticated_user_can_logout(): void

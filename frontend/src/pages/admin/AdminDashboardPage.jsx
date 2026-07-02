@@ -4,6 +4,8 @@ import AdminStatCard from '../../components/admin/AdminStatCard.jsx'
 import { getAdminDashboardSummary } from '../../services/adminDashboardApi.js'
 import { getApiErrorMessage } from '../../utils/apiErrors.js'
 
+const availableQuickActionPaths = new Set(['/admin/categories'])
+
 function AdminDashboardPage() {
   const [summary, setSummary] = useState(null)
   const [error, setError] = useState('')
@@ -133,7 +135,11 @@ function AdminDashboardPage() {
             </div>
             <div className="admin-quick-actions">
               {quickActions.map((action) => (
-                <AdminQuickActionCard action={action} key={action.label} />
+                <AdminQuickActionCard
+                  action={action}
+                  available={availableQuickActionPaths.has(action.path)}
+                  key={action.label}
+                />
               ))}
             </div>
           </section>

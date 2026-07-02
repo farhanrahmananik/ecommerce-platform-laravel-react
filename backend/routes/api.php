@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\DashboardController;
+use App\Http\Controllers\Api\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Api\Admin\OrderStatusController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\ProductImageController;
 use App\Http\Controllers\Api\AuthController;
@@ -37,6 +39,9 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
     // TODO(Role & Permission Management): Add admin-role middleware after persisted role data exists.
     Route::get('/admin/dashboard/summary', DashboardController::class);
+    Route::get('/admin/orders', [AdminOrderController::class, 'index']);
+    Route::get('/admin/orders/{order}', [AdminOrderController::class, 'show']);
+    Route::patch('/admin/orders/{order}/status', [OrderStatusController::class, 'update']);
     Route::apiResource('/admin/categories', CategoryController::class);
     Route::apiResource('/admin/products', ProductController::class);
     Route::get('/admin/products/{product}/images', [ProductImageController::class, 'index']);

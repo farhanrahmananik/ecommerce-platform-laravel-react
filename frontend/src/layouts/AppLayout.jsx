@@ -27,6 +27,13 @@ function AppLayout() {
               >
                 Products
               </NavLink>
+              <NavLink
+                className="nav-home-link d-none d-md-inline-flex align-items-center gap-1"
+                to="/cart"
+              >
+                <i className="bi bi-bag" aria-hidden="true" />
+                Cart
+              </NavLink>
               {isAuthenticated ? (
                 <>
                   {isAdminUser(user) && (

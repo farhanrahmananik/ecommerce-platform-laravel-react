@@ -8,7 +8,7 @@ import { getPrimaryRoleLabel } from '../utils/userRoles.js'
 const navigationItems = [
   { label: 'Dashboard', icon: 'bi-grid-1x2', path: '/admin/dashboard', active: true },
   { label: 'Categories', icon: 'bi-tags', path: '/admin/categories', active: true },
-  { label: 'Products', icon: 'bi-box-seam', path: '/admin/products' },
+  { label: 'Products', icon: 'bi-box-seam', path: '/admin/products', active: true },
   { label: 'Orders', icon: 'bi-receipt', path: '/admin/orders' },
   { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons' },
   { label: 'Reports', icon: 'bi-bar-chart', path: '/admin/reports' },
@@ -21,8 +21,13 @@ function AdminLayout() {
   const location = useLocation()
   const navigate = useNavigate()
   const isCategoryArea = location.pathname.startsWith('/admin/categories')
-  const currentSection = isCategoryArea ? 'Categories' : 'Dashboard'
-  const currentArea = isCategoryArea ? 'Catalog' : 'Overview'
+  const isProductArea = location.pathname.startsWith('/admin/products')
+  const currentSection = isCategoryArea
+    ? 'Categories'
+    : isProductArea
+      ? 'Products'
+      : 'Dashboard'
+  const currentArea = isCategoryArea || isProductArea ? 'Catalog' : 'Overview'
 
   const handleLogout = async () => {
     setIsLoggingOut(true)

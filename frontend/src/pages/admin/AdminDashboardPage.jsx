@@ -4,7 +4,10 @@ import AdminStatCard from '../../components/admin/AdminStatCard.jsx'
 import { getAdminDashboardSummary } from '../../services/adminDashboardApi.js'
 import { getApiErrorMessage } from '../../utils/apiErrors.js'
 
-const availableQuickActionPaths = new Set(['/admin/categories'])
+const availableQuickActionPaths = new Set([
+  '/admin/categories',
+  '/admin/products',
+])
 
 function AdminDashboardPage() {
   const [summary, setSummary] = useState(null)

@@ -10,6 +10,9 @@ import AdminDashboardPage from '../pages/admin/AdminDashboardPage.jsx'
 import CategoryCreatePage from '../pages/admin/categories/CategoryCreatePage.jsx'
 import CategoryEditPage from '../pages/admin/categories/CategoryEditPage.jsx'
 import CategoryListPage from '../pages/admin/categories/CategoryListPage.jsx'
+import ProductCreatePage from '../pages/admin/products/ProductCreatePage.jsx'
+import ProductEditPage from '../pages/admin/products/ProductEditPage.jsx'
+import ProductListPage from '../pages/admin/products/ProductListPage.jsx'
 import LoginPage from '../pages/auth/LoginPage.jsx'
 import RegisterPage from '../pages/auth/RegisterPage.jsx'
 import NotFoundPage from '../pages/errors/NotFoundPage.jsx'
@@ -40,6 +43,9 @@ function AppRouter() {
           <Route path="categories" element={<CategoryListPage />} />
           <Route path="categories/create" element={<CategoryCreatePage />} />
           <Route path="categories/:id/edit" element={<CategoryEditPage />} />
+          <Route path="products" element={<ProductListPage />} />
+          <Route path="products/create" element={<ProductCreatePage />} />
+          <Route path="products/:id/edit" element={<ProductEditPage />} />
         </Route>
       </Route>
     </Routes>

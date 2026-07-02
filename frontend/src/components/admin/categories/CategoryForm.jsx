@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import AdminSelect from '../common/AdminSelect.jsx'
 
 const defaultValues = {
   parent_id: '',
@@ -44,6 +45,13 @@ function CategoryForm({
   const parentOptions = categories.filter(
     (category) => String(category.id) !== String(currentCategoryId),
   )
+  const parentCategoryOptions = [
+    { value: '', label: 'No parent category' },
+    ...parentOptions.map((category) => ({
+      value: category.id,
+      label: category.name,
+    })),
+  ]
 
   const handleChange = (event) => {
     const { checked, name, type, value } = event.target
@@ -133,24 +141,19 @@ function CategoryForm({
         </div>
 
         <div className="col-lg-6">
-          <label className="category-form-label" htmlFor="category-parent">
-            Parent category <small>Optional</small>
-          </label>
-          <select
+          <AdminSelect
             id="category-parent"
-            className={`form-select category-form-control ${errors.parent_id ? 'is-invalid' : ''}`}
             name="parent_id"
+            label="Parent category"
             value={form.parent_id}
-            onChange={handleChange}
-          >
-            <option value="">Top-level category</option>
-            {parentOptions.map((category) => (
-              <option value={category.id} key={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-          <FieldErrors messages={errors.parent_id} />
+            options={parentCategoryOptions}
+            onChange={(parentId) =>
+              setForm((current) => ({ ...current, parent_id: parentId }))
+            }
+            error={errors.parent_id}
+            placeholder="Choose a parent category"
+            optional
+          />
         </div>
 
         <div className="col-12">

@@ -19,6 +19,8 @@ class Order extends Model
     protected $fillable = [
         'order_number',
         'user_id',
+        'coupon_id',
+        'coupon_code',
         'customer_name',
         'customer_email',
         'customer_phone',
@@ -52,6 +54,22 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the coupon referenced by the order snapshot.
+     */
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
+    /**
+     * Get coupon redemption records associated with the order.
+     */
+    public function couponRedemptions(): HasMany
+    {
+        return $this->hasMany(CouponRedemption::class);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\CategoryController;
+use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Api\Admin\OrderStatusController;
@@ -43,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/admin/orders/{order}', [AdminOrderController::class, 'show']);
     Route::patch('/admin/orders/{order}/status', [OrderStatusController::class, 'update']);
     Route::apiResource('/admin/categories', CategoryController::class);
+    Route::apiResource('/admin/coupons', CouponController::class);
     Route::apiResource('/admin/products', ProductController::class);
     Route::get('/admin/products/{product}/images', [ProductImageController::class, 'index']);
     Route::post('/admin/products/{product}/images', [ProductImageController::class, 'store']);

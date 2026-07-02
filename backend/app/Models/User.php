@@ -55,6 +55,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Get coupons created by this user.
+     */
+    public function createdCoupons(): HasMany
+    {
+        return $this->hasMany(Coupon::class, 'created_by_id');
+    }
+
+    /**
+     * Get coupon redemptions belonging to this user.
+     */
+    public function couponRedemptions(): HasMany
+    {
+        return $this->hasMany(CouponRedemption::class);
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

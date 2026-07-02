@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import AdminSelect from '../../../components/admin/common/AdminSelect.jsx'
 import {
   deleteCategory,
   getCategories,
 } from '../../../services/admin/categoryService.js'
 import { getApiErrorMessage } from '../../../utils/apiErrors.js'
+
+const statusFilterOptions = [
+  { value: '', label: 'All' },
+  { value: '1', label: 'Active' },
+  { value: '0', label: 'Inactive' },
+]
 
 function getVisiblePages(currentPage, lastPage) {
   const firstPage = Math.max(1, currentPage - 1)
@@ -97,8 +104,8 @@ function CategoryListPage() {
     setSearch(nextSearch)
   }
 
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value)
+  const handleStatusChange = (value) => {
+    setStatus(value)
     setPage(1)
     setIsLoading(true)
   }
@@ -206,20 +213,16 @@ function CategoryListPage() {
             <button type="submit">Search</button>
           </form>
 
-          <div className="category-filter-group">
-            <label htmlFor="category-status-filter">
-              <i className="bi bi-funnel" aria-hidden="true" />
-              Status
-            </label>
-            <select
+          <div className="admin-select-filter">
+            <AdminSelect
               id="category-status-filter"
+              name="status"
+              label="Status"
               value={status}
+              options={statusFilterOptions}
               onChange={handleStatusChange}
-            >
-              <option value="">All</option>
-              <option value="1">Active</option>
-              <option value="0">Inactive</option>
-            </select>
+              placeholder="All"
+            />
           </div>
 
           {hasFilters && (

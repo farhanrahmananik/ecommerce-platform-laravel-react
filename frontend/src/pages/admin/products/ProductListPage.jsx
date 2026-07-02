@@ -1,12 +1,25 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import AdminSelect from '../../../components/admin/common/AdminSelect.jsx'
 import { getCategoryOptions } from '../../../services/admin/categoryService.js'
 import {
   deleteProduct,
   getProducts,
 } from '../../../services/admin/productService.js'
 import { getApiErrorMessage } from '../../../utils/apiErrors.js'
+
+const statusFilterOptions = [
+  { value: '', label: 'All' },
+  { value: '1', label: 'Active' },
+  { value: '0', label: 'Inactive' },
+]
+
+const featuredFilterOptions = [
+  { value: '', label: 'All' },
+  { value: '1', label: 'Featured' },
+  { value: '0', label: 'Regular' },
+]
 
 function getVisiblePages(currentPage, lastPage) {
   const firstPage = Math.max(1, currentPage - 1)
@@ -148,8 +161,8 @@ function ProductListPage() {
     setSearch(nextSearch)
   }
 
-  const updateFilter = (setter) => (event) => {
-    setter(event.target.value)
+  const updateFilter = (setter) => (value) => {
+    setter(value)
     setPage(1)
     setIsLoading(true)
   }
@@ -226,6 +239,14 @@ function ProductListPage() {
   }
 
   const hasFilters = Boolean(search || categoryId || status || featured)
+  const categoryFilterOptions = [
+    { value: '', label: 'All categories' },
+    { value: 'null', label: 'Uncategorized' },
+    ...categories.map((category) => ({
+      value: category.id,
+      label: category.name,
+    })),
+  ]
   const visiblePages = getVisiblePages(
     meta?.current_page || 1,
     meta?.last_page || 1,
@@ -260,47 +281,40 @@ function ProductListPage() {
           </form>
 
           <div className="product-filter-row">
-            <div className="category-filter-group">
-              <label htmlFor="product-category-filter">Category</label>
-              <select
+            <div className="admin-select-filter admin-select-filter--category">
+              <AdminSelect
                 id="product-category-filter"
+                name="category_id"
+                label="Category"
                 value={categoryId}
+                options={categoryFilterOptions}
                 onChange={updateFilter(setCategoryId)}
-              >
-                <option value="">All</option>
-                <option value="null">Uncategorized</option>
-                {categories.map((category) => (
-                  <option value={category.id} key={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+                placeholder="All categories"
+              />
             </div>
 
-            <div className="category-filter-group">
-              <label htmlFor="product-status-filter">Status</label>
-              <select
+            <div className="admin-select-filter">
+              <AdminSelect
                 id="product-status-filter"
+                name="status"
+                label="Status"
                 value={status}
+                options={statusFilterOptions}
                 onChange={updateFilter(setStatus)}
-              >
-                <option value="">All</option>
-                <option value="1">Active</option>
-                <option value="0">Inactive</option>
-              </select>
+                placeholder="All"
+              />
             </div>
 
-            <div className="category-filter-group">
-              <label htmlFor="product-featured-filter">Featured</label>
-              <select
+            <div className="admin-select-filter">
+              <AdminSelect
                 id="product-featured-filter"
+                name="featured"
+                label="Featured"
                 value={featured}
+                options={featuredFilterOptions}
                 onChange={updateFilter(setFeatured)}
-              >
-                <option value="">All</option>
-                <option value="1">Featured</option>
-                <option value="0">Regular</option>
-              </select>
+                placeholder="All"
+              />
             </div>
 
             {hasFilters && (

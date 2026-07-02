@@ -21,6 +21,12 @@ function AppLayout() {
               <NavLink className="nav-home-link d-none d-md-inline-flex" to="/">
                 Home
               </NavLink>
+              <NavLink
+                className="nav-home-link d-none d-md-inline-flex"
+                to="/products"
+              >
+                Products
+              </NavLink>
               {isAuthenticated ? (
                 <>
                   {isAdminUser(user) && (

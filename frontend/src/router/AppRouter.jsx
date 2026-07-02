@@ -17,12 +17,14 @@ import LoginPage from '../pages/auth/LoginPage.jsx'
 import RegisterPage from '../pages/auth/RegisterPage.jsx'
 import NotFoundPage from '../pages/errors/NotFoundPage.jsx'
 import HomePage from '../pages/HomePage.jsx'
+import ProductListingPage from '../pages/storefront/ProductListingPage.jsx'
 
 function AppRouter() {
   return (
     <Routes>
       <Route element={<AppLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="products" element={<ProductListingPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="account" element={<AccountDashboardPage />} />
         </Route>

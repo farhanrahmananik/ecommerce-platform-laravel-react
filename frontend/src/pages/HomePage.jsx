@@ -40,21 +40,18 @@ function HomePage() {
               </p>
 
               <div className="hero-actions">
+                <Link className="btn btn-brand btn-lg" to="/products">
+                  Shop products
+                  <i className="bi bi-arrow-right" aria-hidden="true" />
+                </Link>
                 {isAuthenticated ? (
-                  <Link className="btn btn-brand btn-lg" to="/account">
+                  <Link className="btn btn-soft btn-lg" to="/account">
                     Open your account
-                    <i className="bi bi-arrow-right" aria-hidden="true" />
                   </Link>
                 ) : (
-                  <>
-                    <Link className="btn btn-brand btn-lg" to="/register">
-                      Create an account
-                      <i className="bi bi-arrow-right" aria-hidden="true" />
-                    </Link>
-                    <Link className="btn btn-soft btn-lg" to="/login">
-                      Sign in
-                    </Link>
-                  </>
+                  <Link className="btn btn-soft btn-lg" to="/register">
+                    Create an account
+                  </Link>
                 )}
               </div>
 

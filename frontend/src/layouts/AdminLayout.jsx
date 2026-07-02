@@ -10,7 +10,7 @@ const navigationItems = [
   { label: 'Categories', icon: 'bi-tags', path: '/admin/categories', active: true },
   { label: 'Products', icon: 'bi-box-seam', path: '/admin/products', active: true },
   { label: 'Orders', icon: 'bi-receipt', path: '/admin/orders', active: true },
-  { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons' },
+  { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons', active: true },
   { label: 'Reports', icon: 'bi-bar-chart', path: '/admin/reports' },
 ]
 
@@ -23,18 +23,23 @@ function AdminLayout() {
   const isCategoryArea = location.pathname.startsWith('/admin/categories')
   const isProductArea = location.pathname.startsWith('/admin/products')
   const isOrderArea = location.pathname.startsWith('/admin/orders')
+  const isCouponArea = location.pathname.startsWith('/admin/coupons')
   const currentSection = isCategoryArea
     ? 'Categories'
     : isProductArea
       ? 'Products'
       : isOrderArea
         ? 'Orders'
-        : 'Dashboard'
+        : isCouponArea
+          ? 'Coupons'
+          : 'Dashboard'
   const currentArea = isCategoryArea || isProductArea
     ? 'Catalog'
     : isOrderArea
       ? 'Fulfillment'
-      : 'Overview'
+      : isCouponArea
+        ? 'Promotions'
+        : 'Overview'
 
   const handleLogout = async () => {
     setIsLoggingOut(true)

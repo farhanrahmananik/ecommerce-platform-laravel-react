@@ -9,6 +9,10 @@ import AccountDashboardPage from '../pages/account/AccountDashboardPage.jsx'
 import OrderDetailsPage from '../pages/account/OrderDetailsPage.jsx'
 import OrdersPage from '../pages/account/OrdersPage.jsx'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage.jsx'
+import AdminCouponCreatePage from '../pages/admin/coupons/AdminCouponCreatePage.jsx'
+import AdminCouponDetailsPage from '../pages/admin/coupons/AdminCouponDetailsPage.jsx'
+import AdminCouponEditPage from '../pages/admin/coupons/AdminCouponEditPage.jsx'
+import AdminCouponListPage from '../pages/admin/coupons/AdminCouponListPage.jsx'
 import AdminOrderDetailsPage from '../pages/admin/orders/AdminOrderDetailsPage.jsx'
 import AdminOrdersPage from '../pages/admin/orders/AdminOrdersPage.jsx'
 import CategoryCreatePage from '../pages/admin/categories/CategoryCreatePage.jsx'
@@ -60,6 +64,10 @@ function AppRouter() {
           <Route path="products" element={<ProductListPage />} />
           <Route path="products/create" element={<ProductCreatePage />} />
           <Route path="products/:id/edit" element={<ProductEditPage />} />
+          <Route path="coupons" element={<AdminCouponListPage />} />
+          <Route path="coupons/create" element={<AdminCouponCreatePage />} />
+          <Route path="coupons/:id" element={<AdminCouponDetailsPage />} />
+          <Route path="coupons/:id/edit" element={<AdminCouponEditPage />} />
           <Route path="orders" element={<AdminOrdersPage />} />
           <Route path="orders/:id" element={<AdminOrderDetailsPage />} />
         </Route>

@@ -11,3 +11,11 @@ export async function getStorefrontProducts(params = {}) {
 
   return response.data
 }
+
+export async function getStorefrontProduct(slug) {
+  const response = await httpClient.get(
+    `/api/storefront/products/${encodeURIComponent(slug)}`,
+  )
+
+  return response.data
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 function formatAmount(value) {
   const amount = Number(value)
@@ -71,10 +72,14 @@ function StorefrontProductCard({ product }) {
               {hasSale && <del>{formatAmount(price)}</del>}
             </div>
           </div>
-          <span className="shop-product-details-note">
-            Details soon
+          <Link
+            className="shop-product-details-note"
+            to={`/products/${product.slug}`}
+            aria-label={`View details for ${product.name}`}
+          >
+            View details
             <i className="bi bi-arrow-up-right" aria-hidden="true" />
-          </span>
+          </Link>
         </div>
       </div>
     </article>

@@ -1,0 +1,267 @@
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import ProductImageGallery from '../../components/storefront/ProductImageGallery.jsx'
+import { getStorefrontProduct } from '../../services/storefrontService.js'
+import { getApiErrorMessage } from '../../utils/apiErrors.js'
+
+const trustItems = [
+  {
+    icon: 'bi-shield-check',
+    title: 'Secure checkout foundation',
+    text: 'Built on a session-secure commerce architecture.',
+  },
+  {
+    icon: 'bi-lightning-charge',
+    title: 'Fast storefront experience',
+    text: 'Responsive product media and focused information.',
+  },
+  {
+    icon: 'bi-code-slash',
+    title: 'Laravel API powered',
+    text: 'Reliable catalog data from a clean API layer.',
+  },
+]
+
+function formatAmount(value) {
+  const amount = Number(value)
+
+  if (!Number.isFinite(amount)) {
+    return '-'
+  }
+
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount)
+}
+
+function ProductDetailSkeleton() {
+  return (
+    <main className="product-detail-page" aria-busy="true">
+      <div className="container">
+        <div className="product-detail-skeleton" role="status">
+          <div className="product-detail-skeleton__crumb" />
+          <div className="product-detail-skeleton__shell">
+            <div className="product-detail-skeleton__image" />
+            <div className="product-detail-skeleton__copy">
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
+          <span className="visually-hidden">Loading product details</span>
+        </div>
+      </div>
+    </main>
+  )
+}
+
+function ProductDetailPage() {
+  const { slug } = useParams()
+  const [requestVersion, setRequestVersion] = useState(0)
+  const requestKey = `${slug}:${requestVersion}`
+  const [result, setResult] = useState({
+    requestKey: '',
+    product: null,
+    error: '',
+    isNotFound: false,
+  })
+  const isLoading = result.requestKey !== requestKey
+  const { error, isNotFound, product } = result
+
+  useEffect(() => {
+    let isMounted = true
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+    getStorefrontProduct(slug)
+      .then((response) => {
+        if (isMounted) {
+          setResult({
+            requestKey,
+            product: response.data,
+            error: '',
+            isNotFound: false,
+          })
+        }
+      })
+      .catch((requestError) => {
+        if (isMounted) {
+          const notFound = requestError.response?.status === 404
+
+          setResult({
+            requestKey,
+            product: null,
+            error: notFound
+              ? 'This product is unavailable or no longer part of the storefront.'
+              : getApiErrorMessage(
+                  requestError,
+                  'Product details could not be loaded right now.',
+                ),
+            isNotFound: notFound,
+          })
+        }
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [requestKey, slug])
+
+  const retry = () => {
+    setRequestVersion((current) => current + 1)
+  }
+
+  if (isLoading) {
+    return <ProductDetailSkeleton />
+  }
+
+  if (!product) {
+    return (
+      <main className="product-detail-page">
+        <div className="container">
+          <section className="product-detail-state" role="alert">
+            <span className="product-detail-state__icon" aria-hidden="true">
+              <i className={`bi ${isNotFound ? 'bi-box-seam' : 'bi-cloud-slash'}`} />
+            </span>
+            <span className="section-kicker">
+              {isNotFound ? 'Product unavailable' : 'Connection issue'}
+            </span>
+            <h1>{isNotFound ? 'We could not find this product' : 'Details are unavailable'}</h1>
+            <p>{error}</p>
+            <div>
+              <Link className="btn btn-soft" to="/products">
+                <i className="bi bi-arrow-left" aria-hidden="true" />
+                Back to products
+              </Link>
+              {!isNotFound && (
+                <button className="btn btn-brand" type="button" onClick={retry}>
+                  <i className="bi bi-arrow-clockwise" aria-hidden="true" />
+                  Try again
+                </button>
+              )}
+            </div>
+          </section>
+        </div>
+      </main>
+    )
+  }
+
+  const price = Number(product.price)
+  const salePrice = product.sale_price === null ? null : Number(product.sale_price)
+  const hasSale =
+    Number.isFinite(price) &&
+    Number.isFinite(salePrice) &&
+    salePrice < price
+
+  return (
+    <main className="product-detail-page">
+      <section className="product-detail-hero">
+        <div className="container">
+          <Link className="product-detail-back-link" to="/products">
+            <i className="bi bi-arrow-left" aria-hidden="true" />
+            Back to products
+          </Link>
+          <nav className="product-detail-breadcrumb" aria-label="Breadcrumb">
+            <Link to="/">Home</Link>
+            <i className="bi bi-chevron-right" aria-hidden="true" />
+            <Link to="/products">Products</Link>
+            <i className="bi bi-chevron-right" aria-hidden="true" />
+            <span aria-current="page">{product.name}</span>
+          </nav>
+        </div>
+      </section>
+
+      <section className="product-detail-content">
+        <div className="container">
+          <div className="product-detail-shell">
+            <ProductImageGallery product={product} key={product.id} />
+
+            <section className="product-detail-summary">
+              <div className="product-detail-badges">
+                <span className="product-detail-category">
+                  <i className="bi bi-tag" aria-hidden="true" />
+                  {product.category?.name || 'Uncategorized'}
+                </span>
+                {product.is_featured && (
+                  <span className="is-featured">
+                    <i className="bi bi-star-fill" aria-hidden="true" />
+                    Featured
+                  </span>
+                )}
+                {hasSale && <span className="is-sale">Sale</span>}
+              </div>
+
+              <h1>{product.name}</h1>
+              {product.short_description && (
+                <p className="product-detail-lead">{product.short_description}</p>
+              )}
+
+              {product.sku && (
+                <div className="product-detail-sku">
+                  <span>SKU</span>
+                  <code>{product.sku}</code>
+                </div>
+              )}
+
+              <div className="product-detail-price">
+                <small>{hasSale ? 'Current price' : 'Price'}</small>
+                <div>
+                  <strong>{formatAmount(hasSale ? salePrice : price)}</strong>
+                  {hasSale && <del>{formatAmount(price)}</del>}
+                </div>
+                {hasSale && (
+                  <span>You save {formatAmount(price - salePrice)}</span>
+                )}
+              </div>
+
+              <div className="product-detail-actions">
+                <button className="btn btn-brand btn-lg" type="button" disabled>
+                  <i className="bi bi-bag-plus" aria-hidden="true" />
+                  Cart coming soon
+                </button>
+                <button className="btn btn-soft btn-lg" type="button" disabled>
+                  <i className="bi bi-lightning" aria-hidden="true" />
+                  Checkout coming soon
+                </button>
+              </div>
+
+              <div className="product-detail-scope-note">
+                <i className="bi bi-info-circle" aria-hidden="true" />
+                <span>Shopping actions will be enabled in a future scope.</span>
+              </div>
+            </section>
+          </div>
+
+          <section className="product-detail-description">
+            <span className="section-kicker">Product information</span>
+            <h2>About this product</h2>
+            <p>
+              {product.description ||
+                product.short_description ||
+                'More product information will be available soon.'}
+            </p>
+          </section>
+
+          <section className="product-detail-trust-grid" aria-label="Storefront features">
+            {trustItems.map((item) => (
+              <article key={item.title}>
+                <span aria-hidden="true">
+                  <i className={`bi ${item.icon}`} />
+                </span>
+                <div>
+                  <h2>{item.title}</h2>
+                  <p>{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </section>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+export default ProductDetailPage

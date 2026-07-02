@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\ProductController;
+use App\Http\Controllers\Api\Admin\ProductImageController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/admin/dashboard/summary', DashboardController::class);
     Route::apiResource('/admin/categories', CategoryController::class);
     Route::apiResource('/admin/products', ProductController::class);
+    Route::get('/admin/products/{product}/images', [ProductImageController::class, 'index']);
+    Route::post('/admin/products/{product}/images', [ProductImageController::class, 'store']);
+    Route::patch('/admin/products/{product}/images/{productImage}', [ProductImageController::class, 'update']);
+    Route::delete('/admin/products/{product}/images/{productImage}', [ProductImageController::class, 'destroy']);
 });

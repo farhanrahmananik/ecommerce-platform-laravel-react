@@ -35,6 +35,8 @@ class ProductResource extends JsonResource
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
             'category' => new CategoryResource($this->whenLoaded('category')),
+            'images' => ProductImageResource::collection($this->whenLoaded('images')),
+            'primary_image' => new ProductImageResource($this->whenLoaded('primaryImage')),
         ];
     }
 }

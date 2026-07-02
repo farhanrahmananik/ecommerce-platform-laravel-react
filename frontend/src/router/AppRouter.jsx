@@ -6,6 +6,8 @@ import AdminLayout from '../layouts/AdminLayout.jsx'
 import AppLayout from '../layouts/AppLayout.jsx'
 import AuthLayout from '../layouts/AuthLayout.jsx'
 import AccountDashboardPage from '../pages/account/AccountDashboardPage.jsx'
+import OrderDetailsPage from '../pages/account/OrderDetailsPage.jsx'
+import OrdersPage from '../pages/account/OrdersPage.jsx'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage.jsx'
 import CategoryCreatePage from '../pages/admin/categories/CategoryCreatePage.jsx'
 import CategoryEditPage from '../pages/admin/categories/CategoryEditPage.jsx'
@@ -31,6 +33,8 @@ function AppRouter() {
         <Route path="products/:slug" element={<ProductDetailPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="account" element={<AccountDashboardPage />} />
+          <Route path="account/orders" element={<OrdersPage />} />
+          <Route path="account/orders/:id" element={<OrderDetailsPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
         </Route>

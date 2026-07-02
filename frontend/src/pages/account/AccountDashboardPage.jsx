@@ -12,9 +12,11 @@ const dashboardCards = [
   {
     icon: 'bi-receipt',
     title: 'Orders',
-    value: 'No orders yet',
-    detail: 'Your future purchases will appear here.',
+    value: 'Order history',
+    detail: 'Review purchases, statuses, totals, and delivery details.',
     tone: 'blue',
+    path: '/account/orders',
+    action: 'My Orders',
   },
   {
     icon: 'bi-bag',
@@ -118,11 +120,11 @@ function AccountDashboardPage() {
             <div>
               <span className="section-kicker">Account dashboard</span>
               <h2>Your customer space</h2>
-              <p>Authentication is live. Commerce cards below are UI placeholders.</p>
+              <p>Access your order history and customer storefront tools.</p>
             </div>
             <span className="badge dashboard-preview-badge">
               <i className="bi bi-grid" aria-hidden="true" />
-              Foundation preview
+              Account overview
             </span>
             {isAdminUser(user) && (
               <Link className="btn btn-brand" to="/admin/dashboard">
@@ -173,7 +175,14 @@ function AccountDashboardPage() {
                       <span className="dashboard-card-label">{card.title}</span>
                       <h3>{card.value}</h3>
                       <p>{card.detail}</p>
-                      <span className="placeholder-label">UI placeholder</span>
+                      {card.path ? (
+                        <Link className="dashboard-card-action" to={card.path}>
+                          {card.action}
+                          <i className="bi bi-arrow-right" aria-hidden="true" />
+                        </Link>
+                      ) : (
+                        <span className="placeholder-label">UI placeholder</span>
+                      )}
                     </article>
                   </div>
                 ))}

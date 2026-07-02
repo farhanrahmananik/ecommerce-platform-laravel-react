@@ -217,21 +217,30 @@ function CheckoutPage() {
         resetCart()
       }
 
-      await Swal.fire({
+      const successResult = await Swal.fire({
         icon: 'success',
         title: 'Order placed successfully',
         text: order?.order_number
           ? `Your order ${order.order_number} has been received.`
           : 'Your order has been received.',
-        confirmButtonText: 'Continue shopping',
+        confirmButtonText: order?.id ? 'View Order' : 'View My Orders',
+        cancelButtonText: 'Continue shopping',
+        showCancelButton: true,
         buttonsStyling: false,
         customClass: {
           popup: 'storefront-alert',
           confirmButton: 'swal-brand-button',
+          cancelButton: 'swal-soft-button',
         },
       })
 
-      navigate('/products', { replace: true })
+      const ordersDestination = order?.id
+        ? `/account/orders/${order.id}`
+        : '/account/orders'
+
+      navigate(successResult.isConfirmed ? ordersDestination : '/products', {
+        replace: true,
+      })
     } catch (checkoutError) {
       const validationErrors = getValidationErrors(checkoutError)
       const hasValidationErrors = Object.keys(validationErrors).length > 0

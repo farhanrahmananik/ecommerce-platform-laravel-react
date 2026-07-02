@@ -3,6 +3,7 @@
 namespace Tests\Feature\Checkout;
 
 use App\Models\Cart;
+use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -161,6 +162,176 @@ class CheckoutApiTest extends TestCase
 
         $this->assertDatabaseCount('orders', 0);
         $this->assertDatabaseCount('cart_items', 1);
+    }
+
+    public function test_checkout_can_apply_a_valid_fixed_coupon(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $this->addCartItem($user, $product, 1, '100.00');
+        $coupon = Coupon::factory()->create([
+            'code' => 'SAVE25',
+            'type' => 'fixed',
+            'value' => 25,
+        ]);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/api/checkout', $this->checkoutPayload([
+                'coupon_code' => 'save25',
+            ]))
+            ->assertCreated()
+            ->assertJsonPath('data.coupon_code', 'SAVE25')
+            ->assertJsonPath('data.discount_amount', '25.00')
+            ->assertJsonPath('data.total', '75.00');
+
+        $this->assertDatabaseHas('orders', [
+            'coupon_id' => $coupon->id,
+            'coupon_code' => 'SAVE25',
+            'discount_amount' => '25.00',
+            'total' => '75.00',
+        ]);
+    }
+
+    public function test_checkout_can_apply_a_valid_percentage_coupon(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $this->addCartItem($user, $product, 1, '200.00');
+        Coupon::factory()->percentage()->create([
+            'code' => 'SAVE10',
+            'value' => 10,
+            'max_discount_amount' => null,
+        ]);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/api/checkout', $this->checkoutPayload([
+                'coupon_code' => 'SAVE10',
+            ]))
+            ->assertCreated()
+            ->assertJsonPath('data.discount_amount', '20.00')
+            ->assertJsonPath('data.total', '180.00');
+    }
+
+    public function test_coupon_checkout_creates_a_redemption(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $this->addCartItem($user, $product, 1, '100.00');
+        $coupon = Coupon::factory()->create([
+            'code' => 'REDEEM20',
+            'value' => 20,
+        ]);
+
+        $response = $this->actingAs($user, 'web')
+            ->postJson('/api/checkout', $this->checkoutPayload([
+                'coupon_code' => 'REDEEM20',
+            ]))
+            ->assertCreated();
+
+        $this->assertDatabaseHas('coupon_redemptions', [
+            'coupon_id' => $coupon->id,
+            'user_id' => $user->id,
+            'order_id' => $response->json('data.id'),
+            'coupon_code' => 'REDEEM20',
+            'discount_amount' => '20.00',
+        ]);
+    }
+
+    public function test_coupon_checkout_increments_used_count(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $this->addCartItem($user, $product);
+        $coupon = Coupon::factory()->create([
+            'code' => 'COUNTED',
+            'used_count' => 2,
+        ]);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/api/checkout', $this->checkoutPayload([
+                'coupon_code' => 'COUNTED',
+            ]))
+            ->assertCreated();
+
+        $this->assertSame(3, $coupon->refresh()->used_count);
+    }
+
+    public function test_checkout_rejects_an_invalid_coupon_code(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $this->addCartItem($user, $product);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/api/checkout', $this->checkoutPayload([
+                'coupon_code' => 'MISSING',
+            ]))
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('coupon_code')
+            ->assertJsonPath(
+                'errors.coupon_code.0',
+                'The coupon code is invalid.',
+            );
+    }
+
+    public function test_failed_coupon_checkout_does_not_clear_the_cart(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $cart = $this->addCartItem($user, $product);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/api/checkout', $this->checkoutPayload([
+                'coupon_code' => 'MISSING',
+            ]))
+            ->assertUnprocessable();
+
+        $this->assertDatabaseHas('cart_items', [
+            'cart_id' => $cart->id,
+            'product_id' => $product->id,
+        ]);
+    }
+
+    public function test_failed_coupon_checkout_creates_no_order_or_redemption(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $this->addCartItem($user, $product);
+        $coupon = Coupon::factory()->create([
+            'code' => 'INACTIVE',
+            'is_active' => false,
+            'used_count' => 2,
+        ]);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/api/checkout', $this->checkoutPayload([
+                'coupon_code' => 'INACTIVE',
+            ]))
+            ->assertUnprocessable();
+
+        $this->assertDatabaseCount('orders', 0);
+        $this->assertDatabaseCount('coupon_redemptions', 0);
+        $this->assertSame(2, $coupon->refresh()->used_count);
+    }
+
+    public function test_coupon_discount_cannot_make_order_total_negative(): void
+    {
+        $user = User::factory()->create();
+        $product = $this->createProduct();
+        $this->addCartItem($user, $product, 1, '40.00');
+        Coupon::factory()->create([
+            'code' => 'BIGSAVE',
+            'type' => 'fixed',
+            'value' => 500,
+        ]);
+
+        $this->actingAs($user, 'web')
+            ->postJson('/api/checkout', $this->checkoutPayload([
+                'coupon_code' => 'BIGSAVE',
+            ]))
+            ->assertCreated()
+            ->assertJsonPath('data.discount_amount', '40.00')
+            ->assertJsonPath('data.total', '0.00');
     }
 
     /**

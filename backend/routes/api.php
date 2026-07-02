@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Cart\CartController;
 use App\Http\Controllers\Api\Cart\CartItemController;
 use App\Http\Controllers\Api\Checkout\CheckoutController;
+use App\Http\Controllers\Api\Coupon\CouponValidationController;
 use App\Http\Controllers\Api\Order\OrderController;
 use App\Http\Controllers\Api\Storefront\StorefrontCategoryController;
 use App\Http\Controllers\Api\Storefront\StorefrontProductController;
@@ -34,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::delete('/cart', [CartController::class, 'destroy']);
 
     Route::post('/checkout', [CheckoutController::class, 'store']);
+    Route::post('/coupons/validate', CouponValidationController::class);
 
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{order}', [OrderController::class, 'show']);

@@ -4,8 +4,10 @@ namespace App\Services\Checkout;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\User;
+use App\Services\Coupon\CouponValidationService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -13,6 +15,10 @@ use Illuminate\Validation\ValidationException;
 
 class CheckoutService
 {
+    public function __construct(
+        private readonly CouponValidationService $couponValidationService,
+    ) {}
+
     /**
      * Create an order from the user's current cart snapshot.
      *
@@ -45,6 +51,13 @@ class CheckoutService
             }
 
             $subtotal = $this->calculateSubtotal($cartItems);
+            $couponValidation = $this->couponValidation(
+                $user,
+                $data['coupon_code'] ?? null,
+                $subtotal,
+            );
+            $discountAmount = $couponValidation['discount_amount'] ?? '0.00';
+            $total = $couponValidation['total_after_discount'] ?? $subtotal;
             $billingAddress = $this->billingAddress($data);
 
             $order = Order::query()->create([
@@ -61,11 +74,15 @@ class CheckoutService
                 'shipping_country' => $data['shipping_country'],
                 'billing_same_as_shipping' => $data['billing_same_as_shipping'],
                 ...$billingAddress,
+                'coupon_id' => $couponValidation !== null
+                    ? $couponValidation['coupon']->getKey()
+                    : null,
+                'coupon_code' => $couponValidation['code'] ?? null,
                 'subtotal' => $subtotal,
                 'shipping_amount' => '0.00',
-                'discount_amount' => '0.00',
+                'discount_amount' => $discountAmount,
                 'tax_amount' => '0.00',
-                'total' => $subtotal,
+                'total' => $total,
                 'payment_method' => $data['payment_method'],
                 'payment_status' => 'pending',
                 'status' => 'pending',
@@ -87,6 +104,21 @@ class CheckoutService
                     'quantity' => $cartItem->quantity,
                     'line_total' => $lineTotal,
                 ]);
+            }
+
+            if ($couponValidation !== null) {
+                /** @var Coupon $coupon */
+                $coupon = $couponValidation['coupon'];
+
+                $coupon->redemptions()->create([
+                    'user_id' => $user->getKey(),
+                    'order_id' => $order->getKey(),
+                    'coupon_code' => $couponValidation['code'],
+                    'discount_amount' => $discountAmount,
+                    'redeemed_at' => now(),
+                ]);
+
+                $coupon->increment('used_count');
             }
 
             $cart->items()->delete();
@@ -114,6 +146,26 @@ class CheckoutService
     private function lineTotal(string $unitPrice, int $quantity): string
     {
         return number_format((float) $unitPrice * $quantity, 2, '.', '');
+    }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    private function couponValidation(
+        User $user,
+        mixed $couponCode,
+        string $subtotal,
+    ): ?array {
+        if (! is_string($couponCode) || trim($couponCode) === '') {
+            return null;
+        }
+
+        return $this->couponValidationService->validateForSubtotal(
+            $user,
+            $couponCode,
+            $subtotal,
+            lockForUpdate: true,
+        );
     }
 
     /**

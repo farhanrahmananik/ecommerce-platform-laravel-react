@@ -60,6 +60,7 @@ class StoreCheckoutRequest extends FormRequest
                 'max:100',
             ],
             'payment_method' => ['required', 'string', 'in:cash_on_delivery'],
+            'coupon_code' => ['nullable', 'string', 'max:50'],
             'notes' => ['nullable', 'string', 'max:1000'],
         ];
     }

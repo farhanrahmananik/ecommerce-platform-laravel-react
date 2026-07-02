@@ -47,6 +47,7 @@ class OrderResource extends JsonResource
             'billing_same_as_shipping' => $this->billing_same_as_shipping,
             'billing_address' => $billingAddress,
             'subtotal' => $this->subtotal,
+            'coupon_code' => $this->coupon_code,
             'shipping_amount' => $this->shipping_amount,
             'discount_amount' => $this->discount_amount,
             'tax_amount' => $this->tax_amount,

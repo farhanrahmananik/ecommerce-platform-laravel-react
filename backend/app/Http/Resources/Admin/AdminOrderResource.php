@@ -33,6 +33,7 @@ class AdminOrderResource extends JsonResource
             'payment_method' => $this->payment_method,
             'payment_status' => $this->payment_status,
             'subtotal' => $this->subtotal,
+            'coupon_code' => $this->coupon_code,
             'shipping_amount' => $this->shipping_amount,
             'discount_amount' => $this->discount_amount,
             'tax_amount' => $this->tax_amount,

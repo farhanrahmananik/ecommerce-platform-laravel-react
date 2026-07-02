@@ -36,6 +36,18 @@ class StorefrontProductService
             ->withQueryString();
     }
 
+    /**
+     * Find a customer-visible product by its public slug.
+     */
+    public function findVisibleBySlug(string $slug): Product
+    {
+        return Product::query()
+            ->active()
+            ->where('slug', $slug)
+            ->with(['category', 'primaryImage', 'images'])
+            ->firstOrFail();
+    }
+
     private function applySearchFilter(Builder $query, mixed $search): void
     {
         if (! is_string($search) || blank($search)) {

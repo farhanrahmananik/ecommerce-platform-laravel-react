@@ -14,6 +14,7 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::get('/storefront/categories', [StorefrontCategoryController::class, 'index']);
 Route::get('/storefront/products', [StorefrontProductController::class, 'index']);
+Route::get('/storefront/products/{slug}', [StorefrontProductController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function (): void {
     Route::get('/auth/me', [AuthController::class, 'me']);

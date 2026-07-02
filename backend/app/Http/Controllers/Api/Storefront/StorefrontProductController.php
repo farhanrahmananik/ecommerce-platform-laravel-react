@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Storefront;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Storefront\ListStorefrontProductsRequest;
+use App\Http\Resources\Storefront\StorefrontProductDetailResource;
 use App\Http\Resources\Storefront\StorefrontProductResource;
 use App\Services\Storefront\StorefrontProductService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -19,6 +20,13 @@ class StorefrontProductController extends Controller
     ): AnonymousResourceCollection {
         return StorefrontProductResource::collection(
             $this->storefrontProductService->paginate($request->validated()),
+        );
+    }
+
+    public function show(string $slug): StorefrontProductDetailResource
+    {
+        return new StorefrontProductDetailResource(
+            $this->storefrontProductService->findVisibleBySlug($slug),
         );
     }
 }

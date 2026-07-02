@@ -9,7 +9,7 @@ const navigationItems = [
   { label: 'Dashboard', icon: 'bi-grid-1x2', path: '/admin/dashboard', active: true },
   { label: 'Categories', icon: 'bi-tags', path: '/admin/categories', active: true },
   { label: 'Products', icon: 'bi-box-seam', path: '/admin/products', active: true },
-  { label: 'Orders', icon: 'bi-receipt', path: '/admin/orders' },
+  { label: 'Orders', icon: 'bi-receipt', path: '/admin/orders', active: true },
   { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons' },
   { label: 'Reports', icon: 'bi-bar-chart', path: '/admin/reports' },
 ]
@@ -22,12 +22,19 @@ function AdminLayout() {
   const navigate = useNavigate()
   const isCategoryArea = location.pathname.startsWith('/admin/categories')
   const isProductArea = location.pathname.startsWith('/admin/products')
+  const isOrderArea = location.pathname.startsWith('/admin/orders')
   const currentSection = isCategoryArea
     ? 'Categories'
     : isProductArea
       ? 'Products'
-      : 'Dashboard'
-  const currentArea = isCategoryArea || isProductArea ? 'Catalog' : 'Overview'
+      : isOrderArea
+        ? 'Orders'
+        : 'Dashboard'
+  const currentArea = isCategoryArea || isProductArea
+    ? 'Catalog'
+    : isOrderArea
+      ? 'Fulfillment'
+      : 'Overview'
 
   const handleLogout = async () => {
     setIsLoggingOut(true)

@@ -9,6 +9,8 @@ import AccountDashboardPage from '../pages/account/AccountDashboardPage.jsx'
 import OrderDetailsPage from '../pages/account/OrderDetailsPage.jsx'
 import OrdersPage from '../pages/account/OrdersPage.jsx'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage.jsx'
+import AdminOrderDetailsPage from '../pages/admin/orders/AdminOrderDetailsPage.jsx'
+import AdminOrdersPage from '../pages/admin/orders/AdminOrdersPage.jsx'
 import CategoryCreatePage from '../pages/admin/categories/CategoryCreatePage.jsx'
 import CategoryEditPage from '../pages/admin/categories/CategoryEditPage.jsx'
 import CategoryListPage from '../pages/admin/categories/CategoryListPage.jsx'
@@ -58,6 +60,8 @@ function AppRouter() {
           <Route path="products" element={<ProductListPage />} />
           <Route path="products/create" element={<ProductCreatePage />} />
           <Route path="products/:id/edit" element={<ProductEditPage />} />
+          <Route path="orders" element={<AdminOrdersPage />} />
+          <Route path="orders/:id" element={<AdminOrderDetailsPage />} />
         </Route>
       </Route>
     </Routes>

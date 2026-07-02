@@ -70,6 +70,16 @@ class User extends Authenticatable
         return $this->hasMany(CouponRedemption::class);
     }
 
+    public function productReviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+    public function moderatedProductReviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class, 'moderated_by_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

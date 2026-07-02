@@ -67,6 +67,16 @@ class Product extends Model
             ->orderBy('id');
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
+    public function productReviews(): HasMany
+    {
+        return $this->reviews();
+    }
+
     /**
      * Scope the query to active products.
      */

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Storefront;
 
+use App\Http\Resources\ProductReview\ProductReviewSummaryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -37,6 +38,9 @@ class StorefrontProductDetailResource extends JsonResource
             ),
             'images' => StorefrontProductImageResource::collection(
                 $this->whenLoaded('images'),
+            ),
+            'rating_summary' => new ProductReviewSummaryResource(
+                $this->rating_summary,
             ),
         ];
     }

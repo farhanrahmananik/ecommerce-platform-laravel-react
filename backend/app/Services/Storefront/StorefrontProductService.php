@@ -3,11 +3,16 @@
 namespace App\Services\Storefront;
 
 use App\Models\Product;
+use App\Services\ProductReview\ProductReviewService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 
 class StorefrontProductService
 {
+    public function __construct(
+        private readonly ProductReviewService $productReviewService,
+    ) {}
+
     private const EFFECTIVE_PRICE_SQL = <<<'SQL'
         CASE
             WHEN sale_price IS NOT NULL AND sale_price < price THEN sale_price
@@ -41,11 +46,18 @@ class StorefrontProductService
      */
     public function findVisibleBySlug(string $slug): Product
     {
-        return Product::query()
+        $product = Product::query()
             ->active()
             ->where('slug', $slug)
             ->with(['category', 'primaryImage', 'images'])
             ->firstOrFail();
+
+        $product->setAttribute(
+            'rating_summary',
+            $this->productReviewService->ratingSummary($product),
+        );
+
+        return $product;
     }
 
     private function applySearchFilter(Builder $query, mixed $search): void

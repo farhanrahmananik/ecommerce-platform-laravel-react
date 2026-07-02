@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import ProductForm from '../../../components/admin/products/ProductForm.jsx'
+import ProductImagesManager from '../../../components/admin/products/ProductImagesManager.jsx'
 import { getCategoryOptions } from '../../../services/admin/categoryService.js'
 import {
   getProduct,
@@ -144,6 +145,11 @@ function ProductEditPage() {
         submitting={isSubmitting}
         errors={fieldErrors}
         submitLabel="Save Changes"
+      />
+
+      <ProductImagesManager
+        productId={product.id}
+        productName={product.name}
       />
     </main>
   )

@@ -441,13 +441,13 @@ function CartPage() {
                   </div>
                 </dl>
 
-                <button className="btn btn-brand cart-checkout-button" type="button" disabled>
-                  <i className="bi bi-lock" aria-hidden="true" />
+                <Link className="btn btn-brand cart-checkout-button" to="/checkout">
+                  <i className="bi bi-arrow-right-circle" aria-hidden="true" />
                   Proceed to Checkout
-                </button>
+                </Link>
                 <p className="cart-checkout-note">
-                  <i className="bi bi-info-circle" aria-hidden="true" />
-                  Checkout will be available in the next scope.
+                  <i className="bi bi-shield-check" aria-hidden="true" />
+                  Review delivery details before placing your order.
                 </p>
               </aside>
             </div>

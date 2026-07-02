@@ -16,6 +16,7 @@ import ProductListPage from '../pages/admin/products/ProductListPage.jsx'
 import LoginPage from '../pages/auth/LoginPage.jsx'
 import RegisterPage from '../pages/auth/RegisterPage.jsx'
 import CartPage from '../pages/cart/CartPage.jsx'
+import CheckoutPage from '../pages/checkout/CheckoutPage.jsx'
 import NotFoundPage from '../pages/errors/NotFoundPage.jsx'
 import HomePage from '../pages/HomePage.jsx'
 import ProductDetailPage from '../pages/storefront/ProductDetailPage.jsx'
@@ -31,6 +32,7 @@ function AppRouter() {
         <Route element={<ProtectedRoute />}>
           <Route path="account" element={<AccountDashboardPage />} />
           <Route path="cart" element={<CartPage />} />
+          <Route path="checkout" element={<CheckoutPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>

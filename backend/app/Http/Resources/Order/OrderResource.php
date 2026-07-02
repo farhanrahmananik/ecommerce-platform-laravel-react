@@ -14,6 +14,11 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $items = match (true) {
+            $this->relationLoaded('items') => $this->items,
+            $this->relationLoaded('orderItems') => $this->orderItems,
+            default => null,
+        };
         $billingAddress = $this->billing_address_line1 !== null
             ? [
                 'line1' => $this->billing_address_line1,
@@ -50,10 +55,12 @@ class OrderResource extends JsonResource
             'payment_status' => $this->payment_status,
             'status' => $this->status,
             'notes' => $this->notes,
-            'items' => OrderItemResource::collection(
-                $this->whenLoaded('orderItems'),
+            'items' => $this->when(
+                $items !== null,
+                fn () => OrderItemResource::collection($items),
             ),
             'created_at' => $this->created_at?->toISOString(),
+            'updated_at' => $this->updated_at?->toISOString(),
         ];
     }
 }

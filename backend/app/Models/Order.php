@@ -57,9 +57,17 @@ class Order extends Model
     /**
      * Get the order's item snapshots.
      */
-    public function orderItems(): HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class)->orderBy('id');
+    }
+
+    /**
+     * Get the order's item snapshots using the checkout compatibility name.
+     */
+    public function orderItems(): HasMany
+    {
+        return $this->items();
     }
 
     /**

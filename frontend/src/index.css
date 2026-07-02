@@ -4176,6 +4176,10 @@ textarea.checkout-input {
   font-size: 0.9rem;
 }
 
+.swal2-actions {
+  gap: 0.75rem;
+}
+
 .swal-brand-button {
   padding: 0.65rem 1.2rem;
   color: #fff;
@@ -4186,7 +4190,6 @@ textarea.checkout-input {
 }
 
 .swal-soft-button {
-  margin-right: 0.5rem;
   padding: 0.65rem 1.2rem;
   color: #59657b;
   border: 1px solid #dde2ea;

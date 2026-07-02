@@ -142,12 +142,14 @@ function ProductCartActions({ product }) {
       await addItem(product.id, quantity)
 
       await Swal.fire({
+        toast: true,
+        position: 'top-end',
         icon: 'success',
-        title: 'Added to your cart',
-        text: `${quantity} × ${product.name}`,
-        timer: 1600,
+        title: `${quantity} ${quantity === 1 ? 'item' : 'items'} added to cart`,
+        timer: 1500,
+        timerProgressBar: true,
         showConfirmButton: false,
-        customClass: { popup: 'storefront-alert' },
+        customClass: { popup: 'storefront-alert cart-toast' },
       })
     } catch (error) {
       await Swal.fire({

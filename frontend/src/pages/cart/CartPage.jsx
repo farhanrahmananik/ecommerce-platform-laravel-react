@@ -222,7 +222,10 @@ function CartPage() {
 
     try {
       await action()
-      await showSuccessToast(successMessage)
+
+      if (successMessage) {
+        await showSuccessToast(successMessage)
+      }
     } catch (actionError) {
       await showActionError(actionError, fallbackMessage)
     } finally {
@@ -238,7 +241,7 @@ function CartPage() {
     return runAction(
       `update:${item.id}`,
       () => updateItem(item.id, nextQuantity),
-      'Cart quantity updated',
+      null,
       'Unable to update this item right now.',
     )
   }

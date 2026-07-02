@@ -1,9 +1,13 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth.js'
+import { useCart } from '../hooks/useCart.js'
 import { isAdminUser } from '../utils/userRoles.js'
 
 function AppLayout() {
   const { isAuthenticated, user } = useAuth()
+  const { itemsCount } = useCart()
+  const cartCount = Number.isFinite(itemsCount) ? Math.max(0, itemsCount) : 0
+  const visibleCartCount = cartCount > 99 ? '99+' : cartCount
 
   return (
     <div className="app-shell">
@@ -28,11 +32,23 @@ function AppLayout() {
                 Products
               </NavLink>
               <NavLink
-                className="nav-home-link d-none d-md-inline-flex align-items-center gap-1"
+                className="cart-nav-link"
                 to="/cart"
+                aria-label={
+                  isAuthenticated && cartCount > 0
+                    ? `Cart with ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`
+                    : 'Cart'
+                }
               >
-                <i className="bi bi-bag" aria-hidden="true" />
-                Cart
+                <span className="cart-nav-link__icon" aria-hidden="true">
+                  <i className="bi bi-bag" />
+                </span>
+                <span className="d-none d-lg-inline">Cart</span>
+                {isAuthenticated && cartCount > 0 && (
+                  <span className="cart-nav-badge" aria-hidden="true">
+                    {visibleCartCount}
+                  </span>
+                )}
               </NavLink>
               {isAuthenticated ? (
                 <>

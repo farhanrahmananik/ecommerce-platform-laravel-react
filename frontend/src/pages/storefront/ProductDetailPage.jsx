@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import ProductImageGallery from '../../components/storefront/ProductImageGallery.jsx'
+import { useAuth } from '../../hooks/useAuth.js'
+import { useCart } from '../../hooks/useCart.js'
 import { getStorefrontProduct } from '../../services/storefrontService.js'
-import { getApiErrorMessage } from '../../utils/apiErrors.js'
+import {
+  getApiErrorMessage,
+  getValidationErrors,
+} from '../../utils/apiErrors.js'
 
 const trustItems = [
   {
@@ -55,6 +61,202 @@ function ProductDetailSkeleton() {
         </div>
       </div>
     </main>
+  )
+}
+
+function getCartActionErrorMessage(error) {
+  const validationErrors = getValidationErrors(error)
+  const validationMessage = Object.values(validationErrors)
+    .flat()
+    .find((message) => typeof message === 'string')
+
+  return (
+    validationMessage ||
+    getApiErrorMessage(error, 'This product could not be added to your cart.')
+  )
+}
+
+function ProductCartActions({ product }) {
+  const [quantity, setQuantity] = useState(1)
+  const { isAuthenticated } = useAuth()
+  const { actionLoading, addItem } = useCart()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const stockQuantity = Number(product.stock_quantity)
+  const hasStockLimit =
+    product.stock_quantity !== null &&
+    product.stock_quantity !== undefined &&
+    Number.isFinite(stockQuantity)
+  const maxQuantity = hasStockLimit
+    ? Math.max(0, Math.floor(stockQuantity))
+    : null
+  const isInactive = [false, 0, '0'].includes(product.is_active)
+  const isOutOfStock = maxQuantity === 0
+  const isUnavailable = isInactive || isOutOfStock
+
+  const setValidQuantity = (nextQuantity) => {
+    const parsedQuantity = Number.parseInt(nextQuantity, 10)
+    const positiveQuantity = Number.isFinite(parsedQuantity)
+      ? Math.max(1, parsedQuantity)
+      : 1
+
+    setQuantity(
+      maxQuantity === null
+        ? positiveQuantity
+        : Math.min(positiveQuantity, Math.max(1, maxQuantity)),
+    )
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    if (isUnavailable || actionLoading) {
+      return
+    }
+
+    if (!isAuthenticated) {
+      const result = await Swal.fire({
+        icon: 'info',
+        title: 'Sign in to use your cart',
+        text: 'Your cart is securely connected to your customer account.',
+        showCancelButton: true,
+        confirmButtonText: 'Sign in',
+        cancelButtonText: 'Keep browsing',
+        focusCancel: true,
+        buttonsStyling: false,
+        customClass: {
+          popup: 'storefront-alert',
+          confirmButton: 'swal-brand-button',
+          cancelButton: 'swal-soft-button',
+        },
+      })
+
+      if (result.isConfirmed) {
+        navigate('/login', { state: { from: location } })
+      }
+
+      return
+    }
+
+    try {
+      await addItem(product.id, quantity)
+
+      await Swal.fire({
+        icon: 'success',
+        title: 'Added to your cart',
+        text: `${quantity} × ${product.name}`,
+        timer: 1600,
+        showConfirmButton: false,
+        customClass: { popup: 'storefront-alert' },
+      })
+    } catch (error) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Could not add this product',
+        text: getCartActionErrorMessage(error),
+        confirmButtonText: 'Close',
+        buttonsStyling: false,
+        customClass: {
+          popup: 'storefront-alert',
+          confirmButton: 'swal-brand-button',
+        },
+      })
+    }
+  }
+
+  return (
+    <form className="product-detail-cart-panel" onSubmit={handleSubmit}>
+      <div className="product-detail-cart-panel__heading">
+        <span aria-hidden="true">
+          <i className="bi bi-bag-plus" />
+        </span>
+        <div>
+          <h2>Add to cart</h2>
+          <p>Choose your quantity and add this item securely.</p>
+        </div>
+        {hasStockLimit && !isInactive && (
+          <span
+            className={`product-stock-status ${isOutOfStock ? 'is-out' : ''}`}
+            id="product-cart-status"
+          >
+            {isOutOfStock ? 'Out of stock' : `${maxQuantity} available`}
+          </span>
+        )}
+        {isInactive && (
+          <span className="product-stock-status is-out" id="product-cart-status">
+            Unavailable
+          </span>
+        )}
+      </div>
+
+      <div className="product-detail-cart-panel__controls">
+        <div className="product-quantity-field">
+          <label htmlFor={`product-quantity-${product.id}`}>Quantity</label>
+          <div className="product-quantity-control">
+            <button
+              type="button"
+              onClick={() => setValidQuantity(quantity - 1)}
+              disabled={quantity <= 1 || isUnavailable || actionLoading}
+              aria-label="Decrease quantity"
+            >
+              <i className="bi bi-dash" aria-hidden="true" />
+            </button>
+            <input
+              id={`product-quantity-${product.id}`}
+              type="number"
+              min="1"
+              max={maxQuantity ?? undefined}
+              value={quantity}
+              onChange={(event) => setValidQuantity(event.target.value)}
+              disabled={isUnavailable || actionLoading}
+              aria-describedby={hasStockLimit || isInactive ? 'product-cart-status' : undefined}
+            />
+            <button
+              type="button"
+              onClick={() => setValidQuantity(quantity + 1)}
+              disabled={
+                isUnavailable ||
+                actionLoading ||
+                (maxQuantity !== null && quantity >= maxQuantity)
+              }
+              aria-label="Increase quantity"
+            >
+              <i className="bi bi-plus" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+
+        <button
+          className="btn btn-brand product-add-to-cart-button"
+          type="submit"
+          disabled={isUnavailable || actionLoading}
+        >
+          {actionLoading ? (
+            <>
+              <span className="spinner-border spinner-border-sm" aria-hidden="true" />
+              Adding to cart...
+            </>
+          ) : (
+            <>
+              <i className="bi bi-bag-plus" aria-hidden="true" />
+              {isOutOfStock ? 'Out of stock' : 'Add to cart'}
+            </>
+          )}
+        </button>
+      </div>
+
+      <div className="product-detail-cart-panel__note">
+        <i
+          className={`bi ${isAuthenticated ? 'bi-shield-check' : 'bi-person-lock'}`}
+          aria-hidden="true"
+        />
+        <span>
+          {isAuthenticated
+            ? 'Your authenticated cart will update immediately.'
+            : 'Sign in is required when you add an item to your cart.'}
+        </span>
+      </div>
+    </form>
   )
 }
 
@@ -217,21 +419,7 @@ function ProductDetailPage() {
                 )}
               </div>
 
-              <div className="product-detail-actions">
-                <button className="btn btn-brand btn-lg" type="button" disabled>
-                  <i className="bi bi-bag-plus" aria-hidden="true" />
-                  Cart coming soon
-                </button>
-                <button className="btn btn-soft btn-lg" type="button" disabled>
-                  <i className="bi bi-lightning" aria-hidden="true" />
-                  Checkout coming soon
-                </button>
-              </div>
-
-              <div className="product-detail-scope-note">
-                <i className="bi bi-info-circle" aria-hidden="true" />
-                <span>Shopping actions will be enabled in a future scope.</span>
-              </div>
+              <ProductCartActions product={product} key={product.id} />
             </section>
           </div>
 

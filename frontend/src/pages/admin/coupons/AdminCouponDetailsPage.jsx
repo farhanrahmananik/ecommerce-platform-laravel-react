@@ -35,7 +35,7 @@ function formatDate(value, fallback = 'Not set') {
 
 function SummaryItem({ icon, label, value }) {
   return (
-    <div className="coupon-summary-item">
+    <div className="coupon-summary-item app-card">
       <span aria-hidden="true"><i className={`bi ${icon}`} /></span>
       <div>
         <small>{label}</small>
@@ -139,7 +139,7 @@ function AdminCouponDetailsPage() {
 
   if (isLoading) {
     return (
-      <main className="admin-coupon-page" aria-busy="true">
+      <main className="admin-coupon-page app-page-shell" aria-busy="true">
         <div className="coupon-page-loading" role="status">
           {[0, 1, 2].map((item) => <span key={item} />)}
           <span className="visually-hidden">Loading coupon details</span>
@@ -150,8 +150,8 @@ function AdminCouponDetailsPage() {
 
   if (!coupon) {
     return (
-      <main className="admin-coupon-page">
-        <div className="category-empty-state coupon-request-error">
+      <main className="admin-coupon-page app-page-shell">
+        <div className="category-empty-state admin-empty-state coupon-request-error">
           <span className="category-empty-icon" aria-hidden="true">
             <i className="bi bi-cloud-slash" />
           </span>
@@ -175,25 +175,25 @@ function AdminCouponDetailsPage() {
     : formatAmount(coupon.value)
 
   return (
-    <main className="admin-coupon-page">
-      <header className="coupon-detail-heading">
+    <main className="admin-coupon-page app-page-shell">
+      <header className="coupon-detail-heading app-page-header admin-commerce-header admin-coupon-detail-header">
         <div>
           <Link className="category-back-link" to="/admin/coupons">
             <i className="bi bi-arrow-left" aria-hidden="true" />
             Back to Coupons
           </Link>
-          <span className="admin-eyebrow">Promotion details</span>
+          <span className="admin-eyebrow app-page-eyebrow">Promotion details</span>
           <div className="coupon-detail-title">
-            <code>{coupon.code}</code>
+            <code className="admin-coupon-code">{coupon.code}</code>
             <span
-              className={`category-status-badge ${coupon.is_active ? 'is-active' : 'is-inactive'}`}
+              className={`category-status-badge admin-status-badge ${coupon.is_active ? 'is-active success' : 'is-inactive neutral'}`}
             >
               <span aria-hidden="true" />
               {coupon.is_active ? 'Active' : 'Inactive'}
             </span>
           </div>
-          <h1>{coupon.name}</h1>
-          <p>{coupon.description || 'No internal campaign description provided.'}</p>
+          <h1 className="app-page-title">{coupon.name}</h1>
+          <p className="app-page-subtitle">{coupon.description || 'No internal campaign description provided.'}</p>
         </div>
         <div className="coupon-detail-actions">
           <Link className="btn btn-admin-primary" to="edit">
@@ -225,7 +225,7 @@ function AdminCouponDetailsPage() {
 
       <div className="coupon-detail-grid">
         <div className="coupon-detail-main">
-          <section className="coupon-detail-card coupon-discount-card">
+          <section className="coupon-detail-card coupon-discount-card app-section-card">
             <header>
               <div>
                 <span>Customer benefit</span>
@@ -253,7 +253,7 @@ function AdminCouponDetailsPage() {
             </div>
           </section>
 
-          <section className="coupon-detail-card">
+          <section className="coupon-detail-card app-section-card">
             <header>
               <div>
                 <span>Campaign window</span>
@@ -276,7 +276,7 @@ function AdminCouponDetailsPage() {
             </div>
           </section>
 
-          <section className="coupon-detail-card">
+          <section className="coupon-detail-card app-section-card">
             <header>
               <div>
                 <span>Audit information</span>
@@ -297,7 +297,7 @@ function AdminCouponDetailsPage() {
         </div>
 
         <aside className="coupon-detail-side">
-          <section className="coupon-detail-card coupon-usage-card">
+          <section className="coupon-detail-card coupon-usage-card app-section-card">
             <header>
               <div>
                 <span>Redemptions</span>
@@ -325,7 +325,7 @@ function AdminCouponDetailsPage() {
             </dl>
           </section>
 
-          <section className="coupon-detail-card coupon-status-card">
+          <section className="coupon-detail-card coupon-status-card app-section-card">
             <span className={coupon.is_active ? 'is-active' : 'is-inactive'} aria-hidden="true">
               <i className={`bi ${coupon.is_active ? 'bi-broadcast' : 'bi-pause-circle'}`} />
             </span>

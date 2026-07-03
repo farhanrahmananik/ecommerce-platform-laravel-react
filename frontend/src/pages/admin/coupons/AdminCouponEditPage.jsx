@@ -119,7 +119,7 @@ function AdminCouponEditPage() {
 
   if (isLoading) {
     return (
-      <main className="admin-coupon-page" aria-busy="true">
+      <main className="admin-coupon-page app-page-shell" aria-busy="true">
         <div className="coupon-page-loading" role="status">
           {[0, 1, 2].map((item) => <span key={item} />)}
           <span className="visually-hidden">Loading coupon</span>
@@ -130,8 +130,8 @@ function AdminCouponEditPage() {
 
   if (!coupon) {
     return (
-      <main className="admin-coupon-page">
-        <div className="category-empty-state coupon-request-error">
+      <main className="admin-coupon-page app-page-shell">
+        <div className="category-empty-state admin-empty-state coupon-request-error">
           <span className="category-empty-icon" aria-hidden="true">
             <i className="bi bi-ticket-perforated" />
           </span>
@@ -146,16 +146,16 @@ function AdminCouponEditPage() {
   }
 
   return (
-    <main className="admin-coupon-page">
-      <header className="category-page-heading coupon-page-heading">
+    <main className="admin-coupon-page app-page-shell">
+      <header className="category-page-heading coupon-page-heading app-page-header admin-commerce-header admin-coupon-form-header">
         <div>
           <Link className="category-back-link" to={`/admin/coupons/${id}`}>
             <i className="bi bi-arrow-left" aria-hidden="true" />
             Back to Coupon
           </Link>
-          <span className="admin-eyebrow">Promotions</span>
-          <h1>Edit {coupon.code}</h1>
-          <p>Refine campaign rules while preserving its redemption history.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Promotions</span>
+          <h1 className="app-page-title">Edit {coupon.code}</h1>
+          <p className="app-page-subtitle">Refine campaign rules while preserving its redemption history.</p>
         </div>
         <span className="category-heading-icon coupon-heading-icon" aria-hidden="true">
           <i className="bi bi-pencil-square" />

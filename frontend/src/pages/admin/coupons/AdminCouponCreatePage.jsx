@@ -49,16 +49,16 @@ function AdminCouponCreatePage() {
   }
 
   return (
-    <main className="admin-coupon-page">
-      <header className="category-page-heading coupon-page-heading">
+    <main className="admin-coupon-page app-page-shell">
+      <header className="category-page-heading coupon-page-heading app-page-header admin-commerce-header admin-coupon-form-header">
         <div>
           <Link className="category-back-link" to="/admin/coupons">
             <i className="bi bi-arrow-left" aria-hidden="true" />
             Back to Coupons
           </Link>
-          <span className="admin-eyebrow">Promotions</span>
-          <h1>Create coupon</h1>
-          <p>Configure a controlled discount for a future customer campaign.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Promotions</span>
+          <h1 className="app-page-title">Create coupon</h1>
+          <p className="app-page-subtitle">Configure a controlled discount for a future customer campaign.</p>
         </div>
         <span className="category-heading-icon coupon-heading-icon" aria-hidden="true">
           <i className="bi bi-ticket-perforated" />

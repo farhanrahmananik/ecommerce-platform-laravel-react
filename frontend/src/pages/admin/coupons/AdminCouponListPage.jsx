@@ -216,12 +216,12 @@ function AdminCouponListPage() {
   )
 
   return (
-    <main className="admin-coupon-page admin-list-page">
-      <header className="category-list-heading admin-list-header">
+    <main className="admin-coupon-page admin-list-page app-page-shell">
+      <header className="category-list-heading admin-list-header app-page-header admin-commerce-header admin-coupons-header">
         <div className="admin-list-title-group">
-          <span className="admin-eyebrow">Promotions</span>
-          <h1>Coupons</h1>
-          <p>Build controlled discounts with clear eligibility and usage limits.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Promotions</span>
+          <h1 className="app-page-title">Coupons</h1>
+          <p className="app-page-subtitle">Build controlled discounts with clear eligibility and usage limits.</p>
         </div>
         <Link className="btn btn-admin-primary category-add-button admin-list-actions" to="create">
           <i className="bi bi-plus-lg" aria-hidden="true" />
@@ -333,7 +333,7 @@ function AdminCouponListPage() {
                     <tr key={coupon.id}>
                       <td data-label="Coupon">
                         <div className="coupon-name-cell">
-                          <code>{coupon.code}</code>
+                          <code className="admin-coupon-code">{coupon.code}</code>
                           <div>
                             <strong>{coupon.name}</strong>
                             <small>#{coupon.id}</small>
@@ -350,7 +350,7 @@ function AdminCouponListPage() {
                         </span>
                       </td>
                       <td data-label="Value">
-                        <strong className="coupon-value">{discountLabel(coupon)}</strong>
+                        <strong className="coupon-value admin-coupon-value">{discountLabel(coupon)}</strong>
                       </td>
                       <td data-label="Minimum order">
                         <span className="coupon-muted-value">
@@ -364,7 +364,7 @@ function AdminCouponListPage() {
                         </div>
                       </td>
                       <td data-label="Validity">
-                        <div className="coupon-validity">
+                        <div className="coupon-validity admin-coupon-window">
                           <span>{formatDate(coupon.starts_at)}</span>
                           <i className="bi bi-arrow-right" aria-hidden="true" />
                           <span>{formatDate(coupon.expires_at)}</span>

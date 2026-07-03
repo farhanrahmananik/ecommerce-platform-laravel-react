@@ -67,6 +67,18 @@ Completed:
 - Preserved all validation, loading, error, upload, primary-image, adjustment, and movement behavior.
 - Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
 
+## Step 7 - Orders, Coupons, and Reviews
+
+Completed:
+
+- Polished the admin orders list, summary metrics, customer/payment hierarchy, and order details layout.
+- Refined order status badges and fulfillment workflow presentation while preserving transition behavior.
+- Polished coupon list tokens, discount values, validity windows, details, and campaign status presentation.
+- Grouped coupon form fields into identity, discount rules, usage limits, and validity/status sections.
+- Polished product review ratings, product/customer metadata, status presentation, and moderation actions.
+- Preserved all validation, loading, error, create, update, delete, status, and moderation behavior.
+- Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
+
 ## Remaining Polish Areas
 
 - [x] Admin layout
@@ -75,7 +87,9 @@ Completed:
 - [x] Category and product pages
 - [x] Product image management
 - [x] Stock management
-- [ ] Orders, reports, and audit logs
+- [x] Orders
+- [x] Coupons and reviews
+- [ ] Reports and audit logs
 - [ ] Storefront listing
 - [ ] Product details
 - [ ] Cart

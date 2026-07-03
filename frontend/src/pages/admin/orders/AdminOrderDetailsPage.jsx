@@ -62,7 +62,7 @@ function AdminAddressCard({ address, icon, title }) {
   }
 
   return (
-    <article className="admin-order-address-card">
+    <article className="admin-order-address-card app-card">
       <span aria-hidden="true"><i className={`bi ${icon}`} /></span>
       <div>
         <h3>{title}</h3>
@@ -82,7 +82,7 @@ function AdminOrderItem({ item }) {
   const showImage = item.product_image_url && !imageFailed
 
   return (
-    <article className="admin-order-item">
+    <article className="admin-order-item admin-order-line-item">
       <div className="admin-order-item__image">
         {showImage ? (
           <img
@@ -210,7 +210,7 @@ function AdminOrderDetailsPage() {
 
   if (isLoading) {
     return (
-      <main className="admin-orders-page" aria-busy="true">
+      <main className="admin-orders-page app-page-shell" aria-busy="true">
         <div className="admin-order-detail-loading">
           {[0, 1, 2].map((item) => <span key={item} />)}
           <span className="visually-hidden">Loading order details</span>
@@ -221,8 +221,8 @@ function AdminOrderDetailsPage() {
 
   if (!order) {
     return (
-      <main className="admin-orders-page">
-        <div className="category-empty-state admin-order-error-state">
+      <main className="admin-orders-page app-page-shell">
+        <div className="category-empty-state admin-empty-state admin-order-error-state">
           <span className="category-empty-icon"><i className="bi bi-cloud-slash" /></span>
           <h2>Order details unavailable</h2>
           <p>{error}</p>
@@ -243,20 +243,20 @@ function AdminOrderDetailsPage() {
   }))
 
   return (
-    <main className="admin-orders-page">
-      <header className="admin-order-detail-heading">
+    <main className="admin-orders-page app-page-shell">
+      <header className="admin-order-detail-heading app-page-header admin-commerce-header admin-order-detail-header">
         <div>
           <Link to="/admin/orders"><i className="bi bi-arrow-left" /> Back to Orders</Link>
-          <span className="admin-eyebrow">Order management</span>
-          <h1>{order.order_number}</h1>
-          <p>Placed {formatDate(order.created_at)}</p>
+          <span className="admin-eyebrow app-page-eyebrow">Order management</span>
+          <h1 className="app-page-title">{order.order_number}</h1>
+          <p className="app-page-subtitle">Placed {formatDate(order.created_at)}</p>
         </div>
         <AdminOrderStatusBadge status={order.status} />
       </header>
 
       <div className="admin-order-detail-grid">
         <div className="admin-order-detail-main">
-          <section className="admin-order-panel">
+          <section className="admin-order-panel app-section-card">
             <header><div><span>Customer</span><h2>Customer summary</h2></div><i className="bi bi-person" /></header>
             <div className="admin-order-customer-grid">
               <div><small>Name</small><strong>{order.customer?.name || order.customer_name}</strong></div>
@@ -265,7 +265,7 @@ function AdminOrderDetailsPage() {
             </div>
           </section>
 
-          <section className="admin-order-panel admin-order-items-panel">
+          <section className="admin-order-panel admin-order-items-panel app-section-card">
             <header><div><span>Products</span><h2>Order items</h2></div><b>{order.items?.length || 0}</b></header>
             <div>{(order.items || []).map((item) => <AdminOrderItem item={item} key={item.id} />)}</div>
           </section>
@@ -276,14 +276,14 @@ function AdminOrderDetailsPage() {
           </section>
 
           {order.notes && (
-            <section className="admin-order-notes">
+            <section className="admin-order-notes app-card">
               <i className="bi bi-chat-left-text" /><div><h2>Order notes</h2><p>{order.notes}</p></div>
             </section>
           )}
         </div>
 
         <aside className="admin-order-detail-side">
-          <section className="admin-order-panel admin-status-workflow">
+          <section className="admin-order-panel admin-status-workflow app-section-card admin-order-workflow-card">
             <header><div><span>Fulfillment</span><h2>Status workflow</h2></div><i className="bi bi-signpost-split" /></header>
             <AdminOrderStatusBadge status={order.status} />
             {isTerminal ? (
@@ -321,7 +321,7 @@ function AdminOrderDetailsPage() {
             )}
           </section>
 
-          <section className="admin-order-panel admin-payment-summary">
+          <section className="admin-order-panel admin-payment-summary app-section-card admin-order-payment-card">
             <header><div><span>Payment</span><h2>{labelize(order.payment_method)}</h2></div><i className="bi bi-cash-stack" /></header>
             <div className="admin-payment-status"><span>Payment status</span><b>{labelize(order.payment_status)}</b></div>
             <dl>

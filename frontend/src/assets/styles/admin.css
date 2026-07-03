@@ -6337,3 +6337,359 @@
     transition: none;
   }
 }
+
+/* UI polish: orders, coupons, and review moderation */
+.admin-commerce-header {
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 1.2rem 1.35rem;
+  border: 1px solid #e1e4ed;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 92% 8%, var(--commerce-glow, rgba(86, 105, 213, 0.13)), transparent 30%),
+    linear-gradient(145deg, #fff, #fafbfe);
+  box-shadow: 0 15px 38px rgba(25, 36, 61, 0.055);
+}
+
+.admin-orders-header,
+.admin-order-detail-header {
+  --commerce-glow: rgba(82, 105, 218, 0.16);
+}
+
+.admin-coupons-header,
+.admin-coupon-form-header,
+.admin-coupon-detail-header {
+  --commerce-glow: rgba(224, 91, 52, 0.14);
+}
+
+.admin-reviews-header {
+  --commerce-glow: rgba(112, 80, 180, 0.14);
+}
+
+.admin-commerce-header::after {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border: 1px solid rgba(111, 126, 204, 0.1);
+  border-radius: 50%;
+  content: '';
+  pointer-events: none;
+  right: -82px;
+  bottom: -112px;
+}
+
+.admin-commerce-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.admin-order-stat,
+.admin-review-stat {
+  min-height: 86px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.admin-order-stat:hover,
+.admin-review-stat:hover {
+  border-color: #d9def0;
+  box-shadow: 0 16px 34px rgba(31, 42, 68, 0.09);
+  transform: translateY(-2px);
+}
+
+.admin-order-payment {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #647087;
+  font-size: 0.58rem;
+  font-weight: 720;
+}
+
+.admin-order-payment i {
+  color: #7a87c9;
+}
+
+.admin-order-total {
+  color: #27334d;
+  font-size: 0.72rem;
+  font-weight: 880;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-order-detail-header {
+  padding: 1.15rem 1.3rem;
+}
+
+.admin-order-detail-header > .admin-order-status {
+  margin-bottom: 0;
+  box-shadow: 0 6px 18px rgba(31, 42, 68, 0.08);
+}
+
+.admin-order-panel.app-section-card,
+.admin-order-address-card.app-card,
+.admin-order-notes.app-card {
+  border-color: #dfe3ec;
+  box-shadow: 0 13px 32px rgba(31, 42, 68, 0.06);
+}
+
+.admin-order-panel > header {
+  background: linear-gradient(135deg, #fbfcff, #f7f8fc);
+}
+
+.admin-order-line-item {
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.admin-order-line-item:hover {
+  background: #fafbfe;
+}
+
+.admin-order-line-item:hover .admin-order-item__image {
+  border-color: #cfd6ec;
+  transform: translateY(-1px);
+}
+
+.admin-order-item__image {
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.admin-order-workflow-card {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(88, 105, 211, 0.08), transparent 32%),
+    #fff;
+}
+
+.admin-order-workflow-card .admin-status-update-button {
+  box-shadow: 0 9px 22px rgba(75, 92, 198, 0.18);
+}
+
+.admin-order-payment-card .admin-order-grand-total {
+  margin-right: -0.25rem;
+  margin-left: -0.25rem;
+  padding: 0.85rem 0.25rem 0;
+}
+
+.admin-coupon-code {
+  position: relative;
+  border-style: dashed !important;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.75);
+}
+
+.admin-coupon-value {
+  display: inline-flex;
+  min-width: 60px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.38rem 0.5rem;
+  color: #a53f27;
+  border: 1px solid #f0d0c6;
+  border-radius: 9px;
+  background: #fff5f1;
+}
+
+.admin-coupon-window {
+  min-width: 116px;
+  padding-left: 0.15rem;
+}
+
+.admin-rule-card {
+  position: relative;
+  overflow: visible;
+  border-color: #dfe3ec;
+  box-shadow: 0 14px 34px rgba(26, 39, 66, 0.06);
+}
+
+.admin-rule-card::before {
+  position: absolute;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(#e15b36, #f0a07f);
+  content: '';
+  inset: 1rem auto 1rem 0;
+}
+
+.admin-rule-card .product-form-section-heading > span {
+  box-shadow: 0 7px 18px rgba(213, 74, 39, 0.11);
+}
+
+.admin-rule-card .category-form-control,
+.admin-rule-card .admin-select__control {
+  background-color: #fcfcfe;
+}
+
+.admin-rule-card .category-field-error {
+  margin-top: 0.35rem;
+  padding: 0.38rem 0.5rem;
+  border-left: 3px solid #d45a66;
+  border-radius: 6px;
+  background: #fff3f4;
+}
+
+.admin-coupon-form-actions {
+  position: sticky;
+  z-index: 5;
+  bottom: 0.75rem;
+  border-color: rgba(216, 221, 233, 0.96);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 38px rgba(29, 40, 66, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.admin-coupon-detail-header .coupon-detail-title {
+  margin-top: 0.75rem;
+}
+
+.admin-coupon-detail-header .coupon-detail-actions {
+  align-self: flex-end;
+}
+
+.coupon-detail-card.app-section-card {
+  border-color: #dfe3ec;
+  box-shadow: 0 13px 32px rgba(30, 40, 66, 0.06);
+}
+
+.coupon-detail-card.app-section-card > header {
+  background: linear-gradient(135deg, #fffdfc, #faf8f7);
+}
+
+.coupon-discount-card {
+  background:
+    radial-gradient(circle at 95% 12%, rgba(226, 92, 53, 0.09), transparent 30%),
+    #fff;
+}
+
+.admin-review-stat > span {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+}
+
+.admin-review-card td {
+  transition: background 160ms ease;
+}
+
+.admin-review-meta > span {
+  box-shadow: inset 0 0 0 1px rgba(213, 74, 39, 0.08);
+}
+
+.admin-rating-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid #eee0b6;
+  border-radius: 10px;
+  background: #fffbec;
+}
+
+.admin-rating-stars .review-stars {
+  color: #d39b1c;
+  font-size: 0.62rem;
+}
+
+.admin-rating-stars small {
+  color: #85651f;
+  font-size: 0.5rem;
+  font-weight: 850;
+}
+
+.admin-review-copy {
+  padding: 0.25rem 0;
+}
+
+.admin-review-copy > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.12rem;
+  padding: 0.2rem 0.36rem;
+  border-radius: 999px;
+  background: #edf9f3;
+}
+
+.admin-review-actions button {
+  min-height: 32px;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.admin-review-actions .is-approve:hover:not(:disabled) {
+  color: #fff;
+  border-color: #21835f;
+  background: #21835f;
+  transform: translateY(-1px);
+}
+
+.admin-review-actions .is-reject:hover:not(:disabled) {
+  color: #fff;
+  border-color: #bd4f49;
+  background: #bd4f49;
+  transform: translateY(-1px);
+}
+
+.admin-moderation-note.swal2-textarea {
+  min-height: 125px;
+  padding: 0.8rem;
+  border: 1px solid #dce1ea;
+  border-radius: 12px;
+  background: #fafbfc;
+  box-shadow: none;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+.admin-moderation-note.swal2-textarea:focus {
+  border-color: #7b88dc;
+  box-shadow: 0 0 0 3px rgba(92, 110, 229, 0.12);
+}
+
+@media (max-width: 767.98px) {
+  .admin-commerce-header {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .admin-coupon-form-actions {
+    position: static;
+  }
+
+  .admin-order-detail-header > .admin-order-status {
+    align-self: flex-start;
+  }
+
+  .admin-coupon-detail-header .coupon-detail-actions {
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .admin-order-payment,
+  .admin-rating-stars {
+    justify-content: flex-end;
+  }
+
+  .admin-coupon-value {
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-order-stat,
+  .admin-review-stat,
+  .admin-order-line-item,
+  .admin-order-item__image,
+  .admin-review-actions button {
+    transition: none;
+  }
+}

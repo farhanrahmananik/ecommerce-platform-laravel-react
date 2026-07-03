@@ -153,12 +153,12 @@ function AdminOrdersPage() {
   }
 
   return (
-    <main className="admin-orders-page admin-list-page">
-      <header className="category-list-heading admin-list-header">
+    <main className="admin-orders-page admin-list-page app-page-shell">
+      <header className="category-list-heading admin-list-header app-page-header admin-commerce-header admin-orders-header">
         <div className="admin-list-title-group">
-          <span className="admin-eyebrow">Fulfillment management</span>
-          <h1>Orders</h1>
-          <p>Track customer purchases and fulfillment progress.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Fulfillment management</span>
+          <h1 className="app-page-title">Orders</h1>
+          <p className="app-page-subtitle">Track customer purchases and fulfillment progress.</p>
         </div>
         <button
           className="admin-refresh-button"
@@ -178,7 +178,7 @@ function AdminOrdersPage() {
           ['Processing', summary.processing, 'bi-arrow-repeat', 'violet'],
           ['Delivered', summary.delivered, 'bi-check-circle', 'green'],
         ].map(([label, value, icon, tone]) => (
-          <article className="admin-order-stat" key={label}>
+          <article className="admin-order-stat app-stat-card" key={label}>
             <span className={`tone-${tone}`} aria-hidden="true">
               <i className={`bi ${icon}`} />
             </span>
@@ -287,8 +287,8 @@ function AdminOrdersPage() {
                       </td>
                       <td data-label="Date"><span>{formatDate(order.created_at)}</span></td>
                       <td data-label="Status"><AdminOrderStatusBadge status={order.status} /></td>
-                      <td data-label="Payment"><span>{labelize(order.payment_method)}</span></td>
-                      <td data-label="Total"><strong>{formatAmount(order.total)}</strong></td>
+                      <td data-label="Payment"><span className="admin-order-payment"><i className="bi bi-wallet2" aria-hidden="true" />{labelize(order.payment_method)}</span></td>
+                      <td data-label="Total"><strong className="admin-order-total">{formatAmount(order.total)}</strong></td>
                       <td data-label="Action">
                         <div className="category-row-actions admin-table-actions">
                           <Link

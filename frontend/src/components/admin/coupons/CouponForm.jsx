@@ -103,7 +103,7 @@ function CouponForm({
 
   return (
     <form className="coupon-form" onSubmit={handleSubmit} noValidate>
-      <section className="coupon-form-section">
+      <section className="coupon-form-section app-form-card admin-rule-card">
         <header className="product-form-section-heading">
           <span aria-hidden="true">
             <i className="bi bi-ticket-perforated" />
@@ -182,7 +182,7 @@ function CouponForm({
         </div>
       </section>
 
-      <section className="coupon-form-section">
+      <section className="coupon-form-section app-form-card admin-rule-card">
         <header className="product-form-section-heading">
           <span aria-hidden="true">
             <i className="bi bi-percent" />
@@ -276,14 +276,14 @@ function CouponForm({
         </div>
       </section>
 
-      <section className="coupon-form-section">
+      <section className="coupon-form-section app-form-card admin-rule-card">
         <header className="product-form-section-heading">
           <span aria-hidden="true">
             <i className="bi bi-sliders" />
           </span>
           <div>
-            <h2>Usage and validity</h2>
-            <p>Control redemption volume and the campaign schedule.</p>
+            <h2>Usage limits</h2>
+            <p>Control total redemption volume and per-customer usage.</p>
           </div>
         </header>
 
@@ -332,6 +332,21 @@ function CouponForm({
               />
             </CouponField>
           </div>
+        </div>
+      </section>
+
+      <section className="coupon-form-section app-form-card admin-rule-card">
+        <header className="product-form-section-heading">
+          <span aria-hidden="true">
+            <i className="bi bi-calendar-range" />
+          </span>
+          <div>
+            <h2>Validity and status</h2>
+            <p>Schedule the campaign window and control customer availability.</p>
+          </div>
+        </header>
+
+        <div className="row g-4">
           <div className="col-md-6">
             <CouponField
               errors={validationErrors}
@@ -399,7 +414,7 @@ function CouponForm({
         <FieldError errors={validationErrors} name="is_active" />
       </section>
 
-      <footer className="coupon-form-actions">
+      <footer className="coupon-form-actions app-section-card admin-coupon-form-actions">
         <div>
           <strong>Ready to save?</strong>
           <span>Review discount values and validity before continuing.</span>

@@ -8,6 +8,7 @@ import AuthLayout from '../layouts/AuthLayout.jsx'
 import AccountDashboardPage from '../pages/account/AccountDashboardPage.jsx'
 import OrderDetailsPage from '../pages/account/OrderDetailsPage.jsx'
 import OrdersPage from '../pages/account/OrdersPage.jsx'
+import MyReviewsPage from '../pages/account/MyReviewsPage.jsx'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage.jsx'
 import AdminCouponCreatePage from '../pages/admin/coupons/AdminCouponCreatePage.jsx'
 import AdminCouponDetailsPage from '../pages/admin/coupons/AdminCouponDetailsPage.jsx'
@@ -15,6 +16,7 @@ import AdminCouponEditPage from '../pages/admin/coupons/AdminCouponEditPage.jsx'
 import AdminCouponListPage from '../pages/admin/coupons/AdminCouponListPage.jsx'
 import AdminOrderDetailsPage from '../pages/admin/orders/AdminOrderDetailsPage.jsx'
 import AdminOrdersPage from '../pages/admin/orders/AdminOrdersPage.jsx'
+import AdminProductReviewsPage from '../pages/admin/reviews/AdminProductReviewsPage.jsx'
 import CategoryCreatePage from '../pages/admin/categories/CategoryCreatePage.jsx'
 import CategoryEditPage from '../pages/admin/categories/CategoryEditPage.jsx'
 import CategoryListPage from '../pages/admin/categories/CategoryListPage.jsx'
@@ -41,6 +43,7 @@ function AppRouter() {
           <Route path="account" element={<AccountDashboardPage />} />
           <Route path="account/orders" element={<OrdersPage />} />
           <Route path="account/orders/:id" element={<OrderDetailsPage />} />
+          <Route path="account/reviews" element={<MyReviewsPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="checkout" element={<CheckoutPage />} />
         </Route>
@@ -70,6 +73,7 @@ function AppRouter() {
           <Route path="coupons/:id/edit" element={<AdminCouponEditPage />} />
           <Route path="orders" element={<AdminOrdersPage />} />
           <Route path="orders/:id" element={<AdminOrderDetailsPage />} />
+          <Route path="product-reviews" element={<AdminProductReviewsPage />} />
         </Route>
       </Route>
     </Routes>

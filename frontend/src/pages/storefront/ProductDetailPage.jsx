@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import ProductImageGallery from '../../components/storefront/ProductImageGallery.jsx'
+import ProductReviewsSection from '../../components/storefront/ProductReviewsSection.jsx'
+import ReviewStars from '../../components/reviews/ReviewStars.jsx'
 import { useAuth } from '../../hooks/useAuth.js'
 import { useCart } from '../../hooks/useCart.js'
 import { getStorefrontProduct } from '../../services/storefrontService.js'
@@ -399,6 +401,11 @@ function ProductDetailPage() {
               </div>
 
               <h1>{product.name}</h1>
+              <a className="product-detail-rating-link" href="#product-reviews">
+                <ReviewStars rating={product.rating_summary?.average_rating || 0} />
+                <strong>{Number(product.rating_summary?.average_rating || 0).toFixed(1)}</strong>
+                <span>({product.rating_summary?.review_count || 0} reviews)</span>
+              </a>
               {product.short_description && (
                 <p className="product-detail-lead">{product.short_description}</p>
               )}
@@ -434,6 +441,11 @@ function ProductDetailPage() {
                 'More product information will be available soon.'}
             </p>
           </section>
+
+          <ProductReviewsSection
+            productSlug={product.slug}
+            initialSummary={product.rating_summary}
+          />
 
           <section className="product-detail-trust-grid" aria-label="Storefront features">
             {trustItems.map((item) => (

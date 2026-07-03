@@ -19,11 +19,13 @@ const dashboardCards = [
     action: 'My Orders',
   },
   {
-    icon: 'bi-bag',
-    title: 'Cart',
-    value: 'Ready for later',
-    detail: 'Cart functionality is planned for a future scope.',
+    icon: 'bi-star',
+    title: 'Reviews',
+    value: 'Your feedback',
+    detail: 'Manage product reviews and track moderation status.',
     tone: 'orange',
+    path: '/account/reviews',
+    action: 'My Reviews',
   },
   {
     icon: 'bi-heart',

@@ -56,7 +56,7 @@ function AdminDashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="admin-dashboard-loading" role="status" aria-live="polite">
+      <div className="admin-dashboard-loading app-page-shell" role="status" aria-live="polite">
         <div className="admin-loading-heading">
           <span />
           <span />
@@ -68,6 +68,10 @@ function AdminDashboardPage() {
             </div>
           ))}
         </div>
+        <div className="admin-loading-panel-grid" aria-hidden="true">
+          <span />
+          <span />
+        </div>
         <span className="visually-hidden">Loading admin dashboard</span>
       </div>
     )
@@ -75,7 +79,7 @@ function AdminDashboardPage() {
 
   if (error) {
     return (
-      <section className="admin-error-state">
+      <section className="admin-error-state app-empty-state">
         <span className="admin-error-icon" aria-hidden="true">
           <i className="bi bi-cloud-slash" />
         </span>
@@ -111,11 +115,16 @@ function AdminDashboardPage() {
 
   return (
     <main className="admin-dashboard-page">
-      <header className="admin-dashboard-heading">
+      <header className="admin-dashboard-heading app-page-header">
         <div>
-          <span className="admin-eyebrow">Store operations</span>
-          <h1>Dashboard overview</h1>
-          <p>A clear view of your commerce foundation and system readiness.</p>
+          <span className="admin-eyebrow app-page-eyebrow">
+            <i className="bi bi-stars" aria-hidden="true" />
+            Store operations
+          </span>
+          <h1 className="app-page-title">Dashboard overview</h1>
+          <p className="app-page-subtitle">
+            A clear view of your commerce foundation and system readiness.
+          </p>
         </div>
         <div className="admin-heading-actions">
           <span className="admin-date-chip">
@@ -129,7 +138,7 @@ function AdminDashboardPage() {
         </div>
       </header>
 
-      <section className="row g-4" aria-label="Dashboard statistics">
+      <section className="row g-4 admin-dashboard-stats" aria-label="Dashboard statistics">
         {stats.map((stat) => (
           <div className="col-sm-6 col-xl-3" key={stat.label}>
             <AdminStatCard stat={stat} />
@@ -139,13 +148,15 @@ function AdminDashboardPage() {
 
       <div className="row g-4 admin-dashboard-grid">
         <div className="col-xl-7">
-          <section className="admin-panel h-100">
+          <section className="admin-panel app-section-card h-100">
             <div className="admin-panel-heading">
               <div>
                 <span>Shortcuts</span>
                 <h2>Quick actions</h2>
               </div>
-              <span className="admin-panel-badge">Future scopes</span>
+              <span className="admin-panel-badge">
+                {quickActions.length} shortcuts
+              </span>
             </div>
             <div className="admin-quick-actions">
               {quickActions.map((action) => (
@@ -160,9 +171,9 @@ function AdminDashboardPage() {
         </div>
 
         <div className="col-xl-5">
-          <section className="admin-panel h-100">
+          <section className="admin-panel app-section-card h-100">
             <div className="admin-panel-heading">
-              <div>
+              <div className="admin-dashboard-mini-card">
                 <span>System</span>
                 <h2>Platform status</h2>
               </div>
@@ -173,7 +184,7 @@ function AdminDashboardPage() {
             </div>
 
             <div className="admin-system-status">
-              <div>
+              <div className="admin-dashboard-mini-card">
                 <span className="admin-system-icon admin-system-icon-green">
                   <i className="bi bi-cloud-check" aria-hidden="true" />
                 </span>
@@ -198,7 +209,7 @@ function AdminDashboardPage() {
         </div>
 
         <div className="col-12">
-          <section className="admin-panel">
+          <section className="admin-panel app-section-card">
             <div className="admin-panel-heading">
               <div>
                 <span>Timeline</span>
@@ -209,11 +220,19 @@ function AdminDashboardPage() {
             {recentActivity.length > 0 ? (
               <div className="admin-activity-list">
                 {recentActivity.map((activity) => (
-                  <div key={activity.id}>{activity.description}</div>
+                  <article key={activity.id}>
+                    <span aria-hidden="true">
+                      <i className="bi bi-activity" />
+                    </span>
+                    <div>
+                      <strong>{activity.description}</strong>
+                      <small>Recorded platform activity</small>
+                    </div>
+                  </article>
                 ))}
               </div>
             ) : (
-              <div className="admin-empty-activity">
+              <div className="admin-empty-activity app-empty-state">
                 <span aria-hidden="true">
                   <i className="bi bi-clock-history" />
                 </span>

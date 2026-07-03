@@ -8,6 +8,7 @@ const availableQuickActionPaths = new Set([
   '/admin/categories',
   '/admin/products',
   '/admin/stock',
+  '/admin/reports',
 ])
 
 function AdminDashboardPage() {
@@ -98,6 +99,7 @@ function AdminDashboardPage() {
       icon: 'bi-clipboard-data',
       path: '/admin/stock',
     },
+    { label: 'Reports & Analytics', description: 'Explore sales and operational insights.', icon: 'bi-graph-up-arrow', path: '/admin/reports' },
   ]
   const recentActivity = summary?.recent_activity || []
   const system = summary?.system || {}

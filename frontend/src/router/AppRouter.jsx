@@ -18,6 +18,7 @@ import AdminOrderDetailsPage from '../pages/admin/orders/AdminOrderDetailsPage.j
 import AdminOrdersPage from '../pages/admin/orders/AdminOrdersPage.jsx'
 import AdminProductReviewsPage from '../pages/admin/reviews/AdminProductReviewsPage.jsx'
 import StockManagementPage from '../pages/admin/stock/StockManagementPage.jsx'
+import AdminReportsPage from '../pages/admin/reports/AdminReportsPage.jsx'
 import CategoryCreatePage from '../pages/admin/categories/CategoryCreatePage.jsx'
 import CategoryEditPage from '../pages/admin/categories/CategoryEditPage.jsx'
 import CategoryListPage from '../pages/admin/categories/CategoryListPage.jsx'
@@ -76,6 +77,7 @@ function AppRouter() {
           <Route path="orders/:id" element={<AdminOrderDetailsPage />} />
           <Route path="product-reviews" element={<AdminProductReviewsPage />} />
           <Route path="stock" element={<StockManagementPage />} />
+          <Route path="reports" element={<AdminReportsPage />} />
         </Route>
       </Route>
     </Routes>

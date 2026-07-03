@@ -13,7 +13,7 @@ const navigationItems = [
   { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons', active: true },
   { label: 'Reviews', icon: 'bi-chat-square-heart', path: '/admin/product-reviews', active: true },
   { label: 'Stock Management', icon: 'bi-clipboard-data', path: '/admin/stock', active: true },
-  { label: 'Reports', icon: 'bi-bar-chart', path: '/admin/reports' },
+  { label: 'Reports', icon: 'bi-graph-up-arrow', path: '/admin/reports', active: true },
 ]
 
 function AdminLayout() {
@@ -28,6 +28,7 @@ function AdminLayout() {
   const isCouponArea = location.pathname.startsWith('/admin/coupons')
   const isReviewArea = location.pathname.startsWith('/admin/product-reviews')
   const isStockArea = location.pathname.startsWith('/admin/stock')
+  const isReportsArea = location.pathname.startsWith('/admin/reports')
   const currentSection = isCategoryArea
     ? 'Categories'
     : isProductArea
@@ -40,7 +41,7 @@ function AdminLayout() {
             ? 'Reviews'
             : isStockArea
               ? 'Stock Management'
-              : 'Dashboard'
+              : isReportsArea ? 'Reports & Analytics' : 'Dashboard'
   const currentArea = isCategoryArea || isProductArea
     ? 'Catalog'
     : isOrderArea
@@ -51,7 +52,7 @@ function AdminLayout() {
           ? 'Trust & Quality'
           : isStockArea
             ? 'Inventory'
-            : 'Overview'
+            : isReportsArea ? 'Insights' : 'Overview'
 
   const handleLogout = async () => {
     setIsLoggingOut(true)

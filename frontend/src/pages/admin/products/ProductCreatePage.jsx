@@ -78,18 +78,18 @@ function ProductCreatePage() {
   }
 
   return (
-    <main className="admin-product-page">
-      <header className="category-page-heading">
-        <div>
+    <main className="admin-product-page admin-catalog-page">
+      <header className="category-page-heading app-page-header admin-catalog-header">
+        <div className="admin-list-title-group">
           <Link className="category-back-link" to="/admin/products">
             <i className="bi bi-arrow-left" aria-hidden="true" />
             Back to Products
           </Link>
-          <span className="admin-eyebrow">Catalog management</span>
-          <h1>Create product</h1>
-          <p>Add the core details, pricing, stock, and visibility for a catalog item.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Catalog management</span>
+          <h1 className="app-page-title">Create product</h1>
+          <p className="app-page-subtitle">Add the core details, pricing, stock, and visibility for a catalog item.</p>
         </div>
-        <span className="category-heading-icon" aria-hidden="true">
+        <span className="category-heading-icon app-icon-badge" aria-hidden="true">
           <i className="bi bi-box-seam" />
         </span>
       </header>
@@ -102,7 +102,7 @@ function ProductCreatePage() {
       )}
 
       {isLoading ? (
-        <div className="category-form-loading" role="status">
+        <div className="category-form-loading app-form-card" role="status">
           <span className="spinner-border" aria-hidden="true" />
           <strong>Preparing the product form...</strong>
           <span className="visually-hidden">Loading</span>

@@ -254,11 +254,11 @@ function ProductListPage() {
 
   return (
     <main className="admin-product-page admin-list-page">
-      <header className="category-list-heading admin-list-header">
+      <header className="category-list-heading admin-list-header app-page-header admin-catalog-header">
         <div className="admin-list-title-group">
-          <span className="admin-eyebrow">Catalog management</span>
-          <h1>Products</h1>
-          <p>Manage product details, pricing, availability, and merchandising.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Catalog management</span>
+          <h1 className="app-page-title">Products</h1>
+          <p className="app-page-subtitle">Manage product details, pricing, availability, and merchandising.</p>
         </div>
         <Link className="btn btn-admin-primary category-add-button admin-list-actions" to="create">
           <i className="bi bi-plus-lg" aria-hidden="true" />
@@ -410,10 +410,10 @@ function ProductListPage() {
                       <tr key={product.id}>
                         <td data-label="Product">
                           <div className="category-name-cell product-name-cell">
-                            <span aria-hidden="true">
+                            <span className="admin-product-thumb" aria-hidden="true">
                               <i className="bi bi-box-seam" />
                             </span>
-                            <div>
+                            <div className="admin-product-meta">
                               <strong>{product.name}</strong>
                               <small>{product.slug}</small>
                             </div>
@@ -423,12 +423,12 @@ function ProductListPage() {
                           <code className="category-slug">{product.sku}</code>
                         </td>
                         <td data-label="Category">
-                          <span className="category-parent-name">
+                          <span className="category-parent-name admin-category-chip">
                             {product.category?.name || 'Uncategorized'}
                           </span>
                         </td>
                         <td data-label="Price">
-                          <strong className="product-price">
+                          <strong className="product-price admin-price-text">
                             {formatAmount(product.price)}
                           </strong>
                         </td>
@@ -444,7 +444,7 @@ function ProductListPage() {
                           </span>
                         </td>
                         <td data-label="Stock">
-                          <span className={`product-stock-badge admin-status-badge ${isLowStock ? 'is-low warning' : 'success'}`}>
+                          <span className={`product-stock-badge admin-stock-pill admin-status-badge ${isLowStock ? 'is-low warning' : 'success'}`}>
                             <i
                               className={`bi ${isLowStock ? 'bi-exclamation-triangle' : 'bi-box2-check'}`}
                               aria-hidden="true"

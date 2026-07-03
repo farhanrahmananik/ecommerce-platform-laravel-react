@@ -45,12 +45,23 @@ Completed:
 - Improved existing empty states across admin list pages.
 - Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
 
+## Step 5 - Category and Product Management
+
+Completed:
+
+- Polished category list, create, and edit page headers and visual hierarchy.
+- Polished category form sections, parent selection guidance, visibility controls, and validation feedback.
+- Polished product list, create, and edit page headers and product metadata hierarchy.
+- Refined product form sections for catalog information, pricing, inventory, publishing, descriptions, and SEO.
+- Preserved all category and product filters, fields, payloads, loading states, error states, and validation logic.
+- Kept product image management behavior, service calls, routes, backend, and API logic untouched.
+
 ## Remaining Polish Areas
 
 - [x] Admin layout
 - [x] Admin dashboard
 - [x] Admin tables and filters
-- [ ] Category and product pages
+- [x] Category and product pages
 - [ ] Product image management
 - [ ] Stock management
 - [ ] Orders, reports, and audit logs

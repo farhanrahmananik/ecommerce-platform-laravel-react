@@ -88,7 +88,7 @@ function ProductEditPage() {
 
   if (isLoading) {
     return (
-      <div className="category-form-loading category-form-loading-page" role="status">
+      <div className="category-form-loading category-form-loading-page app-form-card" role="status">
         <span className="spinner-border" aria-hidden="true" />
         <strong>Loading product details...</strong>
         <span className="visually-hidden">Loading</span>
@@ -98,7 +98,7 @@ function ProductEditPage() {
 
   if (!product) {
     return (
-      <main className="category-request-error">
+      <main className="category-request-error app-empty-state">
         <span className="category-request-error-icon" aria-hidden="true">
           <i className="bi bi-box-seam" />
         </span>
@@ -114,18 +114,18 @@ function ProductEditPage() {
   }
 
   return (
-    <main className="admin-product-page">
-      <header className="category-page-heading">
-        <div>
+    <main className="admin-product-page admin-catalog-page">
+      <header className="category-page-heading app-page-header admin-catalog-header">
+        <div className="admin-list-title-group">
           <Link className="category-back-link" to="/admin/products">
             <i className="bi bi-arrow-left" aria-hidden="true" />
             Back to Products
           </Link>
-          <span className="admin-eyebrow">Catalog management</span>
-          <h1>Edit product</h1>
-          <p>Update the catalog details and availability of {product.name}.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Catalog management</span>
+          <h1 className="app-page-title">Edit product</h1>
+          <p className="app-page-subtitle">Update the catalog details and availability of {product.name}.</p>
         </div>
-        <span className="category-heading-icon" aria-hidden="true">
+        <span className="category-heading-icon app-icon-badge" aria-hidden="true">
           <i className="bi bi-pencil-square" />
         </span>
       </header>

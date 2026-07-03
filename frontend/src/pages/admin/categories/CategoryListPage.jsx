@@ -187,11 +187,11 @@ function CategoryListPage() {
 
   return (
     <main className="admin-category-page admin-list-page">
-      <header className="category-list-heading admin-list-header">
+      <header className="category-list-heading admin-list-header app-page-header admin-catalog-header">
         <div className="admin-list-title-group">
-          <span className="admin-eyebrow">Catalog organization</span>
-          <h1>Categories</h1>
-          <p>Build a clear hierarchy that keeps your future catalog easy to manage.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Catalog organization</span>
+          <h1 className="app-page-title">Categories</h1>
+          <p className="app-page-subtitle">Build a clear hierarchy that keeps your future catalog easy to manage.</p>
         </div>
         <Link className="btn btn-admin-primary category-add-button admin-list-actions" to="create">
           <i className="bi bi-plus-lg" aria-hidden="true" />
@@ -305,7 +305,7 @@ function CategoryListPage() {
                         <code className="category-slug">{category.slug}</code>
                       </td>
                       <td data-label="Parent">
-                        <span className="category-parent-name">
+                        <span className="category-parent-name admin-category-chip">
                           {category.parent?.name || 'Top level'}
                         </span>
                       </td>

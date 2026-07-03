@@ -18,7 +18,7 @@ function FieldErrors({ messages }) {
   }
 
   return messages.map((message) => (
-    <div className="category-field-error" key={message}>
+    <div className="category-field-error admin-validation-text" key={message}>
       {message}
     </div>
   ))
@@ -77,8 +77,8 @@ function CategoryForm({
   }
 
   return (
-    <form className="category-form-card" onSubmit={handleSubmit} noValidate>
-      <div className="category-form-section-heading">
+    <form className="category-form-card app-form-card admin-catalog-form" onSubmit={handleSubmit} noValidate>
+      <div className="category-form-section-heading admin-form-section-title">
         <span className="category-form-section-icon" aria-hidden="true">
           <i className="bi bi-folder2-open" />
         </span>
@@ -88,7 +88,7 @@ function CategoryForm({
         </div>
       </div>
 
-      <div className="row g-4">
+      <div className="row g-4 admin-form-grid">
         <div className="col-lg-8">
           <label className="category-form-label" htmlFor="category-name">
             Category name <span>*</span>
@@ -121,7 +121,7 @@ function CategoryForm({
           <FieldErrors messages={errors.sort_order} />
         </div>
 
-        <div className="col-lg-6">
+        <div className="col-lg-6 admin-category-parent-field">
           <label className="category-form-label" htmlFor="category-slug">
             URL slug <small>Optional</small>
           </label>
@@ -152,6 +152,7 @@ function CategoryForm({
             }
             error={errors.parent_id}
             placeholder="Choose a parent category"
+            helperText="Leave empty to keep this as a top-level category."
             optional
           />
         </div>
@@ -195,7 +196,7 @@ function CategoryForm({
         </div>
       </div>
 
-      <div className="category-visibility-panel">
+      <div className="category-visibility-panel admin-form-section">
         <div>
           <span className="category-visibility-icon" aria-hidden="true">
             <i className="bi bi-eye" />
@@ -222,7 +223,7 @@ function CategoryForm({
       </div>
       <FieldErrors messages={errors.is_active} />
 
-      <div className="category-form-actions">
+      <div className="category-form-actions admin-catalog-form-actions">
         <Link className="btn btn-admin-soft" to="/admin/categories">
           Cancel
         </Link>

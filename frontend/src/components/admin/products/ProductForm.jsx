@@ -29,7 +29,7 @@ function FieldErrors({ messages }) {
   const errorMessages = Array.isArray(messages) ? messages : [messages]
 
   return errorMessages.map((message) => (
-    <div className="category-field-error" key={message}>
+    <div className="category-field-error admin-validation-text" key={message}>
       {message}
     </div>
   ))
@@ -37,7 +37,7 @@ function FieldErrors({ messages }) {
 
 function SectionHeading({ icon, title, description }) {
   return (
-    <div className="product-form-section-heading">
+    <div className="product-form-section-heading admin-form-section-title">
       <span aria-hidden="true">
         <i className={`bi ${icon}`} />
       </span>
@@ -116,15 +116,15 @@ function ProductForm({
   }
 
   return (
-    <form className="product-form" onSubmit={handleSubmit} noValidate>
-      <section className="product-form-section">
+    <form className="product-form admin-catalog-form" onSubmit={handleSubmit} noValidate>
+      <section className="product-form-section admin-form-section app-section-card">
         <SectionHeading
           icon="bi-box-seam"
           title="Basic Information"
           description="Name the product and define its place in the catalog."
         />
 
-        <div className="row g-4">
+        <div className="row g-4 admin-form-grid">
           <div className="col-lg-8">
             <label className="category-form-label" htmlFor="product-name">
               Product name <span>*</span>
@@ -157,7 +157,7 @@ function ProductForm({
             <FieldErrors messages={errors.sku} />
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-6 admin-product-category-field">
             <AdminSelect
               id="product-category"
               name="category_id"
@@ -169,6 +169,7 @@ function ProductForm({
               }
               error={errors.category_id}
               placeholder="Choose a category"
+              helperText="Choose where this product appears in the catalog."
               optional
             />
           </div>
@@ -226,8 +227,8 @@ function ProductForm({
         </div>
       </section>
 
-      <div className="product-form-grid">
-        <section className="product-form-section">
+      <div className="product-form-grid admin-form-grid">
+        <section className="product-form-section admin-form-section app-section-card">
           <SectionHeading
             icon="bi-cash-stack"
             title="Pricing"
@@ -291,7 +292,7 @@ function ProductForm({
           </div>
         </section>
 
-        <section className="product-form-section">
+        <section className="product-form-section admin-form-section app-section-card">
           <SectionHeading
             icon="bi-boxes"
             title="Inventory"
@@ -336,7 +337,7 @@ function ProductForm({
         </section>
       </div>
 
-      <section className="product-form-section">
+      <section className="product-form-section admin-form-section app-section-card">
         <SectionHeading
           icon="bi-broadcast"
           title="Publishing"
@@ -407,7 +408,7 @@ function ProductForm({
         <FieldErrors messages={errors.is_featured} />
       </section>
 
-      <section className="product-form-section">
+      <section className="product-form-section admin-form-section app-section-card">
         <SectionHeading
           icon="bi-search"
           title="SEO"
@@ -449,7 +450,7 @@ function ProductForm({
         </div>
       </section>
 
-      <div className="product-form-actions">
+      <div className="product-form-actions admin-catalog-form-actions">
         <div>
           <strong>Ready to save?</strong>
           <span>Required fields are marked with an asterisk.</span>

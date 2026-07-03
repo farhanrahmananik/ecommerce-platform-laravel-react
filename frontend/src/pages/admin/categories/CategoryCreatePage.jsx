@@ -80,18 +80,18 @@ function CategoryCreatePage() {
   }
 
   return (
-    <main className="admin-category-page">
-      <header className="category-page-heading">
-        <div>
+    <main className="admin-category-page admin-catalog-page">
+      <header className="category-page-heading app-page-header admin-catalog-header">
+        <div className="admin-list-title-group">
           <Link className="category-back-link" to="/admin/categories">
             <i className="bi bi-arrow-left" aria-hidden="true" />
             Back to Categories
           </Link>
-          <span className="admin-eyebrow">Catalog organization</span>
-          <h1>Create category</h1>
-          <p>Add a clear, reusable category for your product catalog.</p>
+          <span className="admin-eyebrow app-page-eyebrow">Catalog organization</span>
+          <h1 className="app-page-title">Create category</h1>
+          <p className="app-page-subtitle">Add a clear, reusable category for your product catalog.</p>
         </div>
-        <span className="category-heading-icon" aria-hidden="true">
+        <span className="category-heading-icon app-icon-badge" aria-hidden="true">
           <i className="bi bi-folder-plus" />
         </span>
       </header>
@@ -104,7 +104,7 @@ function CategoryCreatePage() {
       )}
 
       {isLoading ? (
-        <div className="category-form-loading" role="status">
+        <div className="category-form-loading app-form-card" role="status">
           <span className="spinner-border" aria-hidden="true" />
           <strong>Preparing the category form...</strong>
           <span className="visually-hidden">Loading</span>

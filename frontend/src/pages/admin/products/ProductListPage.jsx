@@ -253,22 +253,22 @@ function ProductListPage() {
   )
 
   return (
-    <main className="admin-product-page">
-      <header className="category-list-heading">
-        <div>
+    <main className="admin-product-page admin-list-page">
+      <header className="category-list-heading admin-list-header">
+        <div className="admin-list-title-group">
           <span className="admin-eyebrow">Catalog management</span>
           <h1>Products</h1>
           <p>Manage product details, pricing, availability, and merchandising.</p>
         </div>
-        <Link className="btn btn-admin-primary category-add-button" to="create">
+        <Link className="btn btn-admin-primary category-add-button admin-list-actions" to="create">
           <i className="bi bi-plus-lg" aria-hidden="true" />
           Add Product
         </Link>
       </header>
 
-      <section className="category-list-card product-list-card">
-        <div className="product-list-toolbar">
-          <form className="category-search-form product-search-form" onSubmit={handleSearch}>
+      <section className="category-list-card product-list-card admin-table-card">
+        <div className="product-list-toolbar admin-table-toolbar admin-filter-card">
+          <form className="category-search-form product-search-form admin-filter-control" onSubmit={handleSearch}>
             <i className="bi bi-search" aria-hidden="true" />
             <input
               type="search"
@@ -280,7 +280,7 @@ function ProductListPage() {
             <button type="submit">Search</button>
           </form>
 
-          <div className="product-filter-row">
+          <div className="product-filter-row admin-filter-grid">
             <div className="admin-select-filter admin-select-filter--category">
               <AdminSelect
                 id="product-category-filter"
@@ -361,7 +361,7 @@ function ProductListPage() {
             <span className="visually-hidden">Loading products</span>
           </div>
         ) : products.length === 0 ? (
-          <div className="category-empty-state product-empty-state">
+          <div className="category-empty-state product-empty-state admin-empty-state">
             <span className="category-empty-icon" aria-hidden="true">
               <i className="bi bi-box-seam" />
             </span>
@@ -384,8 +384,8 @@ function ProductListPage() {
           </div>
         ) : (
           <>
-            <div className="table-responsive category-table-wrap">
-              <table className="table category-table product-table align-middle mb-0">
+            <div className="table-responsive category-table-wrap admin-table-wrap">
+              <table className="table category-table product-table admin-table align-middle mb-0">
                 <thead>
                   <tr>
                     <th>Product</th>
@@ -444,7 +444,7 @@ function ProductListPage() {
                           </span>
                         </td>
                         <td data-label="Stock">
-                          <span className={`product-stock-badge ${isLowStock ? 'is-low' : ''}`}>
+                          <span className={`product-stock-badge admin-status-badge ${isLowStock ? 'is-low warning' : 'success'}`}>
                             <i
                               className={`bi ${isLowStock ? 'bi-exclamation-triangle' : 'bi-box2-check'}`}
                               aria-hidden="true"
@@ -454,7 +454,7 @@ function ProductListPage() {
                         </td>
                         <td data-label="Status">
                           <span
-                            className={`category-status-badge ${product.is_active ? 'is-active' : 'is-inactive'}`}
+                            className={`category-status-badge admin-status-badge ${product.is_active ? 'is-active success' : 'is-inactive neutral'}`}
                           >
                             <span aria-hidden="true" />
                             {product.is_active ? 'Active' : 'Inactive'}
@@ -462,7 +462,7 @@ function ProductListPage() {
                         </td>
                         <td data-label="Featured">
                           <span
-                            className={`product-featured-badge ${product.is_featured ? 'is-featured' : ''}`}
+                            className={`product-featured-badge admin-status-badge ${product.is_featured ? 'is-featured info' : 'neutral'}`}
                             aria-label={product.is_featured ? 'Featured' : 'Regular'}
                           >
                             <i
@@ -478,7 +478,7 @@ function ProductListPage() {
                           </span>
                         </td>
                         <td data-label="Actions">
-                          <div className="category-row-actions">
+                          <div className="category-row-actions admin-table-actions">
                             <Link
                               className="category-action-button"
                               to={`${product.id}/edit`}
@@ -514,7 +514,7 @@ function ProductListPage() {
             </div>
 
             {meta && (
-              <footer className="category-pagination">
+              <footer className="category-pagination admin-pagination-wrap">
                 <span>
                   Showing <strong>{meta.from || 0}</strong> to{' '}
                   <strong>{meta.to || 0}</strong> of <strong>{meta.total || 0}</strong>

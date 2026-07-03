@@ -186,22 +186,22 @@ function CategoryListPage() {
   )
 
   return (
-    <main className="admin-category-page">
-      <header className="category-list-heading">
-        <div>
+    <main className="admin-category-page admin-list-page">
+      <header className="category-list-heading admin-list-header">
+        <div className="admin-list-title-group">
           <span className="admin-eyebrow">Catalog organization</span>
           <h1>Categories</h1>
           <p>Build a clear hierarchy that keeps your future catalog easy to manage.</p>
         </div>
-        <Link className="btn btn-admin-primary category-add-button" to="create">
+        <Link className="btn btn-admin-primary category-add-button admin-list-actions" to="create">
           <i className="bi bi-plus-lg" aria-hidden="true" />
           Add Category
         </Link>
       </header>
 
-      <section className="category-list-card">
-        <div className="category-list-toolbar">
-          <form className="category-search-form" onSubmit={handleSearch}>
+      <section className="category-list-card admin-table-card">
+        <div className="category-list-toolbar admin-table-toolbar admin-filter-card">
+          <form className="category-search-form admin-filter-control" onSubmit={handleSearch}>
             <i className="bi bi-search" aria-hidden="true" />
             <input
               type="search"
@@ -213,7 +213,7 @@ function CategoryListPage() {
             <button type="submit">Search</button>
           </form>
 
-          <div className="admin-select-filter">
+          <div className="admin-select-filter admin-filter-control">
             <AdminSelect
               id="category-status-filter"
               name="status"
@@ -251,7 +251,7 @@ function CategoryListPage() {
             <span className="visually-hidden">Loading categories</span>
           </div>
         ) : categories.length === 0 ? (
-          <div className="category-empty-state">
+          <div className="category-empty-state admin-empty-state">
             <span className="category-empty-icon" aria-hidden="true">
               <i className="bi bi-folder2-open" />
             </span>
@@ -274,8 +274,8 @@ function CategoryListPage() {
           </div>
         ) : (
           <>
-            <div className="table-responsive category-table-wrap">
-              <table className="table category-table align-middle mb-0">
+            <div className="table-responsive category-table-wrap admin-table-wrap">
+              <table className="table category-table admin-table align-middle mb-0">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -311,7 +311,7 @@ function CategoryListPage() {
                       </td>
                       <td data-label="Status">
                         <span
-                          className={`category-status-badge ${category.is_active ? 'is-active' : 'is-inactive'}`}
+                          className={`category-status-badge admin-status-badge ${category.is_active ? 'is-active success' : 'is-inactive neutral'}`}
                         >
                           <span aria-hidden="true" />
                           {category.is_active ? 'Active' : 'Inactive'}
@@ -326,7 +326,7 @@ function CategoryListPage() {
                         </span>
                       </td>
                       <td data-label="Actions">
-                        <div className="category-row-actions">
+                        <div className="category-row-actions admin-table-actions">
                           <Link
                             className="category-action-button"
                             to={`${category.id}/edit`}
@@ -361,7 +361,7 @@ function CategoryListPage() {
             </div>
 
             {meta && (
-              <footer className="category-pagination">
+              <footer className="category-pagination admin-pagination-wrap">
                 <span>
                   Showing <strong>{meta.from || 0}</strong> to{' '}
                   <strong>{meta.to || 0}</strong> of <strong>{meta.total || 0}</strong>

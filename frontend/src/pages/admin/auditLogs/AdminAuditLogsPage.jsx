@@ -210,9 +210,9 @@ function AdminAuditLogsPage() {
   }
 
   return (
-    <main className="admin-audit-page">
-      <header className="category-list-heading audit-page-heading">
-        <div>
+    <main className="admin-audit-page admin-list-page">
+      <header className="category-list-heading audit-page-heading admin-list-header">
+        <div className="admin-list-title-group">
           <span className="admin-eyebrow">Security and accountability</span>
           <h1>Audit Logs</h1>
           <p>
@@ -249,14 +249,14 @@ function AdminAuditLogsPage() {
         </article>
       </section>
 
-      <section className="audit-filter-card">
+      <section className="audit-filter-card admin-filter-card">
         <header>
           <div>
             <span><i className="bi bi-sliders" /> Filter activity</span>
             <p>Narrow results by source, action, event, or date range.</p>
           </div>
         </header>
-        <form onSubmit={applyFilters}>
+        <form className="admin-filter-grid" onSubmit={applyFilters}>
           <label className="audit-filter-field audit-filter-search" htmlFor="audit-search">
             Search
             <span><i className="bi bi-search" /><input id="audit-search" type="search" value={draftFilters.search} onChange={(event) => updateDraft('search', event.target.value)} placeholder="Description, user, IP, or model..." /></span>
@@ -274,7 +274,7 @@ function AdminAuditLogsPage() {
         </form>
       </section>
 
-      <section className="category-list-card audit-list-card">
+      <section className="category-list-card audit-list-card admin-table-card">
         {error && (
           <div className="alert category-alert category-alert-danger">
             <i className="bi bi-exclamation-octagon" aria-hidden="true" />
@@ -288,7 +288,7 @@ function AdminAuditLogsPage() {
             {[1, 2, 3, 4, 5].map((item) => <span key={item} />)}
           </div>
         ) : logs.length === 0 ? (
-          <div className="category-empty-state audit-empty-state">
+          <div className="category-empty-state audit-empty-state admin-empty-state">
             <span className="category-empty-icon"><i className="bi bi-journal-x" /></span>
             <h2>{activeFiltersCount ? 'No matching activity' : 'No audit logs yet'}</h2>
             <p>{activeFiltersCount ? 'Try broadening or resetting the current filters.' : 'Critical platform activity will appear here as it happens.'}</p>
@@ -296,8 +296,8 @@ function AdminAuditLogsPage() {
           </div>
         ) : (
           <>
-            <div className="table-responsive category-table-wrap">
-              <table className="table category-table audit-table align-middle mb-0">
+            <div className="table-responsive category-table-wrap admin-table-wrap">
+              <table className="table category-table audit-table admin-table align-middle mb-0">
                 <thead><tr><th>Time</th><th>User</th><th>Module</th><th>Event</th><th>Action</th><th>Description</th><th>IP Address</th><th className="text-end">Details</th></tr></thead>
                 <tbody>
                   {logs.map((log) => {
@@ -309,7 +309,7 @@ function AdminAuditLogsPage() {
                         <td data-label="User"><div className="audit-user"><span>{log.user?.name?.charAt(0)?.toUpperCase() || <i className="bi bi-cpu" />}</span><div><strong>{log.user?.name || 'System'}</strong><small>{log.user?.email || 'Automated action'}</small></div></div></td>
                         <td data-label="Module"><span className={`audit-module-badge is-${log.module}`}><i className={`bi ${moduleIcons[log.module] || 'bi-grid'}`} />{formatLabel(log.module)}</span></td>
                         <td data-label="Event"><code className="audit-event-badge">{log.event}</code></td>
-                        <td data-label="Action"><span className={`audit-action-badge is-${log.action}`}>{formatLabel(log.action)}</span></td>
+                        <td data-label="Action"><span className={`audit-action-badge admin-status-badge is-${log.action}`}>{formatLabel(log.action)}</span></td>
                         <td data-label="Description"><p className="audit-description">{log.description || 'No description provided.'}</p></td>
                         <td data-label="IP Address"><code className="audit-ip">{log.ip_address || '—'}</code></td>
                         <td data-label="Details"><button className="audit-detail-button" type="button" onClick={() => openDetails(log)}><i className="bi bi-eye" /> View</button></td>
@@ -320,7 +320,7 @@ function AdminAuditLogsPage() {
               </table>
             </div>
             {meta?.last_page > 1 && (
-              <footer className="category-pagination">
+              <footer className="category-pagination admin-pagination-wrap">
                 <span>Showing <strong>{meta.from || 0}</strong> to <strong>{meta.to || 0}</strong> of <strong>{meta.total}</strong></span>
                 <nav aria-label="Audit log pagination">
                   <button type="button" disabled={page <= 1} onClick={() => { setLoading(true); setPage((current) => current - 1) }} aria-label="Previous page"><i className="bi bi-chevron-left" /></button>

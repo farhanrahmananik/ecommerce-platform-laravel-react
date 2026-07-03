@@ -216,22 +216,22 @@ function AdminCouponListPage() {
   )
 
   return (
-    <main className="admin-coupon-page">
-      <header className="category-list-heading">
-        <div>
+    <main className="admin-coupon-page admin-list-page">
+      <header className="category-list-heading admin-list-header">
+        <div className="admin-list-title-group">
           <span className="admin-eyebrow">Promotions</span>
           <h1>Coupons</h1>
           <p>Build controlled discounts with clear eligibility and usage limits.</p>
         </div>
-        <Link className="btn btn-admin-primary category-add-button" to="create">
+        <Link className="btn btn-admin-primary category-add-button admin-list-actions" to="create">
           <i className="bi bi-plus-lg" aria-hidden="true" />
           Add Coupon
         </Link>
       </header>
 
-      <section className="category-list-card coupon-list-card">
-        <div className="coupon-list-toolbar">
-          <form className="category-search-form coupon-search-form" onSubmit={handleSearch}>
+      <section className="category-list-card coupon-list-card admin-table-card">
+        <div className="coupon-list-toolbar admin-table-toolbar admin-filter-card">
+          <form className="category-search-form coupon-search-form admin-filter-control" onSubmit={handleSearch}>
             <i className="bi bi-search" aria-hidden="true" />
             <input
               type="search"
@@ -243,7 +243,7 @@ function AdminCouponListPage() {
             <button type="submit">Search</button>
           </form>
 
-          <div className="coupon-filter-row">
+          <div className="coupon-filter-row admin-filter-grid">
             <div className="admin-select-filter">
               <AdminSelect
                 id="coupon-status-filter"
@@ -291,7 +291,7 @@ function AdminCouponListPage() {
             <span className="visually-hidden">Loading coupons</span>
           </div>
         ) : coupons.length === 0 ? (
-          <div className="category-empty-state coupon-empty-state">
+          <div className="category-empty-state coupon-empty-state admin-empty-state">
             <span className="category-empty-icon" aria-hidden="true">
               <i className="bi bi-ticket-perforated" />
             </span>
@@ -314,8 +314,8 @@ function AdminCouponListPage() {
           </div>
         ) : (
           <>
-            <div className="table-responsive category-table-wrap">
-              <table className="table category-table coupon-table align-middle mb-0">
+            <div className="table-responsive category-table-wrap admin-table-wrap">
+              <table className="table category-table coupon-table admin-table align-middle mb-0">
                 <thead>
                   <tr>
                     <th>Coupon</th>
@@ -372,14 +372,14 @@ function AdminCouponListPage() {
                       </td>
                       <td data-label="Status">
                         <span
-                          className={`category-status-badge ${coupon.is_active ? 'is-active' : 'is-inactive'}`}
+                          className={`category-status-badge admin-status-badge ${coupon.is_active ? 'is-active success' : 'is-inactive neutral'}`}
                         >
                           <span aria-hidden="true" />
                           {coupon.is_active ? 'Active' : 'Inactive'}
                         </span>
                       </td>
                       <td data-label="Actions">
-                        <div className="category-row-actions">
+                        <div className="category-row-actions admin-table-actions">
                           <Link
                             className="category-action-button"
                             to={`${coupon.id}`}
@@ -419,7 +419,7 @@ function AdminCouponListPage() {
             </div>
 
             {meta && (
-              <footer className="category-pagination">
+              <footer className="category-pagination admin-pagination-wrap">
                 <span>
                   Showing <strong>{meta.from || 0}</strong> to{' '}
                   <strong>{meta.to || 0}</strong> of <strong>{meta.total || 0}</strong>

@@ -153,9 +153,9 @@ function AdminOrdersPage() {
   }
 
   return (
-    <main className="admin-orders-page">
-      <header className="category-list-heading">
-        <div>
+    <main className="admin-orders-page admin-list-page">
+      <header className="category-list-heading admin-list-header">
+        <div className="admin-list-title-group">
           <span className="admin-eyebrow">Fulfillment management</span>
           <h1>Orders</h1>
           <p>Track customer purchases and fulfillment progress.</p>
@@ -190,9 +190,9 @@ function AdminOrdersPage() {
         ))}
       </section>
 
-      <section className="category-list-card admin-orders-card">
-        <div className="admin-orders-toolbar">
-          <form className="category-search-form admin-order-search" onSubmit={handleSearch}>
+      <section className="category-list-card admin-orders-card admin-table-card">
+        <div className="admin-orders-toolbar admin-table-toolbar admin-filter-card">
+          <form className="category-search-form admin-order-search admin-filter-control" onSubmit={handleSearch}>
             <i className="bi bi-search" aria-hidden="true" />
             <input
               type="search"
@@ -204,7 +204,7 @@ function AdminOrdersPage() {
             <button type="submit">Search</button>
           </form>
 
-          <div className="admin-order-filter-row">
+          <div className="admin-order-filter-row admin-filter-grid">
             <div className="admin-select-filter admin-order-status-filter">
               <AdminSelect
                 id="admin-order-status-filter"
@@ -239,7 +239,7 @@ function AdminOrdersPage() {
             <span className="visually-hidden">Loading orders</span>
           </div>
         ) : orders.length === 0 ? (
-          <div className="category-empty-state">
+          <div className="category-empty-state admin-empty-state">
             <span className="category-empty-icon" aria-hidden="true">
               <i className="bi bi-receipt" />
             </span>
@@ -257,8 +257,8 @@ function AdminOrdersPage() {
           </div>
         ) : (
           <>
-            <div className="table-responsive category-table-wrap">
-              <table className="table category-table admin-orders-table align-middle mb-0">
+            <div className="table-responsive category-table-wrap admin-table-wrap">
+              <table className="table category-table admin-orders-table admin-table align-middle mb-0">
                 <thead>
                   <tr>
                     <th>Order</th>
@@ -290,7 +290,7 @@ function AdminOrdersPage() {
                       <td data-label="Payment"><span>{labelize(order.payment_method)}</span></td>
                       <td data-label="Total"><strong>{formatAmount(order.total)}</strong></td>
                       <td data-label="Action">
-                        <div className="category-row-actions">
+                        <div className="category-row-actions admin-table-actions">
                           <Link
                             className="admin-order-view-button"
                             to={`${order.id}`}
@@ -307,7 +307,7 @@ function AdminOrdersPage() {
             </div>
 
             {meta && (
-              <footer className="category-pagination">
+              <footer className="category-pagination admin-pagination-wrap">
                 <span>
                   Showing <strong>{meta.from || 0}</strong> to <strong>{meta.to || 0}</strong>{' '}
                   of <strong>{meta.total || 0}</strong>

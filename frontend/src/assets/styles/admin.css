@@ -1421,6 +1421,298 @@
   }
 }
 
+/* Shared admin lists, filters, and tables */
+.admin-list-page {
+  width: min(100%, 1500px);
+  margin-inline: auto;
+}
+
+.admin-list-header {
+  position: relative;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding: 0.2rem 0 1.15rem;
+  border-bottom: 1px solid rgba(222, 227, 237, 0.82);
+}
+
+.admin-list-title-group {
+  min-width: 0;
+}
+
+.admin-list-title-group h1 {
+  letter-spacing: -0.045em;
+}
+
+.admin-list-title-group p {
+  max-width: 720px;
+}
+
+.admin-list-actions {
+  flex: 0 0 auto;
+  box-shadow: 0 11px 25px rgba(80, 98, 208, 0.2);
+}
+
+.admin-filter-card {
+  border: 1px solid var(--admin-line);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(92, 110, 229, 0.055), transparent 28%),
+    linear-gradient(145deg, #fff, #fafbfe);
+  box-shadow: 0 10px 28px rgba(24, 33, 56, 0.045);
+}
+
+.admin-table-card > .admin-filter-card {
+  border: 0;
+  border-bottom: 1px solid var(--admin-line);
+  border-radius: 20px 20px 0 0;
+  box-shadow: none;
+}
+
+.admin-filter-grid,
+.admin-table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.7rem;
+}
+
+.admin-table-toolbar {
+  padding: 1rem 1.1rem;
+}
+
+.admin-filter-control {
+  min-width: min(100%, 180px);
+}
+
+.admin-filter-control input,
+.admin-filter-card input {
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.admin-filter-control input:focus,
+.admin-filter-card input:focus {
+  border-color: #aeb8ef;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(92, 110, 229, 0.1);
+}
+
+.admin-table-card {
+  overflow: visible;
+  border-color: rgba(221, 226, 236, 0.94);
+  border-radius: 20px;
+  box-shadow: 0 16px 42px rgba(24, 33, 56, 0.065);
+}
+
+.admin-table-wrap {
+  position: relative;
+  scrollbar-color: #cbd2df #f7f8fb;
+  scrollbar-width: thin;
+}
+
+.admin-table {
+  --bs-table-bg: transparent;
+  margin-bottom: 0;
+}
+
+.table.admin-table thead th {
+  padding-block: 0.78rem;
+  color: #7f899c;
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #e1e5ed;
+  background: linear-gradient(180deg, #fbfcfd, #f6f8fa);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  font-size: 0.55rem;
+  letter-spacing: 0.085em;
+}
+
+.table.admin-table tbody td {
+  padding-block: 0.9rem;
+  border-color: #edf0f4;
+  background: rgba(255, 255, 255, 0.78);
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.table.admin-table tbody tr:nth-child(even) td {
+  background: rgba(249, 250, 252, 0.72);
+}
+
+.table.admin-table tbody tr:hover td {
+  background: #f8f9ff;
+  box-shadow: inset 0 1px 0 #edf0fb, inset 0 -1px 0 #edf0fb;
+}
+
+.table.admin-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 14px;
+}
+
+.table.admin-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 14px;
+}
+
+.admin-table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.admin-table-actions button,
+.admin-table-actions a {
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+
+.admin-table-actions button:hover:not(:disabled),
+.admin-table-actions a:hover {
+  box-shadow: 0 7px 16px rgba(34, 47, 78, 0.09);
+  transform: translateY(-1px);
+}
+
+.admin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 27px;
+  padding: 0.3rem 0.52rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.53rem;
+  font-weight: 820;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.admin-status-badge > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.admin-status-badge.success,
+.admin-table .admin-status-badge.success {
+  color: #177252;
+  border-color: #cde9df;
+  background: #eaf8f2;
+}
+
+.admin-status-badge.warning,
+.admin-table .admin-status-badge.warning {
+  color: #946713;
+  border-color: #eedca8;
+  background: #fff6dc;
+}
+
+.admin-status-badge.danger,
+.admin-table .admin-status-badge.danger {
+  color: #a6424f;
+  border-color: #f0d2d7;
+  background: #fff1f3;
+}
+
+.admin-status-badge.info,
+.admin-table .admin-status-badge.info {
+  color: #4960bd;
+  border-color: #d8def8;
+  background: #eef1ff;
+}
+
+.admin-status-badge.neutral,
+.admin-table .admin-status-badge.neutral {
+  color: #69758a;
+  border-color: #dfe3e9;
+  background: #f1f3f6;
+}
+
+.admin-empty-state {
+  min-height: 330px;
+  border-radius: 0 0 20px 20px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(92, 110, 229, 0.055), transparent 28%),
+    linear-gradient(180deg, #fff, #fbfbfd);
+}
+
+.admin-empty-state .category-empty-icon {
+  border: 1px solid #e0e4f4;
+  background: linear-gradient(145deg, #f1f3ff, #e9ecfb);
+  box-shadow: 0 10px 24px rgba(74, 88, 167, 0.1);
+}
+
+.admin-pagination-wrap {
+  min-height: 58px;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0 0 20px 20px;
+  background: linear-gradient(180deg, #fcfcfd, #f8f9fb);
+}
+
+.admin-pagination-wrap nav {
+  align-items: center;
+}
+
+.admin-pagination-wrap button {
+  min-width: 32px;
+  height: 32px;
+  border-color: #dce1e9;
+  box-shadow: 0 3px 8px rgba(24, 33, 56, 0.025);
+}
+
+.admin-pagination-wrap button:hover:not(:disabled):not(.active) {
+  color: #5263c7;
+  border-color: #cdd4f6;
+  background: #f4f6ff;
+}
+
+@media (max-width: 991.98px) {
+  .admin-table-toolbar,
+  .admin-filter-card {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .admin-list-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .admin-list-actions {
+    align-self: stretch;
+  }
+
+  .admin-table-toolbar,
+  .admin-filter-grid {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-filter-control,
+  .admin-filter-grid > * {
+    width: 100%;
+  }
+
+  .admin-pagination-wrap {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-pagination-wrap nav {
+    justify-content: space-between;
+  }
+}
+
 /* Audit logs */
 .admin-audit-page {
   display: grid;

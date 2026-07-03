@@ -390,8 +390,11 @@ function ProductImagesManager({ productId, productName = 'this product' }) {
   }
 
   return (
-    <section className="product-images-manager" aria-labelledby="product-images-title">
-      <header className="product-images-manager__header">
+    <section
+      className="product-images-manager admin-image-manager"
+      aria-labelledby="product-images-title"
+    >
+      <header className="product-images-manager__header app-section-card admin-image-context">
         <span className="product-images-manager__icon" aria-hidden="true">
           <i className="bi bi-images" />
         </span>
@@ -408,7 +411,11 @@ function ProductImagesManager({ productId, productName = 'this product' }) {
         </span>
       </header>
 
-      <form className="product-image-upload" onSubmit={handleUpload} noValidate>
+      <form
+        className="product-image-upload app-form-card admin-image-upload-card"
+        onSubmit={handleUpload}
+        noValidate
+      >
         <div className="product-image-upload__heading">
           <div>
             <h3>Upload a new image</h3>
@@ -420,7 +427,7 @@ function ProductImagesManager({ productId, productName = 'this product' }) {
         <InlineError message={uploadError} />
 
         <div className="product-image-upload__grid">
-          <div className="product-image-preview">
+          <div className="product-image-preview admin-image-preview">
             {previewUrl ? (
               <img src={previewUrl} alt="Selected upload preview" />
             ) : (
@@ -554,14 +561,14 @@ function ProductImagesManager({ productId, productName = 'this product' }) {
       <InlineError message={loadError} onRetry={retry} />
 
       {isLoading ? (
-        <div className="product-images-loading" role="status">
+        <div className="product-images-loading admin-image-grid" role="status">
           {[0, 1, 2].map((item) => (
             <span key={item} />
           ))}
           <span className="visually-hidden">Loading product images</span>
         </div>
       ) : !loadError && images.length === 0 ? (
-        <div className="product-images-empty">
+        <div className="product-images-empty admin-empty-state">
           <span aria-hidden="true">
             <i className="bi bi-images" />
           </span>
@@ -569,7 +576,7 @@ function ProductImagesManager({ productId, productName = 'this product' }) {
           <p>Upload the first image to begin building this product gallery.</p>
         </div>
       ) : (
-        <div className="product-images-grid">
+        <div className="product-images-grid admin-image-grid">
           {images.map((image) => {
             const draft = drafts[image.id] || createDraft(image)
             const errors = imageErrors[image.id] || {}
@@ -578,7 +585,10 @@ function ProductImagesManager({ productId, productName = 'this product' }) {
               .join(' - ')
 
             return (
-              <article className="product-image-card" key={image.id}>
+              <article
+                className={`product-image-card admin-image-card app-card-hover ${image.is_primary ? 'is-primary' : ''}`}
+                key={image.id}
+              >
                 <div className="product-image-card__visual">
                   <img
                     src={image.image_url}
@@ -586,7 +596,7 @@ function ProductImagesManager({ productId, productName = 'this product' }) {
                     loading="lazy"
                   />
                   {image.is_primary && (
-                    <span className="product-image-primary-badge">
+                    <span className="product-image-primary-badge admin-primary-badge">
                       <i className="bi bi-star-fill" aria-hidden="true" />
                       Primary
                     </span>
@@ -594,7 +604,7 @@ function ProductImagesManager({ productId, productName = 'this product' }) {
                 </div>
 
                 <div className="product-image-card__body">
-                  <div className="product-image-card__file">
+                  <div className="product-image-card__file admin-image-meta">
                     <strong>{image.original_name || `Product image ${image.id}`}</strong>
                     {fileDetails && <span>{fileDetails}</span>}
                   </div>

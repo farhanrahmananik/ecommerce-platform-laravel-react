@@ -56,14 +56,25 @@ Completed:
 - Preserved all category and product filters, fields, payloads, loading states, error states, and validation logic.
 - Kept product image management behavior, service calls, routes, backend, and API logic untouched.
 
+## Step 6 - Product Images and Stock Management
+
+Completed:
+
+- Polished product image management context, upload, preview, gallery cards, and metadata presentation.
+- Clarified primary image state and refined image action, empty, loading, and error presentation.
+- Polished stock management header, summary cards, product list, and stock status indicators.
+- Refined stock adjustment and movement history dialogs with clear increase, decrease, and neutral deltas.
+- Preserved all validation, loading, error, upload, primary-image, adjustment, and movement behavior.
+- Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
+
 ## Remaining Polish Areas
 
 - [x] Admin layout
 - [x] Admin dashboard
 - [x] Admin tables and filters
 - [x] Category and product pages
-- [ ] Product image management
-- [ ] Stock management
+- [x] Product image management
+- [x] Stock management
 - [ ] Orders, reports, and audit logs
 - [ ] Storefront listing
 - [ ] Product details

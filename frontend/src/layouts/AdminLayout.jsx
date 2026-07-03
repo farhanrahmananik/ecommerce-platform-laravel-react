@@ -92,7 +92,7 @@ function AdminLayout() {
   }
 
   return (
-    <div className="admin-shell">
+    <div className="admin-shell admin-shell-polish">
       <aside className={`admin-sidebar ${isSidebarOpen ? 'is-open' : ''}`}>
         <div className="admin-sidebar-header">
           <Link className="admin-brand" to="/admin/dashboard">
@@ -200,7 +200,7 @@ function AdminLayout() {
           </div>
         </header>
 
-        <div className="admin-main-content">
+        <div className="admin-main-content admin-content-polish">
           <Outlet />
         </div>
       </div>

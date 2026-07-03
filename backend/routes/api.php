@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Account\ProductReviewController as AccountProductReviewController;
+use App\Http\Controllers\Api\Admin\AuditLogController;
 use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\CouponController;
 use App\Http\Controllers\Api\Admin\DashboardController;
@@ -52,6 +53,8 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::delete('/account/reviews/{productReview}', [AccountProductReviewController::class, 'destroy']);
 
     Route::middleware('admin')->group(function (): void {
+        Route::get('/admin/audit-logs', [AuditLogController::class, 'index']);
+        Route::get('/admin/audit-logs/{auditLog}', [AuditLogController::class, 'show']);
         Route::get('/admin/reports/summary', [ReportController::class, 'summary']);
         Route::get('/admin/reports/sales', [ReportController::class, 'sales']);
         Route::get('/admin/reports/top-products', [ReportController::class, 'topProducts']);

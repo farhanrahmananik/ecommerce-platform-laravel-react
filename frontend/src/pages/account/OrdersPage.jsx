@@ -130,8 +130,8 @@ function OrdersPage() {
     (result.meta?.current_page || page) < (result.meta?.last_page || 1)
 
   return (
-    <main className="orders-page">
-      <section className="orders-page-hero">
+    <main className="orders-page customer-orders-shell">
+      <section className="orders-page-hero customer-flow-hero">
         <div className="container orders-page-heading">
           <div>
             <span className="section-kicker">Purchase history</span>
@@ -147,7 +147,7 @@ function OrdersPage() {
 
       <section className="orders-page-content">
         <div className="container">
-          <div className="orders-toolbar">
+          <div className="orders-toolbar app-section-card customer-orders-toolbar">
             <div>
               <span className="section-kicker">Order history</span>
               <h2>{result.meta?.total ?? result.orders.length} orders</h2>
@@ -164,7 +164,7 @@ function OrdersPage() {
           {isLoading ? (
             <OrdersSkeleton />
           ) : result.error ? (
-            <div className="orders-state-card" role="alert">
+            <div className="orders-state-card app-empty-state" role="alert">
               <span aria-hidden="true">
                 <i className="bi bi-cloud-slash" />
               </span>
@@ -176,7 +176,7 @@ function OrdersPage() {
               </button>
             </div>
           ) : result.orders.length === 0 ? (
-            <div className="orders-state-card">
+            <div className="orders-state-card app-empty-state">
               <span aria-hidden="true">
                 <i className="bi bi-receipt" />
               </span>
@@ -209,7 +209,7 @@ function OrdersPage() {
                   const count = itemCount(order)
 
                   return (
-                    <article className="order-history-card" key={order.id}>
+                    <article className="order-history-card app-card-hover customer-order-card" key={order.id}>
                       <div className="order-history-card__main">
                         <div className="order-history-number">
                           <span aria-hidden="true">
@@ -226,7 +226,7 @@ function OrdersPage() {
                         <OrderStatusBadge status={order.status} />
                       </div>
 
-                      <dl className="order-history-facts">
+                      <dl className="order-history-facts customer-order-meta">
                         <div>
                           <dt>Payment</dt>
                           <dd>{paymentLabel(order.payment_method)}</dd>

@@ -101,6 +101,18 @@ Completed:
 - Preserved all storefront loading, error, empty, filter, gallery, review, and cart-action behavior.
 - Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
 
+## Step 10 - Cart, Checkout, and Customer Orders
+
+Completed:
+
+- Polished the cart page header, item cards, product imagery, quantity controls, summary, checkout action, and empty states.
+- Refined the checkout customer, shipping, billing, payment, and notes sections with clearer validation presentation.
+- Polished checkout coupon apply/applied states, product summary, totals, and secure submission area.
+- Refined customer order history cards, metadata, statuses, filtering, pagination, and empty/error states.
+- Polished customer order details, purchased items, addresses, notes, payment summary, and totals.
+- Preserved all cart, checkout, coupon, order, loading, validation, error, and empty-state behavior.
+- Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
+
 ## Remaining Polish Areas
 
 - [x] Admin layout
@@ -114,9 +126,9 @@ Completed:
 - [x] Reports and audit logs
 - [x] Storefront listing
 - [x] Product details
-- [ ] Cart
-- [ ] Checkout
-- [ ] Customer orders
+- [x] Cart
+- [x] Checkout
+- [x] Customer orders
 - [ ] Empty states
 - [ ] Loading states
 - [ ] Error states

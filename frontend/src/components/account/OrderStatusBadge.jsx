@@ -14,7 +14,7 @@ function OrderStatusBadge({ status }) {
   }
 
   return (
-    <span className={`order-status-badge status-${normalizedStatus}`}>
+    <span className={`order-status-badge customer-order-status status-${normalizedStatus}`}>
       <i className={`bi ${details.icon}`} aria-hidden="true" />
       {details.label}
     </span>

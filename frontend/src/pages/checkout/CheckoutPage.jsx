@@ -109,7 +109,7 @@ function CheckoutField({
 
 function CheckoutSection({ children, description, icon, title }) {
   return (
-    <section className="checkout-form-section">
+    <section className="checkout-form-section app-section-card checkout-step-card">
       <div className="checkout-form-section__heading">
         <span aria-hidden="true">
           <i className={`bi ${icon}`} />
@@ -129,7 +129,7 @@ function CheckoutSummaryItem({ item }) {
   const showImage = item.product_image_url && !imageFailed
 
   return (
-    <div className="checkout-summary-item">
+    <div className="checkout-summary-item checkout-summary-product">
       <div className="checkout-summary-item__image">
         {showImage ? (
           <img
@@ -153,8 +153,8 @@ function CheckoutSummaryItem({ item }) {
 
 function CheckoutSkeleton() {
   return (
-    <main className="checkout-page" aria-busy="true">
-      <section className="checkout-page-hero">
+    <main className="checkout-page customer-checkout-page" aria-busy="true">
+      <section className="checkout-page-hero customer-flow-hero checkout-flow-hero">
         <div className="container">
           <div className="checkout-heading-skeleton" />
         </div>
@@ -381,8 +381,8 @@ function CheckoutPage() {
 
   if (!cart && cartError) {
     return (
-      <main className="checkout-page">
-        <section className="checkout-page-hero">
+      <main className="checkout-page customer-checkout-page">
+        <section className="checkout-page-hero customer-flow-hero checkout-flow-hero">
           <div className="container">
             <span className="section-kicker">Secure checkout</span>
             <h1>Complete your order</h1>
@@ -390,7 +390,7 @@ function CheckoutPage() {
         </section>
         <section className="checkout-page-content">
           <div className="container">
-            <div className="checkout-state-card" role="alert">
+            <div className="checkout-state-card app-empty-state" role="alert">
               <span aria-hidden="true">
                 <i className="bi bi-cloud-slash" />
               </span>
@@ -409,8 +409,8 @@ function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <main className="checkout-page">
-        <section className="checkout-page-hero">
+      <main className="checkout-page customer-checkout-page">
+        <section className="checkout-page-hero customer-flow-hero checkout-flow-hero">
           <div className="container">
             <span className="section-kicker">Secure checkout</span>
             <h1>Complete your order</h1>
@@ -418,7 +418,7 @@ function CheckoutPage() {
         </section>
         <section className="checkout-page-content">
           <div className="container">
-            <div className="checkout-state-card">
+            <div className="checkout-state-card app-empty-state">
               <span aria-hidden="true">
                 <i className="bi bi-bag-x" />
               </span>
@@ -442,8 +442,8 @@ function CheckoutPage() {
   }
 
   return (
-    <main className="checkout-page">
-      <section className="checkout-page-hero">
+    <main className="checkout-page customer-checkout-page">
+      <section className="checkout-page-hero customer-flow-hero checkout-flow-hero">
         <div className="container">
           <div className="checkout-page-heading">
             <div>
@@ -468,9 +468,9 @@ function CheckoutPage() {
             </div>
           )}
 
-          <div className="checkout-layout">
+          <div className="checkout-layout checkout-shell">
             <form
-              className="checkout-form-card"
+              className="checkout-form-card app-form-card"
               id="checkout-form"
               onSubmit={handleSubmit}
               noValidate
@@ -712,7 +712,7 @@ function CheckoutPage() {
               </CheckoutSection>
             </form>
 
-            <aside className="checkout-order-card" aria-labelledby="checkout-summary-title">
+            <aside className="checkout-order-card app-section-card checkout-summary-card" aria-labelledby="checkout-summary-title">
               <div className="checkout-order-card__heading">
                 <div>
                   <span className="section-kicker">Final review</span>
@@ -727,7 +727,7 @@ function CheckoutPage() {
                 ))}
               </div>
 
-              <section className="checkout-coupon" aria-labelledby="checkout-coupon-title">
+              <section className="checkout-coupon checkout-coupon-card" aria-labelledby="checkout-coupon-title">
                 <div className="checkout-coupon__heading">
                   <span aria-hidden="true">
                     <i className="bi bi-ticket-perforated" />
@@ -739,7 +739,7 @@ function CheckoutPage() {
                 </div>
 
                 {activeCoupon ? (
-                  <div className="checkout-coupon-applied" role="status">
+                  <div className="checkout-coupon-applied checkout-coupon-success" role="status">
                     <div className="checkout-coupon-applied__code">
                       <span aria-hidden="true">
                         <i className="bi bi-check-circle-fill" />
@@ -799,7 +799,7 @@ function CheckoutPage() {
                 )}
 
                 {visibleCouponError && (
-                  <div className="checkout-coupon-error" id="checkout-coupon-error" role="alert">
+                  <div className="checkout-coupon-error checkout-validation-text" id="checkout-coupon-error" role="alert">
                     <i className="bi bi-exclamation-circle" aria-hidden="true" />
                     <span>{visibleCouponError}</span>
                   </div>
@@ -832,7 +832,7 @@ function CheckoutPage() {
               </dl>
 
               <button
-                className="btn btn-brand checkout-submit-button"
+                className="btn btn-brand checkout-submit-button checkout-submit-area"
                 type="submit"
                 form="checkout-form"
                 disabled={isSubmitting}

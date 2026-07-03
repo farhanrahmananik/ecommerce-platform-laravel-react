@@ -58,8 +58,8 @@ function showActionError(error, fallbackMessage) {
 
 function CartPageSkeleton() {
   return (
-    <main className="cart-page" aria-busy="true">
-      <section className="cart-page-hero">
+    <main className="cart-page customer-cart-page" aria-busy="true">
+      <section className="cart-page-hero customer-flow-hero">
         <div className="container">
           <div className="cart-page-heading-skeleton" />
         </div>
@@ -105,8 +105,8 @@ function CartItemRow({
   const isRemoving = pendingAction === `remove:${item.id}`
 
   return (
-    <article className={`cart-item-card ${isBusy ? 'is-busy' : ''}`}>
-      <div className="cart-item-media">
+    <article className={`cart-item-card app-card-hover ${isBusy ? 'is-busy' : ''}`}>
+      <div className="cart-item-media cart-item-image">
         {showImage ? (
           <img
             src={item.product_image_url}
@@ -121,7 +121,7 @@ function CartItemRow({
         )}
       </div>
 
-      <div className="cart-item-main">
+      <div className="cart-item-main cart-item-meta">
         <div className="cart-item-title-row">
           <div>
             <span className="cart-item-eyebrow">In your cart</span>
@@ -155,7 +155,7 @@ function CartItemRow({
 
           <div className="cart-item-quantity">
             <span>Quantity</span>
-            <div className="cart-quantity-control" aria-label="Item quantity">
+            <div className="cart-quantity-control cart-quantity-polish" aria-label="Item quantity">
               <button
                 type="button"
                 onClick={() => onDecrease(item)}
@@ -312,8 +312,8 @@ function CartPage() {
 
   if (!cart && error) {
     return (
-      <main className="cart-page">
-        <section className="cart-page-hero">
+      <main className="cart-page customer-cart-page">
+        <section className="cart-page-hero customer-flow-hero">
           <div className="container">
             <span className="section-kicker">Your shopping bag</span>
             <h1>Your cart</h1>
@@ -321,7 +321,7 @@ function CartPage() {
         </section>
         <section className="cart-page-content">
           <div className="container">
-            <div className="cart-load-error" role="alert">
+            <div className="cart-load-error app-empty-state" role="alert">
               <span aria-hidden="true">
                 <i className="bi bi-cloud-slash" />
               </span>
@@ -339,8 +339,8 @@ function CartPage() {
   }
 
   return (
-    <main className="cart-page">
-      <section className="cart-page-hero">
+    <main className="cart-page customer-cart-page">
+      <section className="cart-page-hero customer-flow-hero">
         <div className="container">
           <div className="cart-page-heading">
             <div>
@@ -359,7 +359,7 @@ function CartPage() {
       <section className="cart-page-content">
         <div className="container">
           {items.length === 0 ? (
-            <div className="cart-empty-state">
+            <div className="cart-empty-state app-empty-state">
               <span aria-hidden="true">
                 <i className="bi bi-bag" />
               </span>
@@ -373,7 +373,7 @@ function CartPage() {
             </div>
           ) : (
             <div className="cart-layout">
-              <section className="cart-items-section" aria-labelledby="cart-items-title">
+              <section className="cart-items-section app-section-card cart-shell" aria-labelledby="cart-items-title">
                 <div className="cart-section-heading">
                   <div>
                     <span className="section-kicker">Selected products</span>
@@ -415,7 +415,7 @@ function CartPage() {
                 </div>
               </section>
 
-              <aside className="cart-summary-card" aria-labelledby="cart-summary-title">
+              <aside className="cart-summary-card app-section-card cart-summary-polish" aria-labelledby="cart-summary-title">
                 <div className="cart-summary-card__heading">
                   <span aria-hidden="true">
                     <i className="bi bi-receipt" />
@@ -435,7 +435,7 @@ function CartPage() {
                     <dt>Subtotal</dt>
                     <dd>{formatAmount(subtotal)}</dd>
                   </div>
-                  <div className="cart-summary-total">
+                  <div className="cart-summary-total cart-total-row">
                     <dt>Total</dt>
                     <dd>{formatAmount(total)}</dd>
                   </div>

@@ -46,7 +46,7 @@ function AddressCard({ address, icon, title }) {
   }
 
   return (
-    <article className="order-address-card">
+    <article className="order-address-card app-card customer-order-address">
       <span aria-hidden="true">
         <i className={`bi ${icon}`} />
       </span>
@@ -72,7 +72,7 @@ function OrderDetailItem({ item }) {
   const showImage = item.product_image_url && !imageFailed
 
   return (
-    <article className="order-detail-item">
+    <article className="order-detail-item customer-order-item">
       <div className="order-detail-item__image">
         {showImage ? (
           <img
@@ -112,8 +112,8 @@ function OrderDetailItem({ item }) {
 
 function OrderDetailsSkeleton() {
   return (
-    <main className="orders-page" aria-busy="true">
-      <section className="orders-page-hero">
+    <main className="orders-page customer-orders-shell" aria-busy="true">
+      <section className="orders-page-hero customer-flow-hero">
         <div className="container">
           <div className="order-details-heading-skeleton" />
         </div>
@@ -185,8 +185,8 @@ function OrderDetailsPage() {
 
   if (!result.order) {
     return (
-      <main className="orders-page">
-        <section className="orders-page-hero">
+      <main className="orders-page customer-orders-shell">
+        <section className="orders-page-hero customer-flow-hero">
           <div className="container">
             <span className="section-kicker">Order details</span>
             <h1>{result.isNotFound ? 'Order not found' : 'Order unavailable'}</h1>
@@ -194,7 +194,7 @@ function OrderDetailsPage() {
         </section>
         <section className="orders-page-content">
           <div className="container">
-            <div className="orders-state-card" role="alert">
+            <div className="orders-state-card app-empty-state" role="alert">
               <span aria-hidden="true">
                 <i className={`bi ${result.isNotFound ? 'bi-receipt' : 'bi-cloud-slash'}`} />
               </span>
@@ -224,8 +224,8 @@ function OrderDetailsPage() {
   const order = result.order
 
   return (
-    <main className="orders-page">
-      <section className="orders-page-hero order-details-hero">
+    <main className="orders-page customer-orders-shell">
+      <section className="orders-page-hero order-details-hero customer-flow-hero">
         <div className="container">
           <div className="order-details-heading">
             <div>
@@ -245,7 +245,7 @@ function OrderDetailsPage() {
       <section className="orders-page-content">
         <div className="container order-details-layout">
           <div className="order-details-main">
-            <section className="order-detail-card">
+            <section className="order-detail-card app-section-card customer-order-items">
               <div className="order-detail-card__heading">
                 <div>
                   <span className="section-kicker">Purchased products</span>
@@ -274,7 +274,7 @@ function OrderDetailsPage() {
             </section>
 
             {order.notes && (
-              <section className="order-notes-card">
+              <section className="order-notes-card app-card">
                 <span aria-hidden="true">
                   <i className="bi bi-chat-left-text" />
                 </span>
@@ -286,7 +286,7 @@ function OrderDetailsPage() {
             )}
           </div>
 
-          <aside className="order-detail-summary">
+          <aside className="order-detail-summary app-section-card customer-order-summary">
             <div className="order-detail-summary__heading">
               <span aria-hidden="true">
                 <i className="bi bi-credit-card" />

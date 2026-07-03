@@ -91,7 +91,7 @@ function JsonSection({ title, icon, value, emptyText }) {
   const hasValue = value && Object.keys(value).length > 0
 
   return (
-    <section className="audit-detail-json">
+    <section className="audit-detail-json admin-audit-json">
       <header>
         <i className={`bi ${icon}`} aria-hidden="true" />
         <h3>{title}</h3>
@@ -210,12 +210,12 @@ function AdminAuditLogsPage() {
   }
 
   return (
-    <main className="admin-audit-page admin-list-page">
-      <header className="category-list-heading audit-page-heading admin-list-header">
+    <main className="admin-audit-page admin-list-page app-page-shell">
+      <header className="category-list-heading audit-page-heading admin-list-header app-page-header admin-governance-header">
         <div className="admin-list-title-group">
-          <span className="admin-eyebrow">Security and accountability</span>
-          <h1>Audit Logs</h1>
-          <p>
+          <span className="admin-eyebrow app-page-eyebrow">Security and accountability</span>
+          <h1 className="app-page-title">Audit Logs</h1>
+          <p className="app-page-subtitle">
             Review critical administrator and customer actions across the
             platform.
           </p>
@@ -235,21 +235,21 @@ function AdminAuditLogsPage() {
       </header>
 
       <section className="audit-summary-grid" aria-label="Audit log summary">
-        <article>
+        <article className="app-stat-card admin-audit-summary-card">
           <span className="is-indigo"><i className="bi bi-database-check" /></span>
           <div><small>Total records</small><strong>{meta?.total ?? logs.length}</strong></div>
         </article>
-        <article>
+        <article className="app-stat-card admin-audit-summary-card">
           <span className="is-blue"><i className="bi bi-list-check" /></span>
           <div><small>On this page</small><strong>{logs.length}</strong></div>
         </article>
-        <article>
+        <article className="app-stat-card admin-audit-summary-card">
           <span className="is-amber"><i className="bi bi-funnel" /></span>
           <div><small>Active filters</small><strong>{activeFiltersCount}</strong></div>
         </article>
       </section>
 
-      <section className="audit-filter-card admin-filter-card">
+      <section className="audit-filter-card admin-filter-card app-form-card admin-audit-filter-card">
         <header>
           <div>
             <span><i className="bi bi-sliders" /> Filter activity</span>
@@ -304,14 +304,14 @@ function AdminAuditLogsPage() {
                     const timestamp = formatDateTime(log.created_at)
 
                     return (
-                      <tr key={log.id}>
-                        <td data-label="Time"><time className="audit-time"><strong>{timestamp.date}</strong><small>{timestamp.time}</small></time></td>
-                        <td data-label="User"><div className="audit-user"><span>{log.user?.name?.charAt(0)?.toUpperCase() || <i className="bi bi-cpu" />}</span><div><strong>{log.user?.name || 'System'}</strong><small>{log.user?.email || 'Automated action'}</small></div></div></td>
-                        <td data-label="Module"><span className={`audit-module-badge is-${log.module}`}><i className={`bi ${moduleIcons[log.module] || 'bi-grid'}`} />{formatLabel(log.module)}</span></td>
-                        <td data-label="Event"><code className="audit-event-badge">{log.event}</code></td>
-                        <td data-label="Action"><span className={`audit-action-badge admin-status-badge is-${log.action}`}>{formatLabel(log.action)}</span></td>
+                      <tr className="admin-timeline-card" key={log.id}>
+                        <td data-label="Time"><time className="audit-time admin-audit-date"><strong>{timestamp.date}</strong><small>{timestamp.time}</small></time></td>
+                        <td data-label="User"><div className="audit-user admin-audit-user"><span>{log.user?.name?.charAt(0)?.toUpperCase() || <i className="bi bi-cpu" />}</span><div><strong>{log.user?.name || 'System'}</strong><small>{log.user?.email || 'Automated action'}</small></div></div></td>
+                        <td data-label="Module"><span className={`audit-module-badge admin-audit-context is-${log.module}`}><i className={`bi ${moduleIcons[log.module] || 'bi-grid'}`} />{formatLabel(log.module)}</span></td>
+                        <td data-label="Event"><code className="audit-event-badge admin-audit-event">{log.event}</code></td>
+                        <td data-label="Action"><span className={`audit-action-badge admin-status-badge admin-audit-action is-${log.action}`}>{formatLabel(log.action)}</span></td>
                         <td data-label="Description"><p className="audit-description">{log.description || 'No description provided.'}</p></td>
-                        <td data-label="IP Address"><code className="audit-ip">{log.ip_address || '—'}</code></td>
+                        <td data-label="IP Address"><code className="audit-ip admin-audit-meta">{log.ip_address || '—'}</code></td>
                         <td data-label="Details"><button className="audit-detail-button" type="button" onClick={() => openDetails(log)}><i className="bi bi-eye" /> View</button></td>
                       </tr>
                     )
@@ -335,7 +335,7 @@ function AdminAuditLogsPage() {
 
       {selectedLog && (
         <div className="audit-modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setSelectedLog(null)}>
-          <section className="audit-detail-modal" role="dialog" aria-modal="true" aria-labelledby="audit-detail-title">
+          <section className="audit-detail-modal app-section-card admin-audit-detail" role="dialog" aria-modal="true" aria-labelledby="audit-detail-title">
             <header>
               <div><span>Audit record #{selectedLog.id}</span><h2 id="audit-detail-title">Activity details</h2></div>
               <button type="button" onClick={() => setSelectedLog(null)} aria-label="Close audit details"><i className="bi bi-x-lg" /></button>
@@ -345,8 +345,8 @@ function AdminAuditLogsPage() {
             ) : (
               <div className="audit-detail-body">
                 {detailError && <div className="category-alert category-alert-danger"><i className="bi bi-exclamation-octagon" /><span>{detailError}</span></div>}
-                <section className="audit-detail-hero"><span><i className={`bi ${moduleIcons[selectedLog.module] || 'bi-shield-check'}`} /></span><div><small>{selectedLog.event}</small><h3>{selectedLog.description || 'Recorded platform activity'}</h3><p>{formatDateTime(selectedLog.created_at).date} at {formatDateTime(selectedLog.created_at).time}</p></div></section>
-                <dl className="audit-detail-grid">
+                <section className="audit-detail-hero admin-audit-context-panel"><span><i className={`bi ${moduleIcons[selectedLog.module] || 'bi-shield-check'}`} /></span><div><small>{selectedLog.event}</small><h3>{selectedLog.description || 'Recorded platform activity'}</h3><p>{formatDateTime(selectedLog.created_at).date} at {formatDateTime(selectedLog.created_at).time}</p></div></section>
+                <dl className="audit-detail-grid admin-audit-context">
                   <div><dt>User</dt><dd>{selectedLog.user ? <><strong>{selectedLog.user.name}</strong><small>{selectedLog.user.email} · {formatLabel(selectedLog.user.role)}</small></> : <strong>System</strong>}</dd></div>
                   <div><dt>Module</dt><dd>{formatLabel(selectedLog.module)}</dd></div>
                   <div><dt>Action</dt><dd>{formatLabel(selectedLog.action)}</dd></div>
@@ -356,7 +356,7 @@ function AdminAuditLogsPage() {
                   <div><dt>IP address</dt><dd><code>{selectedLog.ip_address || '—'}</code></dd></div>
                   <div><dt>Updated</dt><dd>{formatDateTime(selectedLog.updated_at).date} {formatDateTime(selectedLog.updated_at).time}</dd></div>
                 </dl>
-                <section className="audit-user-agent"><span><i className="bi bi-browser-chrome" /> User agent</span><p>{selectedLog.user_agent || 'Not available'}</p></section>
+                <section className="audit-user-agent admin-audit-meta"><span><i className="bi bi-browser-chrome" /> User agent</span><p>{selectedLog.user_agent || 'Not available'}</p></section>
                 <div className="audit-json-grid">
                   <JsonSection title="Old values" icon="bi-clock-history" value={selectedLog.old_values} emptyText="No previous values were recorded." />
                   <JsonSection title="New values" icon="bi-stars" value={selectedLog.new_values} emptyText="No new values were recorded." />

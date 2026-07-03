@@ -6693,3 +6693,441 @@
     transition: none;
   }
 }
+
+/* UI polish: reports and audit logs */
+.admin-analytics-header,
+.admin-governance-header {
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 1.2rem 1.35rem;
+  border: 1px solid #e1e5eb;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 92% 8%, var(--analytics-glow), transparent 30%),
+    linear-gradient(145deg, #fff, #fafcfc);
+  box-shadow: 0 15px 38px rgba(25, 39, 54, 0.055);
+}
+
+.admin-analytics-header {
+  --analytics-glow: rgba(36, 132, 105, 0.15);
+}
+
+.admin-governance-header {
+  --analytics-glow: rgba(72, 91, 176, 0.16);
+}
+
+.admin-analytics-header::after,
+.admin-governance-header::after {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border: 1px solid rgba(83, 110, 143, 0.1);
+  border-radius: 50%;
+  content: '';
+  pointer-events: none;
+  right: -82px;
+  bottom: -112px;
+}
+
+.admin-analytics-header > *,
+.admin-governance-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.admin-report-filter-card {
+  position: relative;
+  overflow: visible;
+  padding: 1rem 1.1rem;
+  border-color: #dce3e9;
+  background:
+    radial-gradient(circle at 98% 0%, rgba(48, 139, 112, 0.08), transparent 32%),
+    #fff;
+  box-shadow: 0 13px 32px rgba(29, 45, 58, 0.055);
+}
+
+.admin-report-filter-card label {
+  min-width: 155px;
+  color: #687488;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.admin-report-filter-card input {
+  margin-top: 0.2rem;
+  color: #26364a;
+  border-color: #d9e0e7;
+  background: #fbfcfd;
+  font-weight: 700;
+}
+
+.admin-report-filter-card input:focus,
+.reports-stock-filters input:focus {
+  border-color: #5ba98f;
+  box-shadow: 0 0 0 3px rgba(39, 142, 108, 0.11);
+  outline: none;
+}
+
+.admin-report-summary {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.admin-report-metric {
+  position: relative;
+  min-height: 86px;
+  overflow: hidden;
+  border-color: #e0e5ea;
+  box-shadow: 0 9px 25px rgba(31, 49, 62, 0.05);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.admin-report-metric::after {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(52, 151, 117, 0.04);
+  content: '';
+  pointer-events: none;
+  right: -28px;
+  bottom: -38px;
+}
+
+.admin-report-metric:hover {
+  border-color: #cfe2dc;
+  box-shadow: 0 16px 34px rgba(28, 70, 55, 0.09);
+  transform: translateY(-2px);
+}
+
+.admin-report-metric > span {
+  width: 42px;
+  height: 42px;
+  color: #21795b;
+  background: #e9f7f1;
+  box-shadow: inset 0 0 0 1px rgba(42, 128, 98, 0.08);
+}
+
+.admin-report-metric strong {
+  color: #233349;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-report-grid {
+  align-items: stretch;
+}
+
+.admin-report-card {
+  min-width: 0;
+  overflow: visible;
+  border-color: #dfe4e9;
+  box-shadow: 0 13px 32px rgba(30, 45, 57, 0.055);
+}
+
+.admin-report-card > header {
+  min-height: 68px;
+  background: linear-gradient(135deg, #fbfdfc, #f7faf9);
+}
+
+.admin-report-card > header > i {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  color: #287b5f;
+  border-radius: 10px;
+  background: #e8f6f0;
+  place-items: center;
+}
+
+.admin-sales-report-card {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(49, 145, 112, 0.08), transparent 30%),
+    #fff;
+}
+
+.sales-trend-list > div {
+  padding: 0.48rem 0.55rem;
+  border-radius: 9px;
+  transition: background 150ms ease;
+}
+
+.sales-trend-list > div:hover {
+  background: #f7faf9;
+}
+
+.sales-trend-list > div > div {
+  overflow: hidden;
+  background: #edf2f0;
+}
+
+.sales-trend-list > div > div > span {
+  background: linear-gradient(90deg, #2c9a74, #67bea1);
+}
+
+.admin-report-date {
+  color: #6d788a;
+  font-weight: 720;
+}
+
+.admin-report-money,
+.admin-report-quantity {
+  color: #26364b;
+  font-weight: 880;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin-report-money {
+  color: #217456;
+}
+
+.admin-report-product {
+  display: flex;
+  min-width: 150px;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-report-product strong {
+  overflow: hidden;
+  color: #26334a;
+  font-size: 0.6rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-report-rank {
+  display: grid;
+  flex: 0 0 27px;
+  width: 27px;
+  height: 27px;
+  color: #3f6e5e;
+  border: 1px solid #d4e8e1;
+  border-radius: 8px;
+  background: #f0f8f5;
+  font-size: 0.52rem;
+  font-weight: 880;
+  place-items: center;
+}
+
+.reports-stock-filters button {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background: linear-gradient(135deg, #26384d, #334d64);
+  font-weight: 800;
+}
+
+.report-stock-badge {
+  border: 1px solid transparent;
+}
+
+.report-stock-badge.is-in_stock {
+  border-color: #c6e6d7;
+}
+
+.report-stock-badge.is-low_stock {
+  border-color: #ead9a6;
+}
+
+.report-stock-badge.is-out_of_stock {
+  border-color: #edcbc7;
+}
+
+.reports-empty.admin-empty-state {
+  min-height: 145px;
+  margin: 0.8rem;
+  border: 1px dashed #d7dfe2;
+  border-radius: 13px;
+  background: #fafcfb;
+}
+
+.admin-report-loading span {
+  border: 1px solid #e1e6e9;
+  background: linear-gradient(90deg, #edf2f0 25%, #f9fbfa 50%, #edf2f0 75%);
+  background-size: 200% 100%;
+  animation: admin-shimmer 1.4s infinite;
+}
+
+.admin-audit-summary-card {
+  position: relative;
+  min-height: 86px;
+  overflow: hidden;
+  border-color: #dfe3ec;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.admin-audit-summary-card:hover {
+  box-shadow: 0 16px 34px rgba(35, 47, 78, 0.09);
+  transform: translateY(-2px);
+}
+
+.admin-audit-summary-card > span {
+  width: 42px;
+  height: 42px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+.admin-audit-filter-card {
+  border-color: #dce1eb;
+  background:
+    radial-gradient(circle at 98% 0%, rgba(74, 91, 178, 0.08), transparent 28%),
+    #fff;
+  box-shadow: 0 13px 32px rgba(35, 45, 74, 0.06);
+}
+
+.admin-audit-filter-card > header {
+  background: linear-gradient(135deg, #fcfcff, #f8f9fd);
+}
+
+.admin-timeline-card td {
+  transition: background 150ms ease;
+}
+
+.admin-timeline-card:hover td:first-child {
+  box-shadow: inset 3px 0 #6676cf;
+}
+
+.admin-audit-date strong {
+  color: #38445a;
+}
+
+.admin-audit-user > span {
+  border: 1px solid #dce2f5;
+  box-shadow: 0 5px 14px rgba(64, 79, 151, 0.08);
+}
+
+.admin-audit-event {
+  color: #5262ad;
+  border: 1px solid #dfe3f4;
+  border-radius: 7px;
+  background: #f7f8ff;
+}
+
+.admin-audit-action {
+  border: 1px solid rgba(88, 101, 164, 0.18);
+}
+
+.admin-audit-context {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.58);
+}
+
+.admin-audit-meta {
+  color: #566176;
+  border-color: #dfe3ea;
+  background: #f7f8fa;
+}
+
+.admin-audit-detail {
+  padding: 0;
+  border-color: #d9deea;
+  box-shadow: 0 30px 90px rgba(17, 25, 48, 0.34);
+}
+
+.admin-audit-detail > header {
+  background: linear-gradient(135deg, #fbfcff, #f4f6fc);
+}
+
+.admin-audit-context-panel {
+  border-color: #dce1f1;
+  background:
+    radial-gradient(circle at 95% 10%, rgba(91, 107, 197, 0.1), transparent 32%),
+    #f8f9ff;
+}
+
+.admin-audit-context > div {
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(30, 40, 70, 0.035);
+}
+
+.admin-audit-json {
+  border-color: #dce1ea;
+  box-shadow: 0 8px 22px rgba(30, 40, 66, 0.045);
+}
+
+.admin-audit-json > header {
+  background: #f7f8fb;
+}
+
+.admin-audit-json pre {
+  max-height: 320px;
+  color: #dfe7ff;
+  background: #172033;
+  scrollbar-color: #59657b #172033;
+}
+
+.audit-user-agent.admin-audit-meta {
+  border: 1px solid #e0e4eb;
+  border-radius: 11px;
+}
+
+@media (max-width: 1199.98px) {
+  .admin-report-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991.98px) {
+  .admin-report-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .admin-analytics-header,
+  .admin-governance-header {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .admin-report-filter-card {
+    align-items: stretch;
+  }
+
+  .admin-report-filter-card label {
+    min-width: 0;
+  }
+
+  .admin-audit-context > div {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .admin-report-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .sales-trend-list > div {
+    grid-template-columns: 1fr auto;
+  }
+
+  .sales-trend-list > div > div {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .admin-report-money {
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-report-metric,
+  .admin-audit-summary-card,
+  .admin-timeline-card td {
+    transition: none;
+  }
+
+  .admin-report-loading span {
+    animation: none;
+  }
+}

@@ -5,16 +5,36 @@ import { useAuth } from '../hooks/useAuth.js'
 import { getApiErrorMessage } from '../utils/apiErrors.js'
 import { getPrimaryRoleLabel } from '../utils/userRoles.js'
 
-const navigationItems = [
-  { label: 'Dashboard', icon: 'bi-grid-1x2', path: '/admin/dashboard', active: true },
-  { label: 'Categories', icon: 'bi-tags', path: '/admin/categories', active: true },
-  { label: 'Products', icon: 'bi-box-seam', path: '/admin/products', active: true },
-  { label: 'Orders', icon: 'bi-receipt', path: '/admin/orders', active: true },
-  { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons', active: true },
-  { label: 'Reviews', icon: 'bi-chat-square-heart', path: '/admin/product-reviews', active: true },
-  { label: 'Stock Management', icon: 'bi-clipboard-data', path: '/admin/stock', active: true },
-  { label: 'Reports', icon: 'bi-graph-up-arrow', path: '/admin/reports', active: true },
-  { label: 'Audit Logs', icon: 'bi-shield-check', path: '/admin/audit-logs', active: true },
+const navigationGroups = [
+  {
+    label: 'Overview',
+    items: [
+      { label: 'Dashboard', icon: 'bi-grid-1x2', path: '/admin/dashboard', active: true },
+    ],
+  },
+  {
+    label: 'Commerce',
+    items: [
+      { label: 'Categories', icon: 'bi-tags', path: '/admin/categories', active: true },
+      { label: 'Products', icon: 'bi-box-seam', path: '/admin/products', active: true },
+      { label: 'Orders', icon: 'bi-receipt', path: '/admin/orders', active: true },
+      { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons', active: true },
+    ],
+  },
+  {
+    label: 'Operations',
+    items: [
+      { label: 'Reviews', icon: 'bi-chat-square-heart', path: '/admin/product-reviews', active: true },
+      { label: 'Stock Management', icon: 'bi-clipboard-data', path: '/admin/stock', active: true },
+    ],
+  },
+  {
+    label: 'Intelligence',
+    items: [
+      { label: 'Reports', icon: 'bi-graph-up-arrow', path: '/admin/reports', active: true },
+      { label: 'Audit Logs', icon: 'bi-shield-check', path: '/admin/audit-logs', active: true },
+    ],
+  },
 ]
 
 function AdminLayout() {
@@ -99,44 +119,55 @@ function AdminLayout() {
             <span className="admin-brand-mark" aria-hidden="true">
               <i className="bi bi-bag-heart-fill" />
             </span>
-            <span>
+            <span className="admin-brand-copy">
               <strong>E-Commerce</strong>
-              <small>Admin workspace</small>
+              <small>Control center</small>
             </span>
           </Link>
-          <button
-            className="admin-sidebar-close d-lg-none"
-            type="button"
-            onClick={() => setIsSidebarOpen(false)}
-            aria-label="Close admin navigation"
-          >
-            <i className="bi bi-x-lg" aria-hidden="true" />
-          </button>
+          <div className="admin-brand-actions">
+            <span className="admin-brand-status d-none d-lg-inline-flex" title="Workspace online">
+              <span aria-hidden="true" />
+              Live
+            </span>
+            <button
+              className="admin-sidebar-close d-lg-none"
+              type="button"
+              onClick={() => setIsSidebarOpen(false)}
+              aria-label="Close admin navigation"
+            >
+              <i className="bi bi-x-lg" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
         <nav className="admin-sidebar-nav" aria-label="Admin navigation">
-          <span className="admin-nav-label">Workspace</span>
-          {navigationItems.map((item) =>
-            item.active ? (
-              <NavLink
-                className={({ isActive }) =>
-                  `admin-sidebar-link ${isActive ? 'active' : ''}`
-                }
-                to={item.path}
-                key={item.label}
-                onClick={() => setIsSidebarOpen(false)}
-              >
-                <i className={`bi ${item.icon}`} aria-hidden="true" />
-                <span>{item.label}</span>
-              </NavLink>
-            ) : (
-              <span className="admin-sidebar-link is-planned" key={item.label}>
-                <i className={`bi ${item.icon}`} aria-hidden="true" />
-                <span>{item.label}</span>
-                <small>Soon</small>
-              </span>
-            ),
-          )}
+          {navigationGroups.map((group) => (
+            <div className="admin-nav-group" key={group.label}>
+              <span className="admin-nav-label">{group.label}</span>
+              {group.items.map((item) =>
+                item.active ? (
+                  <NavLink
+                    className={({ isActive }) =>
+                      `admin-sidebar-link ${isActive ? 'active' : ''}`
+                    }
+                    to={item.path}
+                    key={item.label}
+                    onClick={() => setIsSidebarOpen(false)}
+                  >
+                    <i className={`bi ${item.icon}`} aria-hidden="true" />
+                    <span>{item.label}</span>
+                    <i className="bi bi-chevron-right admin-nav-arrow" aria-hidden="true" />
+                  </NavLink>
+                ) : (
+                  <span className="admin-sidebar-link is-planned" key={item.label}>
+                    <i className={`bi ${item.icon}`} aria-hidden="true" />
+                    <span>{item.label}</span>
+                    <small>Soon</small>
+                  </span>
+                ),
+              )}
+            </div>
+          ))}
         </nav>
 
         <div className="admin-sidebar-footer">
@@ -190,18 +221,30 @@ function AdminLayout() {
           </div>
 
           <div className="admin-topbar-actions">
+            <span className="admin-workspace-status d-none d-xl-inline-flex">
+              <span aria-hidden="true" />
+              Secure workspace
+            </span>
             <Link className="admin-storefront-link" to="/">
               <i className="bi bi-shop" aria-hidden="true" />
               <span className="d-none d-sm-inline">View storefront</span>
             </Link>
-            <span className="admin-topbar-avatar">
-              {user?.name?.charAt(0)?.toUpperCase() || 'A'}
-            </span>
+            <div className="admin-user-chip">
+              <span className="admin-topbar-avatar">
+                {user?.name?.charAt(0)?.toUpperCase() || 'A'}
+              </span>
+              <span className="admin-user-chip-copy d-none d-md-block">
+                <strong>{user?.name || 'Administrator'}</strong>
+                <small>{getPrimaryRoleLabel(user)}</small>
+              </span>
+            </div>
           </div>
         </header>
 
         <div className="admin-main-content admin-content-polish">
-          <Outlet />
+          <div className="admin-content-frame">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

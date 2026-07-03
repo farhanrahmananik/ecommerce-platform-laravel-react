@@ -12,6 +12,7 @@ const navigationItems = [
   { label: 'Orders', icon: 'bi-receipt', path: '/admin/orders', active: true },
   { label: 'Coupons', icon: 'bi-ticket-perforated', path: '/admin/coupons', active: true },
   { label: 'Reviews', icon: 'bi-chat-square-heart', path: '/admin/product-reviews', active: true },
+  { label: 'Stock Management', icon: 'bi-clipboard-data', path: '/admin/stock', active: true },
   { label: 'Reports', icon: 'bi-bar-chart', path: '/admin/reports' },
 ]
 
@@ -26,6 +27,7 @@ function AdminLayout() {
   const isOrderArea = location.pathname.startsWith('/admin/orders')
   const isCouponArea = location.pathname.startsWith('/admin/coupons')
   const isReviewArea = location.pathname.startsWith('/admin/product-reviews')
+  const isStockArea = location.pathname.startsWith('/admin/stock')
   const currentSection = isCategoryArea
     ? 'Categories'
     : isProductArea
@@ -36,7 +38,9 @@ function AdminLayout() {
           ? 'Coupons'
           : isReviewArea
             ? 'Reviews'
-            : 'Dashboard'
+            : isStockArea
+              ? 'Stock Management'
+              : 'Dashboard'
   const currentArea = isCategoryArea || isProductArea
     ? 'Catalog'
     : isOrderArea
@@ -45,7 +49,9 @@ function AdminLayout() {
         ? 'Promotions'
         : isReviewArea
           ? 'Trust & Quality'
-          : 'Overview'
+          : isStockArea
+            ? 'Inventory'
+            : 'Overview'
 
   const handleLogout = async () => {
     setIsLoggingOut(true)

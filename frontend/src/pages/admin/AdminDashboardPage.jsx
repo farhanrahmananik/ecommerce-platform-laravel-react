@@ -7,6 +7,7 @@ import { getApiErrorMessage } from '../../utils/apiErrors.js'
 const availableQuickActionPaths = new Set([
   '/admin/categories',
   '/admin/products',
+  '/admin/stock',
 ])
 
 function AdminDashboardPage() {
@@ -89,7 +90,15 @@ function AdminDashboardPage() {
   }
 
   const stats = summary?.stats || []
-  const quickActions = summary?.quick_actions || []
+  const quickActions = [
+    ...(summary?.quick_actions || []),
+    {
+      label: 'Stock Management',
+      description: 'Review inventory levels and stock movements.',
+      icon: 'bi-clipboard-data',
+      path: '/admin/stock',
+    },
+  ]
   const recentActivity = summary?.recent_activity || []
   const system = summary?.system || {}
   const currentDate = new Intl.DateTimeFormat('en-US', {

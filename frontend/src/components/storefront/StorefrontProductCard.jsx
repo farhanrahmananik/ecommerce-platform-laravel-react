@@ -25,8 +25,8 @@ function StorefrontProductCard({ product }) {
   const showImage = product.primary_image?.url && !imageFailed
 
   return (
-    <article className="shop-product-card h-100">
-      <div className="shop-product-card__visual">
+    <article className="shop-product-card storefront-card storefront-product-card app-card-hover h-100">
+      <div className="shop-product-card__visual storefront-product-image">
         {showImage ? (
           <img
             src={product.primary_image.url}
@@ -41,7 +41,7 @@ function StorefrontProductCard({ product }) {
           </div>
         )}
 
-        <div className="shop-product-card__badges">
+        <div className="shop-product-card__badges storefront-product-badges">
           {product.is_featured && (
             <span className="shop-product-featured-badge">
               <i className="bi bi-star-fill" aria-hidden="true" />
@@ -53,23 +53,23 @@ function StorefrontProductCard({ product }) {
       </div>
 
       <div className="shop-product-card__body">
-        <span className="shop-product-category">
+        <span className="shop-product-category app-soft-badge">
           <i className="bi bi-tag" aria-hidden="true" />
           {product.category?.name || 'Uncategorized'}
         </span>
 
-        <h2>{product.name}</h2>
+        <h2 className="storefront-product-title">{product.name}</h2>
         <p>
           {product.short_description ||
             'A thoughtfully selected product from our growing catalog.'}
         </p>
 
-        <div className="shop-product-card__footer">
-          <div className="shop-product-price">
+        <div className="shop-product-card__footer storefront-actions">
+          <div className="shop-product-price storefront-product-price">
             <small>{hasSale ? 'Sale price' : 'Price'}</small>
             <div>
-              <strong>{formatAmount(hasSale ? salePrice : price)}</strong>
-              {hasSale && <del>{formatAmount(price)}</del>}
+              <strong className={hasSale ? 'storefront-sale-price' : 'storefront-regular-price'}>{formatAmount(hasSale ? salePrice : price)}</strong>
+              {hasSale && <del className="storefront-regular-price">{formatAmount(price)}</del>}
             </div>
           </div>
           <Link

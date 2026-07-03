@@ -90,6 +90,17 @@ Completed:
 - Preserved all report and audit loading, error, empty, filter, pagination, and detail behavior.
 - Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
 
+## Step 9 - Storefront Listing and Product Details
+
+Completed:
+
+- Polished the storefront listing hero, catalog heading, filters, search, sort, and pagination presentation.
+- Refined responsive product cards, imagery/placeholders, category and promotional badges, pricing, and actions.
+- Polished the product detail layout, gallery, thumbnails, product metadata, price, stock, and rating presentation.
+- Refined the add-to-cart panel, quantity controls, product description, reviews, and trust cards.
+- Preserved all storefront loading, error, empty, filter, gallery, review, and cart-action behavior.
+- Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
+
 ## Remaining Polish Areas
 
 - [x] Admin layout
@@ -101,8 +112,8 @@ Completed:
 - [x] Orders
 - [x] Coupons and reviews
 - [x] Reports and audit logs
-- [ ] Storefront listing
-- [ ] Product details
+- [x] Storefront listing
+- [x] Product details
 - [ ] Cart
 - [ ] Checkout
 - [ ] Customer orders

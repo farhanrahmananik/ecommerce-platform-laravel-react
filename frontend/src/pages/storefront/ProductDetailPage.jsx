@@ -169,7 +169,7 @@ function ProductCartActions({ product }) {
   }
 
   return (
-    <form className="product-detail-cart-panel" onSubmit={handleSubmit}>
+    <form className="product-detail-cart-panel storefront-detail-actions app-section-card" onSubmit={handleSubmit}>
       <div className="product-detail-cart-panel__heading">
         <span aria-hidden="true">
           <i className="bi bi-bag-plus" />
@@ -180,14 +180,14 @@ function ProductCartActions({ product }) {
         </div>
         {hasStockLimit && !isInactive && (
           <span
-            className={`product-stock-status ${isOutOfStock ? 'is-out' : ''}`}
+            className={`product-stock-status storefront-stock-badge ${isOutOfStock ? 'is-out' : ''}`}
             id="product-cart-status"
           >
             {isOutOfStock ? 'Out of stock' : `${maxQuantity} available`}
           </span>
         )}
         {isInactive && (
-          <span className="product-stock-status is-out" id="product-cart-status">
+          <span className="product-stock-status storefront-stock-badge is-out" id="product-cart-status">
             Unavailable
           </span>
         )}
@@ -196,7 +196,7 @@ function ProductCartActions({ product }) {
       <div className="product-detail-cart-panel__controls">
         <div className="product-quantity-field">
           <label htmlFor={`product-quantity-${product.id}`}>Quantity</label>
-          <div className="product-quantity-control">
+          <div className="product-quantity-control storefront-quantity-control">
             <button
               type="button"
               onClick={() => setValidQuantity(quantity - 1)}
@@ -326,9 +326,9 @@ function ProductDetailPage() {
 
   if (!product) {
     return (
-      <main className="product-detail-page">
+      <main className="product-detail-page storefront-detail-page">
         <div className="container">
-          <section className="product-detail-state" role="alert">
+          <section className="product-detail-state app-empty-state" role="alert">
             <span className="product-detail-state__icon" aria-hidden="true">
               <i className={`bi ${isNotFound ? 'bi-box-seam' : 'bi-cloud-slash'}`} />
             </span>
@@ -363,8 +363,8 @@ function ProductDetailPage() {
     salePrice < price
 
   return (
-    <main className="product-detail-page">
-      <section className="product-detail-hero">
+    <main className="product-detail-page storefront-detail-page">
+      <section className="product-detail-hero storefront-detail-hero">
         <div className="container">
           <Link className="product-detail-back-link" to="/products">
             <i className="bi bi-arrow-left" aria-hidden="true" />
@@ -382,10 +382,10 @@ function ProductDetailPage() {
 
       <section className="product-detail-content">
         <div className="container">
-          <div className="product-detail-shell">
+          <div className="product-detail-shell storefront-detail-shell">
             <ProductImageGallery product={product} key={product.id} />
 
-            <section className="product-detail-summary">
+            <section className="product-detail-summary storefront-detail-info app-section-card">
               <div className="product-detail-badges">
                 <span className="product-detail-category">
                   <i className="bi bi-tag" aria-hidden="true" />
@@ -401,7 +401,7 @@ function ProductDetailPage() {
               </div>
 
               <h1>{product.name}</h1>
-              <a className="product-detail-rating-link" href="#product-reviews">
+              <a className="product-detail-rating-link storefront-review-summary" href="#product-reviews">
                 <ReviewStars rating={product.rating_summary?.average_rating || 0} />
                 <strong>{Number(product.rating_summary?.average_rating || 0).toFixed(1)}</strong>
                 <span>({product.rating_summary?.review_count || 0} reviews)</span>
@@ -417,7 +417,7 @@ function ProductDetailPage() {
                 </div>
               )}
 
-              <div className="product-detail-price">
+              <div className="product-detail-price storefront-detail-price">
                 <small>{hasSale ? 'Current price' : 'Price'}</small>
                 <div>
                   <strong>{formatAmount(hasSale ? salePrice : price)}</strong>
@@ -432,7 +432,7 @@ function ProductDetailPage() {
             </section>
           </div>
 
-          <section className="product-detail-description">
+          <section className="product-detail-description app-section-card storefront-detail-description">
             <span className="section-kicker">Product information</span>
             <h2>About this product</h2>
             <p>

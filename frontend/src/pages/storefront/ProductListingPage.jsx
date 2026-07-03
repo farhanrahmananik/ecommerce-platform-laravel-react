@@ -166,8 +166,8 @@ function ProductListingPage() {
   const lastPage = meta?.last_page || 1
 
   return (
-    <main className="shop-page">
-      <section className="shop-hero">
+    <main className="shop-page storefront-listing-page">
+      <section className="shop-hero storefront-hero storefront-listing-hero">
         <div className="shop-hero__pattern" aria-hidden="true" />
         <div className="container position-relative">
           <div className="shop-hero__content">
@@ -194,7 +194,7 @@ function ProductListingPage() {
         </div>
       </section>
 
-      <section className="shop-catalog-section">
+      <section className="shop-catalog-section storefront-catalog-section">
         <div className="container">
           <StorefrontProductFilters
             categories={categories}
@@ -211,7 +211,7 @@ function ProductListingPage() {
             onCategoriesRetry={retryCategories}
           />
 
-          <div className="shop-results-heading">
+          <div className="shop-results-heading app-page-header storefront-results-header">
             <div>
               <span className="section-kicker">Shop the catalog</span>
               <h2>{filters.search ? `Results for "${filters.search}"` : 'All products'}</h2>
@@ -224,7 +224,7 @@ function ProductListingPage() {
           </div>
 
           {isLoading ? (
-            <div className="row g-4" role="status" aria-label="Loading products">
+            <div className="row g-4 storefront-product-grid" role="status" aria-label="Loading products">
               {Array.from({ length: 8 }, (_, index) => (
                 <div className="col-sm-6 col-xl-3" key={index}>
                   <div className="shop-product-skeleton">
@@ -237,7 +237,7 @@ function ProductListingPage() {
               ))}
             </div>
           ) : error ? (
-            <div className="shop-state-card shop-error-state" role="alert">
+            <div className="shop-state-card shop-error-state app-empty-state" role="alert">
               <span aria-hidden="true">
                 <i className="bi bi-cloud-slash" />
               </span>
@@ -249,7 +249,7 @@ function ProductListingPage() {
               </button>
             </div>
           ) : products.length === 0 ? (
-            <div className="shop-state-card shop-empty-state">
+            <div className="shop-state-card shop-empty-state app-empty-state">
               <span aria-hidden="true">
                 <i className="bi bi-search" />
               </span>
@@ -263,9 +263,9 @@ function ProductListingPage() {
             </div>
           ) : (
             <>
-              <div className="row g-4">
+              <div className="row g-4 storefront-product-grid">
                 {products.map((product) => (
-                  <div className="col-sm-6 col-xl-3" key={product.id}>
+                  <div className="col-sm-6 col-lg-4 col-xl-3" key={product.id}>
                     <StorefrontProductCard product={product} />
                   </div>
                 ))}

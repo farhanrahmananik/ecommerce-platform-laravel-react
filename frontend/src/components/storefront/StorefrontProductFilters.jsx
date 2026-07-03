@@ -38,8 +38,8 @@ function StorefrontProductFilters({
   ]
 
   return (
-    <section className="shop-filter-panel" aria-label="Product filters">
-      <form className="shop-search" onSubmit={onSearchSubmit}>
+    <section className="shop-filter-panel app-section-card storefront-filter-card" aria-label="Product filters">
+      <form className="shop-search storefront-search" onSubmit={onSearchSubmit}>
         <i className="bi bi-search" aria-hidden="true" />
         <input
           type="search"
@@ -51,7 +51,7 @@ function StorefrontProductFilters({
         <button type="submit">Search</button>
       </form>
 
-      <div className="shop-filter-grid">
+      <div className="shop-filter-grid storefront-filter-grid">
         <StorefrontSelect
           id="storefront-category"
           label="Category"

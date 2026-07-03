@@ -26,8 +26,8 @@ function ProductImageGallery({ product }) {
   }
 
   return (
-    <section className="product-detail-gallery" aria-label="Product image gallery">
-      <div className="product-detail-main-image">
+    <section className="product-detail-gallery storefront-gallery app-card" aria-label="Product image gallery">
+      <div className="product-detail-main-image storefront-gallery-main">
         {selectedImage?.url && !selectedImageFailed ? (
           <img
             src={selectedImage.url}
@@ -53,14 +53,14 @@ function ProductImageGallery({ product }) {
       </div>
 
       {images.length > 1 && (
-        <div className="product-detail-thumbnails" aria-label="Choose product image">
+        <div className="product-detail-thumbnails storefront-gallery-thumbnails" aria-label="Choose product image">
           {images.map((image, index) => {
             const isSelected = image.id === selectedImage?.id
             const imageFailed = failedImages[image.id]
 
             return (
               <button
-                className={isSelected ? 'is-active' : ''}
+                className={`storefront-gallery-thumb ${isSelected ? 'is-active' : ''}`}
                 type="button"
                 onClick={() => setSelectedImageId(image.id)}
                 aria-label={`View image ${index + 1} of ${product.name}`}

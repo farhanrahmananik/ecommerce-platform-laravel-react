@@ -106,21 +106,21 @@ function ProductReviewsSection({ productSlug, initialSummary }) {
   const breakdown = summary?.rating_breakdown || []
 
   return (
-    <section className="product-reviews-section" id="product-reviews">
+    <section className="product-reviews-section app-section-card storefront-reviews-section" id="product-reviews">
       <header className="product-reviews-heading">
         <div>
           <span className="section-kicker">Customer feedback</span>
           <h2>Product reviews</h2>
           <p>Verified perspectives from customers who completed a purchase.</p>
         </div>
-        <div className="product-rating-score">
+        <div className="product-rating-score storefront-review-summary">
           <strong>{average.toFixed(1)}</strong>
           <div><ReviewStars rating={average} /><span>{count} {count === 1 ? 'review' : 'reviews'}</span></div>
         </div>
       </header>
 
       <div className="product-review-layout">
-        <aside className="product-rating-breakdown">
+        <aside className="product-rating-breakdown storefront-rating-breakdown">
           <h3>Rating breakdown</h3>
           {breakdown.map((row) => {
             const percentage = count > 0 ? (Number(row.count) / count) * 100 : 0
@@ -186,14 +186,14 @@ function ProductReviewsSection({ productSlug, initialSummary }) {
           </div>
         </aside>
 
-        <div className="product-review-list">
+        <div className="product-review-list storefront-review-list">
           {loadError && <div className="review-list-error" role="alert"><span>{loadError}</span><button type="button" onClick={() => { setIsLoading(true); setRefreshVersion((v) => v + 1) }}>Retry</button></div>}
           {isLoading ? (
             <div className="review-list-loading">{[1, 2, 3].map((item) => <span key={item} />)}</div>
           ) : reviews.length === 0 ? (
-            <div className="review-empty-state"><i className="bi bi-chat-square-heart" /><h3>No approved reviews yet</h3><p>Be the first verified customer to share feedback.</p></div>
+            <div className="review-empty-state app-empty-state"><i className="bi bi-chat-square-heart" /><h3>No approved reviews yet</h3><p>Be the first verified customer to share feedback.</p></div>
           ) : reviews.map((review) => (
-            <article className="storefront-review-card" key={review.id}>
+            <article className="storefront-review-card app-card-hover" key={review.id}>
               <header>
                 <span className="reviewer-avatar">{review.customer?.name?.charAt(0)?.toUpperCase() || 'C'}</span>
                 <div><strong>{review.customer?.name || 'Customer'}</strong><small>{formatDate(review.reviewed_at)}</small></div>

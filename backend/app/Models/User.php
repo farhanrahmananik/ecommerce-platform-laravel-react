@@ -80,6 +80,11 @@ class User extends Authenticatable
         return $this->hasMany(ProductReview::class, 'moderated_by_id');
     }
 
+    public function createdStockMovements(): HasMany
+    {
+        return $this->hasMany(StockMovement::class, 'created_by_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

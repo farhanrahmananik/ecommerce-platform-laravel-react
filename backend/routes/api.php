@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Admin\OrderStatusController;
 use App\Http\Controllers\Api\Admin\ProductController;
 use App\Http\Controllers\Api\Admin\ProductImageController;
 use App\Http\Controllers\Api\Admin\ProductReviewController as AdminProductReviewController;
+use App\Http\Controllers\Api\Admin\StockController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Cart\CartController;
 use App\Http\Controllers\Api\Cart\CartItemController;
@@ -50,6 +51,9 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::delete('/account/reviews/{productReview}', [AccountProductReviewController::class, 'destroy']);
 
     Route::middleware('admin')->group(function (): void {
+        Route::get('/admin/stock/products', [StockController::class, 'products']);
+        Route::get('/admin/stock/products/{product}/movements', [StockController::class, 'movements']);
+        Route::post('/admin/stock/products/{product}/adjust', [StockController::class, 'adjust']);
         Route::get('/admin/product-reviews', [AdminProductReviewController::class, 'index']);
         Route::get('/admin/product-reviews/{productReview}', [AdminProductReviewController::class, 'show']);
         Route::patch('/admin/product-reviews/{productReview}/moderate', [AdminProductReviewController::class, 'moderate']);

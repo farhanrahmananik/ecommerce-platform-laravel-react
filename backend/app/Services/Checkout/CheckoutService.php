@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\User;
+use App\Services\Admin\StockManagementService;
 use App\Services\Coupon\CouponValidationService;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ class CheckoutService
 {
     public function __construct(
         private readonly CouponValidationService $couponValidationService,
+        private readonly StockManagementService $stockManagementService,
     ) {}
 
     /**
@@ -90,6 +92,12 @@ class CheckoutService
             ]);
 
             foreach ($cartItems as $cartItem) {
+                $this->stockManagementService->decreaseStockForOrder(
+                    $cartItem->product,
+                    $cartItem->quantity,
+                    $order,
+                    $user,
+                );
                 $lineTotal = $this->lineTotal(
                     $cartItem->unit_price,
                     $cartItem->quantity,

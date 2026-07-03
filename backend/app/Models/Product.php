@@ -77,6 +77,11 @@ class Product extends Model
         return $this->reviews();
     }
 
+    public function stockMovements(): HasMany
+    {
+        return $this->hasMany(StockMovement::class);
+    }
+
     /**
      * Scope the query to active products.
      */

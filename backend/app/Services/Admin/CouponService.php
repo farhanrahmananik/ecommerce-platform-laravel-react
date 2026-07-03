@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CouponService
 {
+    public function __construct(private readonly AuditLogService $auditLogService) {}
+
     /**
      * @param  array<string, mixed>  $filters
      */
@@ -38,10 +40,22 @@ class CouponService
         $data = $this->prepareData($data);
         $data['created_by_id'] = $admin->getKey();
 
-        return Coupon::query()
+        $coupon = Coupon::query()
             ->create($data)
             ->load('createdBy')
             ->loadCount('redemptions');
+
+        $this->auditLogService->record([
+            'module' => 'coupons',
+            'action' => 'created',
+            'event' => 'coupon.created',
+            'auditable_type' => $coupon->getMorphClass(),
+            'auditable_id' => $coupon->getKey(),
+            'description' => "Coupon {$coupon->code} was created.",
+            'new_values' => $coupon->getAttributes(),
+        ]);
+
+        return $coupon;
     }
 
     public function show(Coupon $coupon): Coupon
@@ -54,14 +68,39 @@ class CouponService
      */
     public function update(Coupon $coupon, array $data): Coupon
     {
+        $oldValues = $coupon->getAttributes();
         $coupon->update($this->prepareData($data));
 
-        return $this->show($coupon->refresh());
+        $coupon = $this->show($coupon->refresh());
+
+        $this->auditLogService->record([
+            'module' => 'coupons',
+            'action' => 'updated',
+            'event' => 'coupon.updated',
+            'auditable_type' => $coupon->getMorphClass(),
+            'auditable_id' => $coupon->getKey(),
+            'description' => "Coupon {$coupon->code} was updated.",
+            'old_values' => $oldValues,
+            'new_values' => $coupon->getAttributes(),
+        ]);
+
+        return $coupon;
     }
 
     public function delete(Coupon $coupon): void
     {
+        $oldValues = $coupon->getAttributes();
         $coupon->delete();
+
+        $this->auditLogService->record([
+            'module' => 'coupons',
+            'action' => 'deleted',
+            'event' => 'coupon.deleted',
+            'auditable_type' => $coupon->getMorphClass(),
+            'auditable_id' => $coupon->getKey(),
+            'description' => "Coupon {$coupon->code} was deleted.",
+            'old_values' => $oldValues,
+        ]);
     }
 
     /**

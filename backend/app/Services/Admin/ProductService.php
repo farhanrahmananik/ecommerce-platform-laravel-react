@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class ProductService
 {
+    public function __construct(private readonly AuditLogService $auditLogService) {}
+
     /**
      * Get a filtered, ordered product page.
      *
@@ -47,7 +49,19 @@ class ProductService
 
         $this->applyNumericDefaults($data);
 
-        return Product::create($data)->load('category');
+        $product = Product::create($data)->load('category');
+
+        $this->auditLogService->record([
+            'module' => 'products',
+            'action' => 'created',
+            'event' => 'product.created',
+            'auditable_type' => $product->getMorphClass(),
+            'auditable_id' => $product->getKey(),
+            'description' => "Product {$product->name} ({$product->sku}) was created.",
+            'new_values' => $product->getAttributes(),
+        ]);
+
+        return $product;
     }
 
     /**
@@ -57,6 +71,8 @@ class ProductService
      */
     public function update(Product $product, array $data): Product
     {
+        $oldValues = $product->getAttributes();
+
         if (array_key_exists('name', $data) && ! filled($data['slug'] ?? null)) {
             $data['slug'] = $this->generateUniqueSlug($data['name'], $product);
         } elseif (array_key_exists('slug', $data) && ! filled($data['slug'])) {
@@ -67,7 +83,20 @@ class ProductService
 
         $product->update($data);
 
-        return $product->refresh()->load('category');
+        $product = $product->refresh()->load('category');
+
+        $this->auditLogService->record([
+            'module' => 'products',
+            'action' => 'updated',
+            'event' => 'product.updated',
+            'auditable_type' => $product->getMorphClass(),
+            'auditable_id' => $product->getKey(),
+            'description' => "Product {$product->name} ({$product->sku}) was updated.",
+            'old_values' => $oldValues,
+            'new_values' => $product->getAttributes(),
+        ]);
+
+        return $product;
     }
 
     /**
@@ -75,7 +104,18 @@ class ProductService
      */
     public function delete(Product $product): void
     {
+        $oldValues = $product->getAttributes();
         $product->delete();
+
+        $this->auditLogService->record([
+            'module' => 'products',
+            'action' => 'deleted',
+            'event' => 'product.deleted',
+            'auditable_type' => $product->getMorphClass(),
+            'auditable_id' => $product->getKey(),
+            'description' => "Product {$product->name} ({$product->sku}) was deleted.",
+            'old_values' => $oldValues,
+        ]);
     }
 
     private function applySearchFilter(Builder $query, mixed $search): void

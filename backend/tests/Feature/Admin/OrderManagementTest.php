@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\AuditLog;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -167,6 +168,14 @@ class OrderManagementTest extends TestCase
             'status' => 'processing',
             'payment_status' => 'pending',
         ]);
+
+        $auditLog = AuditLog::query()->where('event', 'order.status_updated')->sole();
+
+        $this->assertSame($admin->id, $auditLog->user_id);
+        $this->assertSame('orders', $auditLog->module);
+        $this->assertSame('status_updated', $auditLog->action);
+        $this->assertSame(['status' => 'pending'], $auditLog->old_values);
+        $this->assertSame(['status' => 'processing'], $auditLog->new_values);
     }
 
     public function test_same_status_update_is_allowed_as_a_no_op(): void

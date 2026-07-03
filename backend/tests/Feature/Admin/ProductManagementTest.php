@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\AuditLog;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
@@ -208,6 +209,16 @@ class ProductManagementTest extends TestCase
             'sku' => 'NEW-001',
             'stock_quantity' => 12,
         ]);
+
+        $auditLog = AuditLog::query()->where('event', 'product.updated')->sole();
+
+        $this->assertSame($user->id, $auditLog->user_id);
+        $this->assertSame('products', $auditLog->module);
+        $this->assertSame('updated', $auditLog->action);
+        $this->assertSame(Product::class, $auditLog->auditable_type);
+        $this->assertSame($product->id, $auditLog->auditable_id);
+        $this->assertSame('Old Product', $auditLog->old_values['name']);
+        $this->assertSame('Updated Product', $auditLog->new_values['name']);
     }
 
     public function test_an_authenticated_user_can_filter_products_by_category(): void

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\AuditLog;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -33,6 +34,7 @@ class ReportsApiTest extends TestCase
         $a = $this->admin();
         Order::factory()->create(['subtotal' => 100, 'total' => 90, 'status' => 'delivered']);
         $this->actingAs($a)->getJson('/api/admin/reports/summary')->assertOk()->assertJsonPath('data.total_orders', 1)->assertJsonPath('data.completed_orders', 1)->assertJsonPath('data.net_sales', 90);
+        $this->assertSame(0, AuditLog::query()->count());
     }
 
     public function test_admin_can_view_sales_report(): void

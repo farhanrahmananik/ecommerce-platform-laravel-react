@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class CategoryService
 {
+    public function __construct(private readonly AuditLogService $auditLogService) {}
+
     /**
      * Get a filtered, ordered category page.
      *
@@ -46,7 +48,19 @@ class CategoryService
             $data['sort_order'] = 0;
         }
 
-        return Category::create($data)->load('parent');
+        $category = Category::create($data)->load('parent');
+
+        $this->auditLogService->record([
+            'module' => 'categories',
+            'action' => 'created',
+            'event' => 'category.created',
+            'auditable_type' => $category->getMorphClass(),
+            'auditable_id' => $category->getKey(),
+            'description' => "Category {$category->name} was created.",
+            'new_values' => $category->getAttributes(),
+        ]);
+
+        return $category;
     }
 
     /**
@@ -56,6 +70,8 @@ class CategoryService
      */
     public function update(Category $category, array $data): Category
     {
+        $oldValues = $category->getAttributes();
+
         if (array_key_exists('name', $data) && ! filled($data['slug'] ?? null)) {
             $data['slug'] = $this->generateUniqueSlug($data['name'], $category);
         } elseif (array_key_exists('slug', $data) && ! filled($data['slug'])) {
@@ -68,7 +84,20 @@ class CategoryService
 
         $category->update($data);
 
-        return $category->refresh()->load('parent');
+        $category = $category->refresh()->load('parent');
+
+        $this->auditLogService->record([
+            'module' => 'categories',
+            'action' => 'updated',
+            'event' => 'category.updated',
+            'auditable_type' => $category->getMorphClass(),
+            'auditable_id' => $category->getKey(),
+            'description' => "Category {$category->name} was updated.",
+            'old_values' => $oldValues,
+            'new_values' => $category->getAttributes(),
+        ]);
+
+        return $category;
     }
 
     /**
@@ -76,7 +105,18 @@ class CategoryService
      */
     public function delete(Category $category): void
     {
+        $oldValues = $category->getAttributes();
         $category->delete();
+
+        $this->auditLogService->record([
+            'module' => 'categories',
+            'action' => 'deleted',
+            'event' => 'category.deleted',
+            'auditable_type' => $category->getMorphClass(),
+            'auditable_id' => $category->getKey(),
+            'description' => "Category {$category->name} was deleted.",
+            'old_values' => $oldValues,
+        ]);
     }
 
     private function applySearchFilter(Builder $query, mixed $search): void

@@ -22,6 +22,14 @@ class AuditLogService
 
     public function record(array $data): AuditLog
     {
+        if (app()->bound('request')) {
+            $request = request();
+
+            $data['user_id'] ??= $request->user()?->getKey();
+            $data['ip_address'] ??= $request->ip();
+            $data['user_agent'] ??= $request->userAgent();
+        }
+
         return AuditLog::query()->create($data)->load('user');
     }
 }

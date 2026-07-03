@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class AdminProductReviewService
 {
+    public function __construct(private readonly AuditLogService $auditLogService) {}
+
     /**
      * @param  array<string, mixed>  $filters
      */
@@ -85,6 +87,7 @@ class AdminProductReviewService
                 ->whereKey($review->getKey())
                 ->lockForUpdate()
                 ->firstOrFail();
+            $oldValues = $lockedReview->getAttributes();
             $isApproved = $data['status'] === ProductReview::STATUS_APPROVED;
 
             $lockedReview->update([
@@ -93,6 +96,28 @@ class AdminProductReviewService
                 'rejected_at' => $isApproved ? null : now(),
                 'moderated_by_id' => $moderator->getKey(),
                 'moderation_note' => $data['moderation_note'] ?? null,
+            ]);
+
+            $lockedReview->refresh();
+            $pastTenseAction = $isApproved ? 'approved' : 'rejected';
+
+            $this->auditLogService->record([
+                'user_id' => $moderator->getKey(),
+                'module' => 'reviews',
+                'action' => $pastTenseAction,
+                'event' => "review.{$pastTenseAction}",
+                'auditable_type' => $lockedReview->getMorphClass(),
+                'auditable_id' => $lockedReview->getKey(),
+                'description' => "Product review {$lockedReview->getKey()} was {$pastTenseAction}.",
+                'old_values' => $oldValues,
+                'new_values' => $lockedReview->getAttributes(),
+                'metadata' => [
+                    'product_id' => $lockedReview->product_id,
+                    'customer_id' => $lockedReview->user_id,
+                    'rating' => $lockedReview->rating,
+                    'status' => $lockedReview->status,
+                    'moderation_note' => $lockedReview->moderation_note,
+                ],
             ]);
 
             return $this->show($lockedReview);

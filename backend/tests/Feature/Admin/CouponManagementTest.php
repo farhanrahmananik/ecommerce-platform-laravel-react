@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\AuditLog;
 use App\Models\Coupon;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -170,6 +171,14 @@ class CouponManagementTest extends TestCase
             ->assertJsonPath('message', 'Coupon deleted successfully.');
 
         $this->assertSoftDeleted($coupon);
+
+        $auditLog = AuditLog::query()->where('event', 'coupon.deleted')->sole();
+
+        $this->assertSame($admin->id, $auditLog->user_id);
+        $this->assertSame('coupons', $auditLog->module);
+        $this->assertSame('deleted', $auditLog->action);
+        $this->assertSame($coupon->id, $auditLog->auditable_id);
+        $this->assertSame($coupon->code, $auditLog->old_values['code']);
     }
 
     private function adminUser(): User

@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\User;
+use App\Services\Admin\AuditLogService;
 use App\Services\Admin\StockManagementService;
 use App\Services\Coupon\CouponValidationService;
 use Illuminate\Support\Collection;
@@ -19,6 +20,7 @@ class CheckoutService
     public function __construct(
         private readonly CouponValidationService $couponValidationService,
         private readonly StockManagementService $stockManagementService,
+        private readonly AuditLogService $auditLogService,
     ) {}
 
     /**
@@ -131,6 +133,34 @@ class CheckoutService
 
             $cart->items()->delete();
             $cart->touch();
+
+            $this->auditLogService->record([
+                'user_id' => $user->getKey(),
+                'module' => 'checkout',
+                'action' => 'placed',
+                'event' => 'checkout.order_placed',
+                'auditable_type' => $order->getMorphClass(),
+                'auditable_id' => $order->getKey(),
+                'description' => "Order {$order->order_number} was placed through checkout.",
+                'new_values' => [
+                    'order_number' => $order->order_number,
+                    'status' => $order->status,
+                    'subtotal' => $order->subtotal,
+                    'discount_amount' => $order->discount_amount,
+                    'total' => $order->total,
+                ],
+                'metadata' => [
+                    'order_number' => $order->order_number,
+                    'item_count' => $cartItems->count(),
+                    'quantity' => $cartItems->sum('quantity'),
+                    'subtotal' => $order->subtotal,
+                    'discount_total' => $order->discount_amount,
+                    'shipping_total' => $order->shipping_amount,
+                    'tax_total' => $order->tax_amount,
+                    'grand_total' => $order->total,
+                    'coupon_code' => $order->coupon_code,
+                ],
+            ]);
 
             return $order->load('orderItems');
         });

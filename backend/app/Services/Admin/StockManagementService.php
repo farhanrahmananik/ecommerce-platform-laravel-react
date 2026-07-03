@@ -13,6 +13,8 @@ use Illuminate\Validation\ValidationException;
 
 class StockManagementService
 {
+    public function __construct(private readonly AuditLogService $auditLogService) {}
+
     public function listProducts(array $filters = []): LengthAwarePaginator
     {
         $search = trim((string) ($filters['search'] ?? ''));
@@ -35,7 +37,26 @@ class StockManagementService
             $before = $locked->stock_quantity;
             $after = (int) $data['quantity'];
             $locked->update(['stock_quantity' => $after]);
-            $locked->stockMovements()->create(['type' => StockMovement::TYPE_MANUAL_ADJUSTMENT, 'quantity_before' => $before, 'quantity_changed' => $after - $before, 'quantity_after' => $after, 'reason' => $data['reason'] ?? null, 'created_by_id' => $user->getKey()]);
+            $stockMovement = $locked->stockMovements()->create(['type' => StockMovement::TYPE_MANUAL_ADJUSTMENT, 'quantity_before' => $before, 'quantity_changed' => $after - $before, 'quantity_after' => $after, 'reason' => $data['reason'] ?? null, 'created_by_id' => $user->getKey()]);
+
+            $this->auditLogService->record([
+                'user_id' => $user->getKey(),
+                'module' => 'stock',
+                'action' => 'adjusted',
+                'event' => 'stock.adjusted',
+                'auditable_type' => $locked->getMorphClass(),
+                'auditable_id' => $locked->getKey(),
+                'description' => "Stock for product {$locked->name} was manually adjusted from {$before} to {$after}.",
+                'old_values' => ['stock_quantity' => $before],
+                'new_values' => ['stock_quantity' => $after],
+                'metadata' => [
+                    'adjustment_type' => StockMovement::TYPE_MANUAL_ADJUSTMENT,
+                    'quantity' => $after,
+                    'stock_delta' => $after - $before,
+                    'reason' => $data['reason'] ?? null,
+                    'stock_movement_id' => $stockMovement->getKey(),
+                ],
+            ]);
 
             return $locked->load('primaryImage');
         });

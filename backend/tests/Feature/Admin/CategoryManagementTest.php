@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\AuditLog;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -67,6 +68,14 @@ class CategoryManagementTest extends TestCase
             'name' => 'Home & Living',
             'slug' => 'home-and-living',
         ]);
+
+        $auditLog = AuditLog::query()->where('event', 'category.created')->sole();
+
+        $this->assertSame($user->id, $auditLog->user_id);
+        $this->assertSame('categories', $auditLog->module);
+        $this->assertSame('created', $auditLog->action);
+        $this->assertSame($response->json('data.id'), $auditLog->auditable_id);
+        $this->assertSame('Home & Living', $auditLog->new_values['name']);
     }
 
     public function test_a_unique_slug_is_generated_when_it_is_missing(): void
@@ -112,6 +121,8 @@ class CategoryManagementTest extends TestCase
                 'is_active',
                 'sort_order',
             ]);
+
+        $this->assertDatabaseCount('audit_logs', 0);
     }
 
     public function test_an_authenticated_user_can_update_a_category(): void

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\AuditLog;
 use App\Models\Product;
 use App\Models\StockMovement;
 use App\Models\User;
@@ -46,6 +47,12 @@ class StockManagementApiTest extends TestCase
         $product = Product::factory()->create(['stock_quantity' => 10]);
         $this->actingAs($admin)->postJson("/api/admin/stock/products/{$product->id}/adjust", ['quantity' => 4, 'reason' => 'Cycle count'])->assertOk()->assertJsonPath('data.stock_quantity', 4);
         $this->assertDatabaseHas('stock_movements', ['product_id' => $product->id, 'type' => 'manual_adjustment', 'quantity_before' => 10, 'quantity_changed' => -6, 'quantity_after' => 4, 'created_by_id' => $admin->id]);
+        $auditLog = AuditLog::query()->where('event', 'stock.adjusted')->sole();
+        $this->assertSame($admin->id, $auditLog->user_id);
+        $this->assertSame('stock', $auditLog->module);
+        $this->assertSame('adjusted', $auditLog->action);
+        $this->assertSame(['stock_quantity' => 10], $auditLog->old_values);
+        $this->assertSame(['stock_quantity' => 4], $auditLog->new_values);
     }
 
     public function test_adjustment_validation_rejects_missing_or_negative_quantity(): void

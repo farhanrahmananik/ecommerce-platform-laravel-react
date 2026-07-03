@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Checkout;
 
+use App\Models\AuditLog;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Product;
@@ -71,6 +72,14 @@ class CheckoutApiTest extends TestCase
             '/^ORD-\d{8}-[A-Z0-9]{6}$/',
             $response->json('data.order_number'),
         );
+
+        $auditLog = AuditLog::query()->where('event', 'checkout.order_placed')->sole();
+
+        $this->assertSame($user->id, $auditLog->user_id);
+        $this->assertSame('checkout', $auditLog->module);
+        $this->assertSame('placed', $auditLog->action);
+        $this->assertSame($response->json('data.id'), $auditLog->auditable_id);
+        $this->assertSame('159.90', $auditLog->new_values['total']);
     }
 
     public function test_checkout_creates_an_order_and_order_items(): void

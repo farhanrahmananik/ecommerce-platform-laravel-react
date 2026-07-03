@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\ProductReview;
 
+use App\Models\AuditLog;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -64,6 +65,11 @@ class ProductReviewApiTest extends TestCase
             'status' => ProductReview::STATUS_PENDING,
             'is_verified_purchase' => true,
         ]);
+
+        $auditLog = AuditLog::query()->where('event', 'review.created')->sole();
+
+        $this->assertSame($user->id, $auditLog->user_id);
+        $this->assertSame($product->id, $auditLog->metadata['product_id']);
     }
 
     public function test_customer_cannot_create_a_duplicate_active_review(): void
@@ -123,6 +129,7 @@ class ProductReviewApiTest extends TestCase
     {
         $user = User::factory()->create();
         $review = ProductReview::factory()->approved()->for($user)->create([
+            'rating' => 5,
             'moderated_by_id' => User::factory(),
             'moderation_note' => 'Previously approved.',
         ]);
@@ -144,6 +151,29 @@ class ProductReviewApiTest extends TestCase
         $this->assertNull($review->approved_at);
         $this->assertNull($review->rejected_at);
         $this->assertNull($review->moderated_by_id);
+
+        $auditLog = AuditLog::query()->where('event', 'review.updated')->sole();
+
+        $this->assertSame($user->id, $auditLog->user_id);
+        $this->assertSame(5, $auditLog->old_values['rating']);
+        $this->assertSame(4, $auditLog->new_values['rating']);
+    }
+
+    public function test_customer_can_delete_own_review_and_action_is_audited(): void
+    {
+        $user = User::factory()->create();
+        $review = ProductReview::factory()->for($user)->create();
+
+        $this->actingAs($user, 'web')
+            ->deleteJson("/api/account/reviews/{$review->id}")
+            ->assertOk();
+
+        $this->assertSoftDeleted($review);
+
+        $auditLog = AuditLog::query()->where('event', 'review.deleted')->sole();
+
+        $this->assertSame($user->id, $auditLog->user_id);
+        $this->assertSame($review->id, $auditLog->auditable_id);
     }
 
     public function test_customer_cannot_update_or_delete_another_customers_review(): void
@@ -207,6 +237,12 @@ class ProductReviewApiTest extends TestCase
         $this->assertNotNull($review->approved_at);
         $this->assertNull($review->rejected_at);
         $this->assertSame($admin->id, $review->moderated_by_id);
+
+        $auditLog = AuditLog::query()->where('event', 'review.approved')->sole();
+
+        $this->assertSame($admin->id, $auditLog->user_id);
+        $this->assertSame(ProductReview::STATUS_PENDING, $auditLog->old_values['status']);
+        $this->assertSame(ProductReview::STATUS_APPROVED, $auditLog->new_values['status']);
     }
 
     public function test_admin_can_reject_a_review_with_a_moderation_note(): void
@@ -230,6 +266,14 @@ class ProductReviewApiTest extends TestCase
 
         $this->assertNotNull($review->rejected_at);
         $this->assertNull($review->approved_at);
+
+        $auditLog = AuditLog::query()->where('event', 'review.rejected')->sole();
+
+        $this->assertSame($admin->id, $auditLog->user_id);
+        $this->assertSame(
+            'The content does not meet review guidelines.',
+            $auditLog->metadata['moderation_note'],
+        );
     }
 
     public function test_non_admin_cannot_access_admin_review_routes(): void

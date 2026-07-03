@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\AuditLog;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\User;
@@ -57,6 +58,11 @@ class ProductImageManagementTest extends TestCase
             'is_primary' => true,
             'sort_order' => 4,
         ]);
+
+        $auditLog = AuditLog::query()->where('event', 'product_image.uploaded')->sole();
+
+        $this->assertSame($user->id, $auditLog->user_id);
+        $this->assertSame($response->json('data.id'), $auditLog->auditable_id);
     }
 
     public function test_the_first_product_image_automatically_becomes_primary(): void
@@ -97,6 +103,10 @@ class ProductImageManagementTest extends TestCase
 
         $this->assertFalse($firstImage->is_primary);
         $this->assertTrue($secondImage->is_primary);
+        $this->assertDatabaseHas('audit_logs', [
+            'event' => 'product_image.primary_updated',
+            'auditable_id' => $secondImage->id,
+        ]);
     }
 
     public function test_an_authenticated_user_can_list_images_in_stable_display_order(): void
@@ -248,6 +258,7 @@ class ProductImageManagementTest extends TestCase
             ->assertJsonValidationErrors(['image']);
 
         $this->assertDatabaseCount('product_images', 0);
+        $this->assertDatabaseCount('audit_logs', 0);
     }
 
     private function createAdminUser(): User

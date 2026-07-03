@@ -6,6 +6,7 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\User;
+use App\Services\Admin\AuditLogService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -15,6 +16,8 @@ use Illuminate\Validation\ValidationException;
 class ProductReviewService
 {
     private const PURCHASED_ORDER_STATUS = 'delivered';
+
+    public function __construct(private readonly AuditLogService $auditLogService) {}
 
     /**
      * @param  array<string, mixed>  $filters
@@ -100,7 +103,7 @@ class ProductReviewService
                 ]);
             }
 
-            return ProductReview::query()->create([
+            $review = ProductReview::query()->create([
                 ...$data,
                 'product_id' => $product->getKey(),
                 'user_id' => $user->getKey(),
@@ -113,6 +116,25 @@ class ProductReviewService
                 'moderated_by_id' => null,
                 'moderation_note' => null,
             ])->load(['user', 'product.primaryImage']);
+
+            $this->auditLogService->record([
+                'user_id' => $user->getKey(),
+                'module' => 'reviews',
+                'action' => 'created',
+                'event' => 'review.created',
+                'auditable_type' => $review->getMorphClass(),
+                'auditable_id' => $review->getKey(),
+                'description' => "A review was created for product {$product->name}.",
+                'new_values' => $review->getAttributes(),
+                'metadata' => [
+                    'product_id' => $product->getKey(),
+                    'customer_id' => $user->getKey(),
+                    'rating' => $review->rating,
+                    'status' => $review->status,
+                ],
+            ]);
+
+            return $review;
         });
     }
 
@@ -135,6 +157,8 @@ class ProductReviewService
                 $this->throwReviewNotFound($review);
             }
 
+            $oldValues = $ownedReview->getAttributes();
+
             $ownedReview->update([
                 ...$data,
                 'status' => ProductReview::STATUS_PENDING,
@@ -143,6 +167,26 @@ class ProductReviewService
                 'rejected_at' => null,
                 'moderated_by_id' => null,
                 'moderation_note' => null,
+            ]);
+
+            $ownedReview->refresh();
+
+            $this->auditLogService->record([
+                'user_id' => $user->getKey(),
+                'module' => 'reviews',
+                'action' => 'updated',
+                'event' => 'review.updated',
+                'auditable_type' => $ownedReview->getMorphClass(),
+                'auditable_id' => $ownedReview->getKey(),
+                'description' => "Product review {$ownedReview->getKey()} was updated.",
+                'old_values' => $oldValues,
+                'new_values' => $ownedReview->getAttributes(),
+                'metadata' => [
+                    'product_id' => $ownedReview->product_id,
+                    'customer_id' => $user->getKey(),
+                    'rating' => $ownedReview->rating,
+                    'status' => $ownedReview->status,
+                ],
             ]);
 
             return $ownedReview->load(['user', 'product.primaryImage']);
@@ -162,7 +206,25 @@ class ProductReviewService
                 $this->throwReviewNotFound($review);
             }
 
+            $oldValues = $ownedReview->getAttributes();
             $ownedReview->delete();
+
+            $this->auditLogService->record([
+                'user_id' => $user->getKey(),
+                'module' => 'reviews',
+                'action' => 'deleted',
+                'event' => 'review.deleted',
+                'auditable_type' => $ownedReview->getMorphClass(),
+                'auditable_id' => $ownedReview->getKey(),
+                'description' => "Product review {$ownedReview->getKey()} was deleted.",
+                'old_values' => $oldValues,
+                'metadata' => [
+                    'product_id' => $ownedReview->product_id,
+                    'customer_id' => $user->getKey(),
+                    'rating' => $ownedReview->rating,
+                    'status' => $ownedReview->status,
+                ],
+            ]);
         });
     }
 

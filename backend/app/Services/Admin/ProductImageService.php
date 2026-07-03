@@ -14,6 +14,8 @@ use Throwable;
 
 class ProductImageService
 {
+    public function __construct(private readonly AuditLogService $auditLogService) {}
+
     /**
      * Get a product's images in stable display order.
      *
@@ -62,7 +64,7 @@ class ProductImageService
                         ->update(['is_primary' => false]);
                 }
 
-                return ProductImage::query()->create([
+                $productImage = ProductImage::query()->create([
                     'product_id' => $product->getKey(),
                     'image_path' => $imagePath,
                     'original_name' => $image->getClientOriginalName(),
@@ -72,6 +74,23 @@ class ProductImageService
                     'is_primary' => $isPrimary,
                     'sort_order' => $data['sort_order'] ?? 0,
                 ]);
+
+                $this->auditLogService->record([
+                    'module' => 'product_images',
+                    'action' => 'uploaded',
+                    'event' => 'product_image.uploaded',
+                    'auditable_type' => $productImage->getMorphClass(),
+                    'auditable_id' => $productImage->getKey(),
+                    'description' => "An image was uploaded for product {$product->name}.",
+                    'new_values' => $productImage->getAttributes(),
+                    'metadata' => [
+                        'product_id' => $product->getKey(),
+                        'image_path' => $productImage->image_path,
+                        'original_name' => $productImage->original_name,
+                    ],
+                ]);
+
+                return $productImage;
             });
         } catch (Throwable $exception) {
             Storage::disk('public')->delete($imagePath);
@@ -104,6 +123,7 @@ class ProductImageService
                 ->firstOrFail();
 
             $this->ensureBelongsToProduct($product, $lockedImage);
+            $oldValues = $lockedImage->getAttributes();
 
             $attributes = array_intersect_key($data, array_flip([
                 'alt_text',
@@ -130,7 +150,43 @@ class ProductImageService
 
             $lockedImage->update($attributes);
 
-            return $lockedImage->refresh();
+            $lockedImage->refresh();
+
+            $this->auditLogService->record([
+                'module' => 'product_images',
+                'action' => 'updated',
+                'event' => 'product_image.updated',
+                'auditable_type' => $lockedImage->getMorphClass(),
+                'auditable_id' => $lockedImage->getKey(),
+                'description' => "An image for product {$product->name} was updated.",
+                'old_values' => $oldValues,
+                'new_values' => $lockedImage->getAttributes(),
+                'metadata' => [
+                    'product_id' => $product->getKey(),
+                    'image_path' => $lockedImage->image_path,
+                    'original_name' => $lockedImage->original_name,
+                ],
+            ]);
+
+            if (($attributes['is_primary'] ?? false) === true && ! $oldValues['is_primary']) {
+                $this->auditLogService->record([
+                    'module' => 'product_images',
+                    'action' => 'primary_updated',
+                    'event' => 'product_image.primary_updated',
+                    'auditable_type' => $lockedImage->getMorphClass(),
+                    'auditable_id' => $lockedImage->getKey(),
+                    'description' => "The primary image for product {$product->name} was changed.",
+                    'old_values' => ['is_primary' => false],
+                    'new_values' => ['is_primary' => true],
+                    'metadata' => [
+                        'product_id' => $product->getKey(),
+                        'image_path' => $lockedImage->image_path,
+                        'original_name' => $lockedImage->original_name,
+                    ],
+                ]);
+            }
+
+            return $lockedImage;
         });
     }
 
@@ -155,16 +211,51 @@ class ProductImageService
 
             $this->ensureBelongsToProduct($product, $lockedImage);
             $wasPrimary = $lockedImage->is_primary;
+            $oldValues = $lockedImage->getAttributes();
 
             $lockedImage->delete();
 
+            $this->auditLogService->record([
+                'module' => 'product_images',
+                'action' => 'deleted',
+                'event' => 'product_image.deleted',
+                'auditable_type' => $lockedImage->getMorphClass(),
+                'auditable_id' => $lockedImage->getKey(),
+                'description' => "An image for product {$product->name} was deleted.",
+                'old_values' => $oldValues,
+                'metadata' => [
+                    'product_id' => $product->getKey(),
+                    'image_path' => $lockedImage->image_path,
+                    'original_name' => $lockedImage->original_name,
+                ],
+            ]);
+
             if ($wasPrimary) {
-                ProductImage::query()
+                $promotedImage = ProductImage::query()
                     ->where('product_id', $product->getKey())
                     ->orderBy('sort_order')
                     ->orderBy('id')
-                    ->first()
-                    ?->update(['is_primary' => true]);
+                    ->first();
+
+                if ($promotedImage) {
+                    $promotedImage->update(['is_primary' => true]);
+
+                    $this->auditLogService->record([
+                        'module' => 'product_images',
+                        'action' => 'primary_updated',
+                        'event' => 'product_image.primary_updated',
+                        'auditable_type' => $promotedImage->getMorphClass(),
+                        'auditable_id' => $promotedImage->getKey(),
+                        'description' => "The primary image for product {$product->name} was changed.",
+                        'old_values' => ['is_primary' => false],
+                        'new_values' => ['is_primary' => true],
+                        'metadata' => [
+                            'product_id' => $product->getKey(),
+                            'image_path' => $promotedImage->image_path,
+                            'original_name' => $promotedImage->original_name,
+                        ],
+                    ]);
+                }
             }
         });
 

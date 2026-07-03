@@ -10,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 
 class OrderService
 {
+    public function __construct(private readonly AuditLogService $auditLogService) {}
+
     /** @var list<string> */
     public const STATUSES = [
         'pending',
@@ -107,6 +109,23 @@ class OrderService
             }
 
             $lockedOrder->update(['status' => $nextStatus]);
+
+            $this->auditLogService->record([
+                'module' => 'orders',
+                'action' => 'status_updated',
+                'event' => 'order.status_updated',
+                'auditable_type' => $lockedOrder->getMorphClass(),
+                'auditable_id' => $lockedOrder->getKey(),
+                'description' => "Order {$lockedOrder->order_number} status changed from {$currentStatus} to {$nextStatus}.",
+                'old_values' => ['status' => $currentStatus],
+                'new_values' => ['status' => $nextStatus],
+                'metadata' => [
+                    'order_number' => $lockedOrder->order_number,
+                    'customer_id' => $lockedOrder->user_id,
+                    'status_from' => $currentStatus,
+                    'status_to' => $nextStatus,
+                ],
+            ]);
 
             return $this->getOrder($lockedOrder);
         });

@@ -113,6 +113,18 @@ Completed:
 - Preserved all cart, checkout, coupon, order, loading, validation, error, and empty-state behavior.
 - Kept service calls, request payloads, response mappings, routes, backend, and API logic untouched.
 
+## Step 11 - Authentication, Responsive, and Accessibility
+
+Completed:
+
+- Polished login and registration layout, brand treatment, promotional panel, cards, forms, links, and loading states.
+- Refined auth inputs, helper content, validation messages, submit loading, disabled, and mobile presentation.
+- Improved global page-shell, header, card, filter, empty-state, table overflow, and mobile spacing consistency.
+- Added visible keyboard focus treatments for links, buttons, inputs, selects, textareas, and custom controls.
+- Improved disabled-state visibility, muted-text contrast, validation wrapping, and higher-contrast preferences.
+- Preserved all authentication, validation, loading, error, redirect, route, and API behavior.
+- Kept backend, service calls, request payloads, response mappings, and authentication logic untouched.
+
 ## Remaining Polish Areas
 
 - [x] Admin layout
@@ -129,11 +141,12 @@ Completed:
 - [x] Cart
 - [x] Checkout
 - [x] Customer orders
-- [ ] Empty states
-- [ ] Loading states
-- [ ] Error states
-- [ ] Responsive and mobile polish
-- [ ] Accessibility basics
+- [x] Empty states
+- [x] Loading states
+- [x] Error states
+- [x] Responsive and mobile polish
+- [x] Accessibility basics
+- [ ] Final visual review and merge readiness
 
 ## Scope Boundary
 

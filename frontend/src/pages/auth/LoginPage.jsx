@@ -70,14 +70,14 @@ function LoginPage() {
   }
 
   return (
-    <section className="auth-card" aria-labelledby="login-title">
-      <div className="auth-card-heading">
+    <section className="auth-card auth-card-polish app-form-card" aria-labelledby="login-title">
+      <div className="auth-card-heading auth-card-header">
         <span className="auth-card-icon" aria-hidden="true">
           <i className="bi bi-person-check" />
         </span>
         <span className="auth-card-kicker">Welcome back</span>
-        <h2 id="login-title">Sign in to your account</h2>
-        <p>Continue to your personal storefront space.</p>
+        <h2 className="auth-title" id="login-title">Sign in to your account</h2>
+        <p className="auth-subtitle">Continue to your personal storefront space.</p>
       </div>
 
       {generalError && (
@@ -94,7 +94,7 @@ function LoginPage() {
             <i className="bi bi-envelope" aria-hidden="true" />
             <input
               id="login-email"
-              className={`form-control ${fieldErrors.email ? 'is-invalid' : ''}`}
+              className={`form-control auth-form-control ${fieldErrors.email ? 'is-invalid' : ''}`}
               type="email"
               name="email"
               value={form.email}
@@ -120,7 +120,7 @@ function LoginPage() {
             <i className="bi bi-lock" aria-hidden="true" />
             <input
               id="login-password"
-              className={`form-control ${fieldErrors.password ? 'is-invalid' : ''}`}
+              className={`form-control auth-form-control ${fieldErrors.password ? 'is-invalid' : ''}`}
               type={showPassword ? 'text' : 'password'}
               name="password"
               value={form.password}
@@ -149,7 +149,7 @@ function LoginPage() {
         </div>
 
         <button
-          className="btn btn-brand btn-auth"
+          className="btn btn-brand btn-auth app-gradient-btn"
           type="submit"
           disabled={isSubmitting}
         >
@@ -169,7 +169,7 @@ function LoginPage() {
 
       <div className="auth-card-footer">
         <span>New to E-Commerce Platform?</span>
-        <Link to="/register" state={location.state}>
+        <Link className="auth-link" to="/register" state={location.state}>
           Create your account
         </Link>
       </div>

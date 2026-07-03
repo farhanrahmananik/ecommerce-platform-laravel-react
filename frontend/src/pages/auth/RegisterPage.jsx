@@ -67,14 +67,14 @@ function RegisterPage() {
   }
 
   return (
-    <section className="auth-card" aria-labelledby="register-title">
-      <div className="auth-card-heading">
+    <section className="auth-card auth-card-polish app-form-card" aria-labelledby="register-title">
+      <div className="auth-card-heading auth-card-header">
         <span className="auth-card-icon" aria-hidden="true">
           <i className="bi bi-person-plus" />
         </span>
         <span className="auth-card-kicker">Join the storefront</span>
-        <h2 id="register-title">Create your account</h2>
-        <p>Set up your customer profile in just a moment.</p>
+        <h2 className="auth-title" id="register-title">Create your account</h2>
+        <p className="auth-subtitle">Set up your customer profile in just a moment.</p>
       </div>
 
       {generalError && (
@@ -91,7 +91,7 @@ function RegisterPage() {
             <i className="bi bi-person" aria-hidden="true" />
             <input
               id="register-name"
-              className={`form-control ${fieldErrors.name ? 'is-invalid' : ''}`}
+              className={`form-control auth-form-control ${fieldErrors.name ? 'is-invalid' : ''}`}
               type="text"
               name="name"
               value={form.name}
@@ -114,7 +114,7 @@ function RegisterPage() {
             <i className="bi bi-envelope" aria-hidden="true" />
             <input
               id="register-email"
-              className={`form-control ${fieldErrors.email ? 'is-invalid' : ''}`}
+              className={`form-control auth-form-control ${fieldErrors.email ? 'is-invalid' : ''}`}
               type="email"
               name="email"
               value={form.email}
@@ -139,7 +139,7 @@ function RegisterPage() {
                 <i className="bi bi-lock" aria-hidden="true" />
                 <input
                   id="register-password"
-                  className={`form-control ${fieldErrors.password ? 'is-invalid' : ''}`}
+                  className={`form-control auth-form-control ${fieldErrors.password ? 'is-invalid' : ''}`}
                   type={showPassword ? 'text' : 'password'}
                   name="password"
                   value={form.password}
@@ -158,7 +158,7 @@ function RegisterPage() {
                 <i className="bi bi-shield-lock" aria-hidden="true" />
                 <input
                   id="register-password-confirmation"
-                  className="form-control"
+                  className="form-control auth-form-control"
                   type={showPassword ? 'text' : 'password'}
                   name="password_confirmation"
                   value={form.password_confirmation}
@@ -193,7 +193,7 @@ function RegisterPage() {
         </div>
 
         <button
-          className="btn btn-brand btn-auth"
+          className="btn btn-brand btn-auth app-gradient-btn"
           type="submit"
           disabled={isSubmitting}
         >
@@ -213,7 +213,7 @@ function RegisterPage() {
 
       <div className="auth-card-footer">
         <span>Already have an account?</span>
-        <Link to="/login" state={location.state}>
+        <Link className="auth-link" to="/login" state={location.state}>
           Sign in instead
         </Link>
       </div>

@@ -20,13 +20,13 @@ const authHighlights = [
 
 function AuthLayout() {
   return (
-    <main className="auth-shell">
+    <main className="auth-shell auth-shell-polish">
       <div className="auth-orb auth-orb-one" aria-hidden="true" />
       <div className="auth-orb auth-orb-two" aria-hidden="true" />
 
       <div className="container auth-container">
-        <div className="auth-topbar">
-          <Link className="brand-link" to="/" aria-label="E-Commerce Platform home">
+        <div className="auth-topbar auth-brand-bar">
+          <Link className="brand-link auth-brand" to="/" aria-label="E-Commerce Platform home">
             <span className="brand-mark" aria-hidden="true">
               <i className="bi bi-bag-heart-fill" />
             </span>
@@ -40,7 +40,7 @@ function AuthLayout() {
 
         <div className="row g-4 g-xl-5 align-items-center auth-content-row">
           <div className="col-lg-6">
-            <section className="auth-promo">
+            <section className="auth-promo auth-hero-panel">
               <span className="eyebrow eyebrow-light">
                 <i className="bi bi-stars" aria-hidden="true" />
                 Your account, thoughtfully built
@@ -53,7 +53,7 @@ function AuthLayout() {
 
               <div className="auth-highlights">
                 {authHighlights.map((item) => (
-                  <div className="auth-highlight" key={item.title}>
+                  <div className="auth-highlight auth-highlight-card" key={item.title}>
                     <span className="auth-highlight-icon" aria-hidden="true">
                       <i className={`bi ${item.icon}`} />
                     </span>
@@ -79,12 +79,12 @@ function AuthLayout() {
             </section>
           </div>
 
-          <div className="col-lg-6 col-xl-5 offset-xl-1">
+          <div className="col-lg-6 col-xl-5 offset-xl-1 auth-card-column">
             <Outlet />
           </div>
         </div>
 
-        <footer className="auth-footer">
+        <footer className="auth-footer auth-footer-note">
           <span>© {new Date().getFullYear()} E-Commerce Platform</span>
           <span>Laravel API + React</span>
         </footer>

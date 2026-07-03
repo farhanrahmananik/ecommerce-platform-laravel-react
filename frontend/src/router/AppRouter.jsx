@@ -10,6 +10,7 @@ import OrderDetailsPage from '../pages/account/OrderDetailsPage.jsx'
 import OrdersPage from '../pages/account/OrdersPage.jsx'
 import MyReviewsPage from '../pages/account/MyReviewsPage.jsx'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage.jsx'
+import AdminAuditLogsPage from '../pages/admin/auditLogs/AdminAuditLogsPage.jsx'
 import AdminCouponCreatePage from '../pages/admin/coupons/AdminCouponCreatePage.jsx'
 import AdminCouponDetailsPage from '../pages/admin/coupons/AdminCouponDetailsPage.jsx'
 import AdminCouponEditPage from '../pages/admin/coupons/AdminCouponEditPage.jsx'
@@ -78,6 +79,7 @@ function AppRouter() {
           <Route path="product-reviews" element={<AdminProductReviewsPage />} />
           <Route path="stock" element={<StockManagementPage />} />
           <Route path="reports" element={<AdminReportsPage />} />
+          <Route path="audit-logs" element={<AdminAuditLogsPage />} />
         </Route>
       </Route>
     </Routes>

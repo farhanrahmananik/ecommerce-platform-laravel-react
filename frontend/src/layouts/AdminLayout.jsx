@@ -14,6 +14,7 @@ const navigationItems = [
   { label: 'Reviews', icon: 'bi-chat-square-heart', path: '/admin/product-reviews', active: true },
   { label: 'Stock Management', icon: 'bi-clipboard-data', path: '/admin/stock', active: true },
   { label: 'Reports', icon: 'bi-graph-up-arrow', path: '/admin/reports', active: true },
+  { label: 'Audit Logs', icon: 'bi-shield-check', path: '/admin/audit-logs', active: true },
 ]
 
 function AdminLayout() {
@@ -29,6 +30,7 @@ function AdminLayout() {
   const isReviewArea = location.pathname.startsWith('/admin/product-reviews')
   const isStockArea = location.pathname.startsWith('/admin/stock')
   const isReportsArea = location.pathname.startsWith('/admin/reports')
+  const isAuditLogsArea = location.pathname.startsWith('/admin/audit-logs')
   const currentSection = isCategoryArea
     ? 'Categories'
     : isProductArea
@@ -41,7 +43,9 @@ function AdminLayout() {
             ? 'Reviews'
             : isStockArea
               ? 'Stock Management'
-              : isReportsArea ? 'Reports & Analytics' : 'Dashboard'
+              : isReportsArea
+                ? 'Reports & Analytics'
+                : isAuditLogsArea ? 'Audit Logs' : 'Dashboard'
   const currentArea = isCategoryArea || isProductArea
     ? 'Catalog'
     : isOrderArea
@@ -52,7 +56,9 @@ function AdminLayout() {
           ? 'Trust & Quality'
           : isStockArea
             ? 'Inventory'
-            : isReportsArea ? 'Insights' : 'Overview'
+            : isReportsArea
+              ? 'Insights'
+              : isAuditLogsArea ? 'Governance' : 'Overview'
 
   const handleLogout = async () => {
     setIsLoggingOut(true)

@@ -11,7 +11,31 @@ A production-style full-stack e-commerce platform built with a Laravel API backe
 
 ## Screenshots
 
-Screenshots will be added in a future documentation polish step. No placeholder image paths are included until the final assets are available.
+### Storefront & Shopping
+
+| Product Catalog | Product Details |
+| --- | --- |
+| ![Storefront product catalog with filters and featured product cards](docs/screenshots/storefront-products.webp) | ![Product details page with image gallery, sale pricing, reviews, and Add to Cart panel](docs/screenshots/product-details.webp) |
+
+| Shopping Cart | Checkout |
+| --- | --- |
+| ![Customer cart with product quantities, totals, and checkout action](docs/screenshots/cart.webp) | ![Checkout form with fictional customer details, applied coupon, and order summary](docs/screenshots/checkout.webp) |
+
+### Admin Operations
+
+| Admin Dashboard | Product Management |
+| --- | --- |
+| ![Admin dashboard with commerce metrics, quick actions, and platform status](docs/screenshots/admin-dashboard.webp) | ![Admin product management table with catalog filters and stock status badges](docs/screenshots/admin-products.webp) |
+
+| Stock Management | Reports & Analytics |
+| --- | --- |
+| ![Admin stock management workspace with inventory health and adjustment actions](docs/screenshots/admin-stock.webp) | ![Admin reports dashboard with sales, order, customer, inventory, and review metrics](docs/screenshots/admin-reports.webp) |
+
+### Responsive Experience
+
+<p align="center">
+  <img src="docs/screenshots/mobile-storefront.webp" width="390" alt="Responsive mobile storefront with catalog filters and a featured product card">
+</p>
 
 ## Project Overview
 

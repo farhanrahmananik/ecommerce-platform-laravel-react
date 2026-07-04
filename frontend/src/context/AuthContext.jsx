@@ -1,10 +1,25 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AuthContext } from '../hooks/useAuth.js'
 import { authApi } from '../services/api/authApi.js'
+import { getApiErrorMessage } from '../utils/apiErrors.js'
+
+const unauthenticatedStatuses = new Set([401, 419])
+
+function isUnauthenticatedError(error) {
+  return unauthenticatedStatuses.has(error.response?.status)
+}
+
+function getAuthLoadErrorMessage(error) {
+  return getApiErrorMessage(
+    error,
+    'We could not verify your session. Please try again.',
+  )
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [authError, setAuthError] = useState('')
 
   const refreshUser = useCallback(async () => {
     try {
@@ -12,14 +27,18 @@ export function AuthProvider({ children }) {
       const currentUser = response.data.user
 
       setUser(currentUser)
+      setAuthError('')
 
       return currentUser
     } catch (error) {
-      if ([401, 419].includes(error.response?.status)) {
+      if (isUnauthenticatedError(error)) {
         setUser(null)
+        setAuthError('')
 
         return null
       }
+
+      setAuthError(getAuthLoadErrorMessage(error))
 
       throw error
     }
@@ -33,12 +52,22 @@ export function AuthProvider({ children }) {
       .then((response) => {
         if (isMounted) {
           setUser(response.data.user)
+          setAuthError('')
         }
       })
-      .catch(() => {
-        if (isMounted) {
-          setUser(null)
+      .catch((error) => {
+        if (!isMounted) {
+          return
         }
+
+        if (isUnauthenticatedError(error)) {
+          setUser(null)
+          setAuthError('')
+
+          return
+        }
+
+        setAuthError(getAuthLoadErrorMessage(error))
       })
       .finally(() => {
         if (isMounted) {
@@ -51,9 +80,22 @@ export function AuthProvider({ children }) {
     }
   }, [])
 
+  const retryAuthBootstrap = useCallback(async () => {
+    setIsLoading(true)
+
+    try {
+      await refreshUser()
+    } catch {
+      // refreshUser stores the user-facing error for the route guards.
+    } finally {
+      setIsLoading(false)
+    }
+  }, [refreshUser])
+
   const login = useCallback(async (credentials) => {
     const response = await authApi.login(credentials)
     setUser(response.data.user)
+    setAuthError('')
 
     return response
   }, [])
@@ -61,6 +103,7 @@ export function AuthProvider({ children }) {
   const register = useCallback(async (payload) => {
     const response = await authApi.register(payload)
     setUser(response.data.user)
+    setAuthError('')
 
     return response
   }, [])
@@ -68,6 +111,7 @@ export function AuthProvider({ children }) {
   const logout = useCallback(async () => {
     const response = await authApi.logout()
     setUser(null)
+    setAuthError('')
 
     return response
   }, [])
@@ -77,12 +121,23 @@ export function AuthProvider({ children }) {
       user,
       isAuthenticated: Boolean(user),
       isLoading,
+      authError,
       login,
       register,
       logout,
       refreshUser,
+      retryAuthBootstrap,
     }),
-    [isLoading, login, logout, refreshUser, register, user],
+    [
+      authError,
+      isLoading,
+      login,
+      logout,
+      refreshUser,
+      register,
+      retryAuthBootstrap,
+      user,
+    ],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

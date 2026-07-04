@@ -3,32 +3,22 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ListProductsRequest;
 use App\Http\Requests\Admin\StoreProductRequest;
 use App\Http\Requests\Admin\UpdateProductRequest;
 use App\Http\Resources\Admin\ProductResource;
 use App\Models\Product;
 use App\Services\Admin\ProductService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductController extends Controller
 {
     public function __construct(private readonly ProductService $productService) {}
 
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(ListProductsRequest $request): AnonymousResourceCollection
     {
-        $products = $this->productService->paginate(
-            $request->only([
-                'search',
-                'category_id',
-                'is_active',
-                'is_featured',
-                'min_price',
-                'max_price',
-                'per_page',
-            ]),
-        );
+        $products = $this->productService->paginate($request->validated());
 
         return ProductResource::collection($products);
     }

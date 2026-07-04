@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ListProductReviewsRequest;
 use App\Http\Requests\Admin\ModerateProductReviewRequest;
 use App\Http\Resources\ProductReview\ProductReviewResource;
 use App\Models\ProductReview;
 use App\Services\Admin\AdminProductReviewService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductReviewController extends Controller
@@ -16,18 +16,10 @@ class ProductReviewController extends Controller
         private readonly AdminProductReviewService $productReviewService,
     ) {}
 
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(ListProductReviewsRequest $request): AnonymousResourceCollection
     {
         return ProductReviewResource::collection(
-            $this->productReviewService->list(
-                $request->only([
-                    'status',
-                    'rating',
-                    'search',
-                    'product_id',
-                    'per_page',
-                ]),
-            ),
+            $this->productReviewService->list($request->validated()),
         );
     }
 

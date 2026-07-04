@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\Storefront;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductReview\ListStorefrontProductReviewsRequest;
 use App\Http\Resources\ProductReview\ProductReviewResource;
 use App\Http\Resources\ProductReview\ProductReviewSummaryResource;
 use App\Models\Product;
 use App\Services\ProductReview\ProductReviewService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProductReviewController extends Controller
@@ -17,12 +17,12 @@ class ProductReviewController extends Controller
     ) {}
 
     public function index(
-        Request $request,
+        ListStorefrontProductReviewsRequest $request,
         Product $product,
     ): AnonymousResourceCollection {
         $reviews = $this->productReviewService->listApprovedForProduct(
             $product,
-            $request->only(['rating', 'per_page']),
+            $request->validated(),
         );
 
         return ProductReviewResource::collection($reviews)->additional([

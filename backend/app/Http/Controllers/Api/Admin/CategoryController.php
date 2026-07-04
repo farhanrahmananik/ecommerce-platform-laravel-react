@@ -3,24 +3,22 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ListCategoriesRequest;
 use App\Http\Requests\Admin\StoreCategoryRequest;
 use App\Http\Requests\Admin\UpdateCategoryRequest;
 use App\Http\Resources\Admin\CategoryResource;
 use App\Models\Category;
 use App\Services\Admin\CategoryService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CategoryController extends Controller
 {
     public function __construct(private readonly CategoryService $categoryService) {}
 
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(ListCategoriesRequest $request): AnonymousResourceCollection
     {
-        $categories = $this->categoryService->paginate(
-            $request->only(['search', 'is_active', 'parent_id', 'per_page']),
-        );
+        $categories = $this->categoryService->paginate($request->validated());
 
         return CategoryResource::collection($categories);
     }

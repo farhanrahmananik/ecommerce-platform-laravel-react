@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Account;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductReview\ListAccountProductReviewsRequest;
 use App\Http\Requests\ProductReview\StoreProductReviewRequest;
 use App\Http\Requests\ProductReview\UpdateProductReviewRequest;
 use App\Http\Resources\ProductReview\ProductReviewResource;
@@ -19,12 +20,13 @@ class ProductReviewController extends Controller
         private readonly ProductReviewService $productReviewService,
     ) {}
 
-    public function index(Request $request): AnonymousResourceCollection
-    {
+    public function index(
+        ListAccountProductReviewsRequest $request,
+    ): AnonymousResourceCollection {
         return ProductReviewResource::collection(
             $this->productReviewService->listForUser(
                 $request->user(),
-                $request->only(['status', 'per_page']),
+                $request->validated(),
             ),
         );
     }

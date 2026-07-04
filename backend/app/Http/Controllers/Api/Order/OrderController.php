@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Order;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Order\ListOrdersRequest;
 use App\Http\Resources\Order\OrderResource;
 use App\Models\Order;
 use App\Services\Order\OrderService;
@@ -13,11 +14,11 @@ class OrderController extends Controller
 {
     public function __construct(private readonly OrderService $orderService) {}
 
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(ListOrdersRequest $request): AnonymousResourceCollection
     {
         $orders = $this->orderService->listOrdersForUser(
             $request->user(),
-            $request->only(['status', 'search', 'per_page']),
+            $request->validated(),
         );
 
         return OrderResource::collection($orders);

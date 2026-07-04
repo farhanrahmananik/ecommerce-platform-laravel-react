@@ -1895,7 +1895,9 @@ a {
 
 .shop-search > i {
   position: absolute;
+  top: 25px;
   left: 1rem;
+  transform: translateY(-50%);
   color: #8c96a9;
   pointer-events: none;
 }
@@ -3897,6 +3899,11 @@ a {
 
   .product-detail-actions {
     grid-template-columns: 1fr;
+  }
+
+  .product-detail-cart-panel__heading {
+    align-items: flex-start;
+    flex-wrap: wrap;
   }
 
   .product-detail-cart-panel__controls {
@@ -6346,6 +6353,14 @@ textarea.checkout-input {
   .site-header .btn-brand {
     padding: 0.48rem 0.65rem;
     font-size: 0.72rem;
+  }
+
+  .header-actions {
+    gap: 0.4rem !important;
+  }
+
+  .cart-nav-link {
+    padding: 0.32rem 0.46rem;
   }
 
   .home-hero {

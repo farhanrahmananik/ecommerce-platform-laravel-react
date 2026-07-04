@@ -21,7 +21,7 @@ function AppLayout() {
               <span>E-Commerce Platform</span>
             </Link>
 
-            <div className="d-flex align-items-center gap-2 gap-md-3">
+            <div className="d-flex align-items-center gap-2 gap-md-3 header-actions">
               <NavLink className="nav-home-link d-none d-md-inline-flex" to="/">
                 Home
               </NavLink>

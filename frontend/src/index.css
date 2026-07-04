@@ -2609,10 +2609,16 @@ a {
 }
 
 .storefront-listing-hero .shop-hero__proof span {
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
+  line-height: 1;
+}
+
+.storefront-listing-hero .shop-hero__proof i {
+  font-size: 0.85rem;
 }
 
 .storefront-catalog-section {

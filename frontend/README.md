@@ -1,16 +1,48 @@
-# React + Vite
+# Frontend SPA – E-Commerce Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React and Vite single-page frontend for the E-Commerce Platform.
 
-Currently, two official plugins are available:
+See the [root project README](../README.md) for complete installation instructions, environment guidance, features, and repository-wide commands.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Summary
 
-## React Compiler
+- React 19
+- Vite 8
+- React Router
+- Axios
+- Bootstrap 5
+- Bootstrap Icons
+- SweetAlert2
+- ESLint
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Architecture
 
-## Expanding the ESLint configuration
+The frontend is organized around:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React Router configuration for public, guest-only, authenticated customer, and admin routes.
+- Guest, authentication, and admin route guards.
+- A shared Axios service layer with cookie and XSRF support.
+- Auth and cart contexts exposed through dedicated hooks.
+- Storefront, customer-account, and administration UI areas.
+- Consistent loading, error, empty, action, and validation states.
+
+## Environment
+
+`VITE_API_BASE_URL` sets the Laravel backend origin used by the shared Axios client. The local example points to `http://localhost:8000`.
+
+## Common Commands
+
+Run these commands from `frontend/`:
+
+```powershell
+npm install
+Copy-Item .env.example .env
+npm run dev
+npm run lint
+npm run build
+npm run preview
+```
+
+The production build currently completes successfully with a non-blocking Vite warning because the main JavaScript chunk exceeds the default 500 kB warning threshold.
+
+Refer to the [root README](../README.md) for the full local setup and quality-validation workflow.

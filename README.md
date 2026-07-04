@@ -9,6 +9,14 @@
 
 A production-style full-stack e-commerce platform built with a Laravel API backend and a responsive React frontend. The project covers customer shopping flows, operational admin tools, inventory workflows, reporting, auditability, and a tested Sanctum SPA authentication foundation.
 
+## Live Portfolio Page
+
+A static GitHub Pages landing page for this project is available at:
+
+https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/
+
+This is a static HTML/CSS/JS portfolio page served from `docs/` and does not run the Laravel backend API or React application itself.
+
 ## Screenshots
 
 ### Storefront & Shopping

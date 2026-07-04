@@ -1735,8 +1735,8 @@
 .audit-summary-grid article {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0.9rem 1rem;
+  gap: 0.9rem;
+  padding: 1.1rem 1.25rem;
   border: 1px solid var(--admin-line);
   border-radius: 15px;
   background: #fff;
@@ -1745,11 +1745,17 @@
 
 .audit-summary-grid article > span {
   display: grid;
-  width: 38px;
-  height: 38px;
-  flex: 0 0 38px;
-  border-radius: 11px;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border-radius: 12px;
+  font-size: 1.05rem;
   place-items: center;
+}
+
+.audit-summary-grid article > div {
+  min-width: 0;
+  flex: 1;
 }
 
 .audit-summary-grid .is-indigo {
@@ -1774,13 +1780,16 @@
 
 .audit-summary-grid small {
   color: var(--admin-muted);
-  font-size: 0.52rem;
+  font-size: 0.72rem;
+  font-weight: 700;
 }
 
 .audit-summary-grid strong {
-  margin-top: 0.08rem;
+  margin-top: 0.2rem;
   color: var(--admin-ink);
-  font-size: 1rem;
+  font-size: 1.5rem;
+  font-weight: 850;
+  letter-spacing: -0.02em;
 }
 
 .audit-filter-card {
@@ -2682,21 +2691,21 @@
 
 .category-name-cell strong {
   color: var(--admin-ink);
-  font-size: 0.72rem;
+  font-size: 0.88rem;
 }
 
 .category-name-cell small {
-  margin-top: 0.1rem;
+  margin-top: 0.15rem;
   color: #9aa3b4;
-  font-size: 0.55rem;
+  font-size: 0.7rem;
 }
 
 .category-slug {
-  padding: 0.3rem 0.45rem;
+  padding: 0.32rem 0.55rem;
   color: #59657a;
   border-radius: 7px;
   background: #f2f4f7;
-  font-size: 0.61rem;
+  font-size: 0.72rem;
 }
 
 .category-parent-name,
@@ -5957,19 +5966,19 @@
 .admin-category-chip {
   display: inline-flex;
   align-items: center;
-  min-height: 27px;
-  padding: 0.28rem 0.5rem;
+  min-height: 30px;
+  padding: 0.3rem 0.6rem;
   color: #5e6980;
   border: 1px solid #e0e4eb;
   border-radius: 999px;
   background: #f5f6f9;
-  font-size: 0.56rem;
+  font-size: 0.68rem;
   font-weight: 760;
 }
 
 .admin-price-text {
   color: #26334d;
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 880;
   letter-spacing: -0.015em;
 }
@@ -6820,7 +6829,7 @@
 
 .admin-report-metric strong {
   color: #233349;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-variant-numeric: tabular-nums;
 }
 

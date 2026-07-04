@@ -65,18 +65,16 @@ Route::middleware('auth:sanctum')->group(function (): void {
         Route::get('/admin/product-reviews', [AdminProductReviewController::class, 'index']);
         Route::get('/admin/product-reviews/{productReview}', [AdminProductReviewController::class, 'show']);
         Route::patch('/admin/product-reviews/{productReview}/moderate', [AdminProductReviewController::class, 'moderate']);
+        Route::get('/admin/dashboard/summary', DashboardController::class);
+        Route::get('/admin/orders', [AdminOrderController::class, 'index']);
+        Route::get('/admin/orders/{order}', [AdminOrderController::class, 'show']);
+        Route::patch('/admin/orders/{order}/status', [OrderStatusController::class, 'update']);
+        Route::apiResource('/admin/categories', CategoryController::class);
+        Route::apiResource('/admin/coupons', CouponController::class);
+        Route::apiResource('/admin/products', ProductController::class);
+        Route::get('/admin/products/{product}/images', [ProductImageController::class, 'index']);
+        Route::post('/admin/products/{product}/images', [ProductImageController::class, 'store']);
+        Route::patch('/admin/products/{product}/images/{productImage}', [ProductImageController::class, 'update']);
+        Route::delete('/admin/products/{product}/images/{productImage}', [ProductImageController::class, 'destroy']);
     });
-
-    // TODO(Role & Permission Management): Add admin-role middleware after persisted role data exists.
-    Route::get('/admin/dashboard/summary', DashboardController::class);
-    Route::get('/admin/orders', [AdminOrderController::class, 'index']);
-    Route::get('/admin/orders/{order}', [AdminOrderController::class, 'show']);
-    Route::patch('/admin/orders/{order}/status', [OrderStatusController::class, 'update']);
-    Route::apiResource('/admin/categories', CategoryController::class);
-    Route::apiResource('/admin/coupons', CouponController::class);
-    Route::apiResource('/admin/products', ProductController::class);
-    Route::get('/admin/products/{product}/images', [ProductImageController::class, 'index']);
-    Route::post('/admin/products/{product}/images', [ProductImageController::class, 'store']);
-    Route::patch('/admin/products/{product}/images/{productImage}', [ProductImageController::class, 'update']);
-    Route::delete('/admin/products/{product}/images/{productImage}', [ProductImageController::class, 'destroy']);
 });

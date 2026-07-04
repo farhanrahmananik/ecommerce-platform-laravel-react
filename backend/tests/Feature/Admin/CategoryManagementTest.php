@@ -19,7 +19,7 @@ class CategoryManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_list_categories(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         Category::query()->create([
             'name' => 'Accessories',
@@ -45,7 +45,7 @@ class CategoryManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_create_a_category(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         $response = $this
             ->actingAs($user, 'web')
@@ -80,7 +80,7 @@ class CategoryManagementTest extends TestCase
 
     public function test_a_unique_slug_is_generated_when_it_is_missing(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         Category::query()->create([
             'name' => 'Summer Sale',
@@ -102,7 +102,7 @@ class CategoryManagementTest extends TestCase
 
     public function test_validation_errors_are_returned_for_invalid_category_data(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         $response = $this
             ->actingAs($user, 'web')
@@ -127,7 +127,7 @@ class CategoryManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_update_a_category(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $category = Category::query()->create([
             'name' => 'Old Name',
             'slug' => 'old-name',
@@ -159,7 +159,7 @@ class CategoryManagementTest extends TestCase
 
     public function test_a_category_cannot_be_its_own_parent(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $category = Category::query()->create([
             'name' => 'Electronics',
             'slug' => 'electronics',
@@ -176,7 +176,7 @@ class CategoryManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_delete_a_category(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $category = Category::query()->create([
             'name' => 'Archive Me',
             'slug' => 'archive-me',

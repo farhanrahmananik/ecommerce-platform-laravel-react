@@ -17,10 +17,11 @@ class DashboardSummaryTest extends TestCase
 
     public function test_an_authenticated_user_receives_a_defensive_dashboard_summary(): void
     {
-        $users = User::factory()->count(2)->create();
+        $admin = User::factory()->create(['role' => 'admin']);
+        User::factory()->create(['role' => 'customer']);
 
         $response = $this
-            ->actingAs($users->first(), 'web')
+            ->actingAs($admin, 'web')
             ->getJson('/api/admin/dashboard/summary');
 
         $response

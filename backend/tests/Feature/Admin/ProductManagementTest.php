@@ -20,7 +20,7 @@ class ProductManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_list_products(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         $this->createProduct([
             'name' => 'Second Product',
@@ -48,7 +48,7 @@ class ProductManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_create_a_product(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $category = $this->createCategory();
 
         $response = $this
@@ -88,7 +88,7 @@ class ProductManagementTest extends TestCase
 
     public function test_a_unique_slug_is_generated_when_it_is_missing(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         $this->createProduct([
             'name' => 'Classic Tee',
@@ -113,7 +113,7 @@ class ProductManagementTest extends TestCase
 
     public function test_validation_errors_are_returned_for_invalid_product_data(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         $response = $this
             ->actingAs($user, 'web')
@@ -142,7 +142,7 @@ class ProductManagementTest extends TestCase
 
     public function test_sale_price_cannot_be_greater_than_price(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         $this
             ->actingAs($user, 'web')
@@ -158,7 +158,7 @@ class ProductManagementTest extends TestCase
 
     public function test_update_sale_price_is_compared_with_the_existing_price(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $product = $this->createProduct([
             'price' => 100,
             'sale_price' => null,
@@ -175,7 +175,7 @@ class ProductManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_update_a_product(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $product = $this->createProduct([
             'name' => 'Old Product',
             'slug' => 'old-product',
@@ -223,7 +223,7 @@ class ProductManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_filter_products_by_category(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $firstCategory = $this->createCategory([
             'name' => 'Apparel',
             'slug' => 'apparel',
@@ -259,7 +259,7 @@ class ProductManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_filter_featured_products(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
 
         $this->createProduct([
             'name' => 'Featured Product',
@@ -287,7 +287,7 @@ class ProductManagementTest extends TestCase
 
     public function test_an_authenticated_user_can_delete_a_product(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['role' => 'admin']);
         $product = $this->createProduct();
 
         $response = $this

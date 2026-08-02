@@ -1,676 +1,229 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>E-Commerce Platform – Laravel React</title>
-  <meta
-    name="description"
-    content="Production-style full-stack e-commerce portfolio project built with Laravel 12 API and React SPA, featuring admin dashboard, storefront, cart, checkout, orders, stock, coupons, reports, audit logs, and tests."
-  />
-  <link rel="canonical" href="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/" />
-  <meta property="og:title" content="E-Commerce Platform – Laravel React" />
-  <meta
-    property="og:description"
-    content="Production-style full-stack e-commerce portfolio project built with Laravel 12 API and React SPA, featuring admin dashboard, storefront, cart, checkout, orders, stock, coupons, reports, audit logs, and tests."
-  />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/" />
-  <meta
-    property="og:image"
-    content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/assets/img/og-preview.png?v=20260704"
-  />
-  <meta property="og:image:width" content="1280" />
-  <meta property="og:image:height" content="640" />
-  <meta property="og:image:alt" content="E-Commerce Platform Laravel React portfolio project preview" />
-  <meta property="og:site_name" content="Md Farhan Rahman Portfolio" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="E-Commerce Platform – Laravel React" />
-  <meta
-    name="twitter:description"
-    content="Production-style full-stack e-commerce portfolio project built with Laravel 12 API and React SPA, featuring admin dashboard, storefront, cart, checkout, orders, stock, coupons, reports, audit logs, and tests."
-  />
-  <meta
-    name="twitter:image"
-    content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/assets/img/og-preview.png?v=20260704"
-  />
-  <meta name="twitter:image:alt" content="E-Commerce Platform Laravel React portfolio project preview" />
-  <meta name="theme-color" content="#131e35" />
-  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="assets/icons/favicon-32x32.png" type="image/png" sizes="32x32" />
-  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180" />
-  <link rel="stylesheet" href="assets/css/github-pages.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101a31">
+  <title>Full-stack E-Commerce Platform | Laravel 12 + React 19</title>
+  <meta name="description" content="A production-style e-commerce platform pairing a Laravel 12 API with a React 19 storefront, complete commerce workflows, admin operations, reporting, and verified test coverage.">
+  <link rel="canonical" href="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='7' fill='%23101a31'/%3E%3Cpath d='M7 8h10l-1 10H8L7 8Zm2 0V6a3 3 0 0 1 6 0v2' fill='none' stroke='%23ff6646' stroke-width='1.8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/github-pages.css">
+
+  <meta property="og:title" content="Full-stack E-Commerce Platform — Laravel + React">
+  <meta property="og:description" content="A complete shopper journey and operational control center, engineered as one production-style portfolio project.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/">
+  <meta property="og:site_name" content="Farhan Rahman Anik — Portfolio">
+  <meta property="og:image" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/assets/img/og-preview-v2.png?v=20260802">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Laravel and React full-stack e-commerce platform portfolio project">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Full-stack E-Commerce Platform — Laravel + React">
+  <meta name="twitter:description" content="Storefront experience, checkout, admin operations, inventory, reports, auditability, and 156 tests passing.">
+  <meta name="twitter:image" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/assets/img/og-preview-v2.png?v=20260802">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Inline icon sprite: no external icon font or CDN. -->
-  <svg style="display:none" aria-hidden="true">
-    <defs>
-      <symbol id="icon-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 8h12l1 12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L6 8Z" />
-        <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-      </symbol>
-      <symbol id="icon-auth" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="5" y="11" width="14" height="9" rx="2" />
-        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
-      </symbol>
-      <symbol id="icon-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="4" y="4" width="7" height="7" rx="1.5" />
-        <rect x="13" y="4" width="7" height="7" rx="1.5" />
-        <rect x="4" y="13" width="7" height="7" rx="1.5" />
-        <rect x="13" y="13" width="7" height="7" rx="1.5" />
-      </symbol>
-      <symbol id="icon-category" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7Z" />
-      </symbol>
-      <symbol id="icon-product" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z" />
-        <path d="M4 7.5 12 12l8-4.5M12 12v9" />
-      </symbol>
-      <symbol id="icon-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="16" rx="2" />
-        <circle cx="8.5" cy="9.5" r="1.6" />
-        <path d="m5 18 5-6 4 4 3-3 5 5" />
-      </symbol>
-      <symbol id="icon-storefront" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 9 5 4h14l1 5" />
-        <path d="M4 9v10h16V9" />
-        <path d="M9 19v-6h6v6" />
-      </symbol>
-      <symbol id="icon-details" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M7 3h7l4 4v14H7Z" />
-        <path d="M14 3v4h4" />
-        <path d="M9.5 12h6M9.5 16h6" />
-      </symbol>
-      <symbol id="icon-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="9.5" cy="20" r="1.3" />
-        <circle cx="17" cy="20" r="1.3" />
-        <path d="M3.5 4h2.2l1.8 11a2 2 0 0 0 2 1.7h8a2 2 0 0 0 2-1.6L21 8H6.2" />
-      </symbol>
-      <symbol id="icon-checkout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="6" width="18" height="13" rx="2" />
-        <path d="M3 10h18" />
-        <rect x="6" y="13.5" width="5" height="2" rx="0.5" />
-      </symbol>
-      <symbol id="icon-orders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M6 3h12v18l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5-2 1.5V3Z" />
-        <path d="M9 8h6M9 12h6" />
-      </symbol>
-      <symbol id="icon-coupons" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z" />
-        <path d="M12 6v12" stroke-dasharray="2 2" />
-      </symbol>
-      <symbol id="icon-reviews" viewBox="0 0 24 24">
-        <path fill="currentColor" stroke="none" d="m12 3 2.6 5.9 6.4.7-4.8 4.4 1.3 6.3L12 17.1 6.5 20.3l1.3-6.3-4.8-4.4 6.4-.7L12 3Z" />
-      </symbol>
-      <symbol id="icon-stock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M4 8 12 4l8 4-8 4-8-4Z" />
-        <path d="M4 8v8l8 4 8-4V8" />
-        <path d="M12 12v8" />
-      </symbol>
-      <symbol id="icon-reports" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="4" y="13" width="3" height="7" rx="1" />
-        <rect x="10.5" y="8" width="3" height="12" rx="1" />
-        <rect x="17" y="4" width="3" height="16" rx="1" />
-      </symbol>
-      <symbol id="icon-audit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3 19 6v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6Z" />
-        <path d="m9 12 2 2 4-4" />
-      </symbol>
-      <symbol id="icon-quality" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="9" />
-        <path d="m8 12.5 2.5 2.5L16 9.5" />
-      </symbol>
-      <symbol id="icon-responsive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="13" height="9" rx="1.2" />
-        <path d="M7 17h5" />
-        <rect x="17" y="8" width="4" height="8" rx="1" />
-      </symbol>
-      <symbol id="icon-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="4" y="4" width="16" height="6" rx="1.5" />
-        <rect x="4" y="14" width="16" height="6" rx="1.5" />
-        <circle cx="7.5" cy="7" r="0.9" fill="currentColor" stroke="none" />
-        <circle cx="7.5" cy="17" r="0.9" fill="currentColor" stroke="none" />
-      </symbol>
-      <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m12 3 8 4-8 4-8-4 8-4Z" />
-        <path d="m4 12 8 4 8-4" />
-        <path d="m4 16 8 4 8-4" />
-      </symbol>
-      <symbol id="icon-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m9 8-5 4 5 4M15 8l5 4-5 4" />
-      </symbol>
-      <symbol id="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 6l6 6-6 6" />
-      </symbol>
-    </defs>
-  </svg>
-
-  <header class="site-nav" id="top">
-    <div class="nav-inner">
-      <a class="nav-brand" href="#top">
-        <span class="nav-brand__mark" aria-hidden="true"><svg width="20" height="20"><use href="#icon-bag" /></svg></span>
-        <span>E-Commerce Platform</span>
+  <header class="site-header" id="top">
+    <div class="container nav-shell">
+      <a class="brand" href="#top" aria-label="E-Commerce Platform home">
+        <span class="brand-mark" aria-hidden="true">EP</span>
+        <span><strong>E-Commerce</strong><small>Laravel × React</small></span>
       </a>
 
-      <button
-        class="nav-toggle"
-        id="navToggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="navMenu"
-        aria-label="Toggle navigation menu"
-      >
-        <span class="nav-toggle__bar"></span>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav">
+        <span class="sr-only">Toggle navigation</span><i></i><i></i><i></i>
       </button>
 
-      <nav class="nav-menu" id="navMenu" aria-label="Primary">
-        <a href="#overview">Overview</a>
-        <a href="#features">Features</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#quality">Quality</a>
-        <a href="#screenshots">Screenshots</a>
-        <a class="nav-cta" href="#repository">Repository</a>
+      <nav class="primary-nav" id="primaryNav" aria-label="Primary navigation">
+        <a href="#experience">Experience</a>
+        <a href="#operations">Operations</a>
+        <a href="#engineering">Engineering</a>
+        <a href="#gallery">Gallery</a>
+        <a class="nav-github" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__pattern" aria-hidden="true"></div>
-      <div class="container">
-        <div class="hero__inner">
-          <span class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Portfolio Project &middot; Tested</span>
-          <h1 id="hero-title">E-Commerce Platform</h1>
-          <p class="hero__subtitle">Laravel 12 API + React SPA</p>
-          <p class="hero__desc">
-            A production-style full-stack e-commerce platform covering customer shopping flows,
-            operational admin tools, inventory workflows, reporting, and auditability — backed by a
-            tested Laravel Sanctum authentication foundation.
-          </p>
-
-          <p class="hero__note">
-            <svg width="18" height="18" aria-hidden="true"><use href="#icon-quality" /></svg>
-            <span><strong>Static portfolio page.</strong> This landing page is plain HTML/CSS/JS served by GitHub
-            Pages from <code>/docs</code>. It does not run the Laravel API or the React application — for the
-            actual app, clone the repository and follow the local setup instructions.</span>
-          </p>
-
-          <div class="hero__actions">
-            <a
-              class="btn btn-primary"
-              href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Repository on GitHub
-              <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow" /></svg>
-            </a>
-            <a class="btn btn-ghost" href="#screenshots">See Screenshots</a>
+      <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span aria-hidden="true"></span> Full-stack commerce · Portfolio project</p>
+          <h1 id="hero-title">Built to sell.<br><em>Engineered to scale.</em></h1>
+          <p class="hero-lede">A complete shopper journey and operational control center—powered by a Laravel 12 API and a responsive React 19 experience.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">Explore the source <span aria-hidden="true">↗</span></a>
+            <a class="button button-ghost" href="#experience">Tour the platform <span aria-hidden="true">↓</span></a>
           </div>
+          <ul class="hero-proof" aria-label="Platform highlights">
+            <li><span>156</span> tests passing</li>
+            <li><span>808</span> assertions</li>
+            <li><span>17+</span> capabilities</li>
+          </ul>
         </div>
+
+        <div class="hero-stage reveal" data-delay="1">
+          <div class="stage-controls" aria-label="Choose hero preview">
+            <button class="is-active" type="button" data-hero-image="screenshots/storefront-products.webp" data-hero-alt="Storefront catalog preview">Storefront</button>
+            <button type="button" data-hero-image="screenshots/admin-dashboard.webp" data-hero-alt="Admin dashboard preview">Admin workspace</button>
+          </div>
+          <div class="browser-frame">
+            <div class="browser-bar"><span aria-hidden="true"><i></i><i></i><i></i></span><b>commerce.local</b><em>LIVE</em></div>
+            <img id="heroPreview" src="screenshots/storefront-products.webp" alt="Storefront catalog preview" width="1600" height="900" fetchpriority="high">
+          </div>
+          <div class="float-card order-card" aria-hidden="true"><i>✓</i><span><small>ORDER CONFIRMED</small><strong>#EC-1048 · $248.00</strong></span></div>
+          <div class="float-card stock-card" aria-hidden="true"><small>INVENTORY HEALTH</small><strong>94%</strong><span><i style="--w:94%"></i></span></div>
+        </div>
+      </div>
+      <div class="container platform-strip reveal" data-delay="2">
+        <span>POWERING THE EXPERIENCE</span>
+        <ul><li>Laravel 12</li><li>React 19</li><li>Sanctum</li><li>React Router 7</li><li>MySQL</li><li>Vite 8</li></ul>
       </div>
     </section>
 
-    <section class="section" id="overview">
+    <section class="section experience" id="experience" aria-labelledby="experience-title">
       <div class="container">
-        <div class="section-head">
-          <span class="section-kicker">Overview</span>
-          <h2>One repository, two focused applications</h2>
-          <p>
-            A Laravel API backend and a React single-page frontend work together to cover the full
-            shopping lifecycle plus the operational tooling behind it.
-          </p>
+        <div class="section-heading reveal">
+          <div><p class="overline">The customer experience</p><h2 id="experience-title">A shopper journey with no dead ends.</h2></div>
+          <p>Discovery, decision, checkout, and post-purchase actions work as one continuous experience—with thoughtful validation, loading, empty, and recovery states.</p>
         </div>
 
-        <div class="overview-grid">
-          <div class="overview-copy">
-            <p>
-              Laravel exposes public storefront, authenticated customer, and role-protected admin
-              APIs. React provides the storefront, account experience, cart and checkout flows, and
-              the admin workspace. Laravel Sanctum authenticates the first-party SPA with session
-              cookies and CSRF protection, while service classes, validated requests, API Resources,
-              route guards, and reusable state providers keep responsibilities explicit.
-            </p>
-            <p>
-              Customers can browse products, review product details, manage a cart, apply coupons,
-              complete cash-on-delivery checkout, view orders, and submit verified-purchase reviews.
-              Admin-capable users can manage the catalog, images, inventory, coupons, orders,
-              reviews, reports, and audit history.
-            </p>
-          </div>
+        <ol class="journey reveal" aria-label="Customer shopping journey">
+          <li><span>01</span><div><strong>Discover</strong><small>Search, filter &amp; sort</small></div></li>
+          <li><span>02</span><div><strong>Decide</strong><small>Gallery, pricing &amp; reviews</small></div></li>
+          <li><span>03</span><div><strong>Purchase</strong><small>Cart, coupon &amp; checkout</small></div></li>
+          <li><span>04</span><div><strong>Return</strong><small>Orders &amp; verified reviews</small></div></li>
+        </ol>
 
-          <div class="card overview-roles">
-            <h3>User roles</h3>
-            <div class="role-row">
-              <span>Super Admin</span>
-              <span>Admin workspace + APIs</span>
-            </div>
-            <div class="role-row">
-              <span>Store Manager</span>
-              <span>Admin workspace + APIs</span>
-            </div>
-            <div class="role-row">
-              <span>Admin</span>
-              <span>Admin workspace + APIs</span>
-            </div>
-            <div class="role-row">
-              <span>Customer</span>
-              <span>Storefront + account features</span>
+        <div class="showcase showcase-storefront">
+          <div class="showcase-visual reveal">
+            <div class="visual-label"><span>SHOPPER VIEW</span><b>Responsive storefront</b></div>
+            <img src="screenshots/product-details.webp" alt="Product details page with image gallery, pricing, reviews, and add to cart panel" width="1600" height="900" loading="lazy">
+            <div class="phone-frame" aria-hidden="true"><div></div><img src="screenshots/mobile-storefront.webp" alt="" width="390" height="700" loading="lazy"></div>
+          </div>
+          <div class="showcase-copy reveal" data-delay="1">
+            <p class="overline">Storefront</p>
+            <h3>Designed around buying confidence.</h3>
+            <p>Clear pricing, visible stock states, approved review summaries, and stock-aware cart validation help customers move from curiosity to checkout without friction.</p>
+            <div class="feature-lines">
+              <div><span>01</span><p><strong>Flexible product discovery</strong><small>Search, category, featured, sorting, and pagination filters.</small></p></div>
+              <div><span>02</span><p><strong>Stock-aware commerce</strong><small>Quantities are validated against real inventory before checkout.</small></p></div>
+              <div><span>03</span><p><strong>Trusted product feedback</strong><small>Only verified purchasers can create managed product reviews.</small></p></div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section section--alt" id="features">
+    <section class="section operations" id="operations" aria-labelledby="operations-title">
       <div class="container">
-        <div class="section-head">
-          <span class="section-kicker">Features</span>
-          <h2>Storefront, admin, and quality modules</h2>
-          <p>Every module below is implemented in the actual application, not just planned.</p>
+        <div class="section-heading section-heading-light reveal">
+          <div><p class="overline">The operations layer</p><h2 id="operations-title">One workspace. Every commerce signal.</h2></div>
+          <p>From catalog maintenance to fulfillment and reporting, admin-capable teams get a secure operational view with traceable actions.</p>
         </div>
 
-        <div class="feature-grid">
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-auth" /></svg>
-            <h3>Authentication</h3>
-            <p>Registration, login, session bootstrap, and logout secured by Laravel Sanctum's SPA cookie authentication.</p>
-          </article>
+        <div class="operations-stage reveal">
+          <div class="admin-frame">
+            <div class="admin-frame-bar"><span><i></i><i></i><i></i></span><strong>ADMIN CONTROL CENTER</strong><em>SECURE</em></div>
+            <img src="screenshots/admin-dashboard.webp" alt="Admin dashboard with commerce metrics, quick actions, and platform status" width="1600" height="900" loading="lazy">
+          </div>
+          <div class="operations-stats" aria-label="Admin capability highlights">
+            <div><span>CATALOG</span><strong>Products &amp; categories</strong><small>Images, pricing, visibility, and organization</small></div>
+            <div><span>INVENTORY</span><strong>Stock that stays accountable</strong><small>Adjustments with full movement history</small></div>
+            <div><span>FULFILLMENT</span><strong>Controlled order flow</strong><small>Search, filters, detail, and status transitions</small></div>
+            <div><span>INTELLIGENCE</span><strong>Reports with context</strong><small>Sales, products, stock, reviews, and audit logs</small></div>
+          </div>
+        </div>
 
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-dashboard" /></svg>
-            <div class="feature-card__heading">
-              <h3>Admin Dashboard</h3>
-              <span class="feature-card__tag is-admin">Admin</span>
-            </div>
-            <p>Role-protected workspace summarizing commerce metrics, quick actions, and platform status.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-category" /></svg>
-            <div class="feature-card__heading">
-              <h3>Category Management</h3>
-              <span class="feature-card__tag is-admin">Admin</span>
-            </div>
-            <p>Structured category CRUD that organizes the catalog customers browse on the storefront.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-product" /></svg>
-            <div class="feature-card__heading">
-              <h3>Product Management</h3>
-              <span class="feature-card__tag is-admin">Admin</span>
-            </div>
-            <p>Catalog table with filters, pricing, stock status badges, and full product lifecycle control.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-image" /></svg>
-            <div class="feature-card__heading">
-              <h3>Product Image Management</h3>
-              <span class="feature-card__tag is-admin">Admin</span>
-            </div>
-            <p>Ordered image galleries with primary-image selection stored on Laravel's public disk.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-storefront" /></svg>
-            <h3>Storefront Product Listing</h3>
-            <p>Public catalog with search, category, featured, sorting, and pagination filters.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-details" /></svg>
-            <h3>Product Details Page</h3>
-            <p>Responsive image gallery, sale pricing, inventory state, and approved review summaries.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-cart" /></svg>
-            <h3>Cart</h3>
-            <p>Authenticated cart with stock-aware quantity validation and live totals.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-checkout" /></svg>
-            <h3>Checkout</h3>
-            <p>Shipping and billing details, cash-on-delivery placement, and coupon application.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-orders" /></svg>
-            <h3>Orders</h3>
-            <p>Customer order history and detailed snapshots, plus admin search, filtering, and status transitions.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-coupons" /></svg>
-            <div class="feature-card__heading">
-              <h3>Coupons</h3>
-              <span class="feature-card__tag is-admin">Admin</span>
-            </div>
-            <p>Coupon management with redemption-aware checkout integration.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-reviews" /></svg>
-            <h3>Product Reviews</h3>
-            <p>Verified-purchase review creation and editing, with admin moderation of submissions.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-stock" /></svg>
-            <div class="feature-card__heading">
-              <h3>Stock Management</h3>
-              <span class="feature-card__tag is-admin">Admin</span>
-            </div>
-            <p>Inventory adjustments with full stock-movement history for accountability.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-reports" /></svg>
-            <div class="feature-card__heading">
-              <h3>Reports</h3>
-              <span class="feature-card__tag is-admin">Admin</span>
-            </div>
-            <p>Sales, top-product, summary, and stock reports for day-to-day decision making.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-audit" /></svg>
-            <div class="feature-card__heading">
-              <h3>Audit Logs</h3>
-              <span class="feature-card__tag is-admin">Admin</span>
-            </div>
-            <p>Filterable history of administrative and customer actions with before/after values.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-quality" /></svg>
-            <div class="feature-card__heading">
-              <h3>Testing &amp; Quality Review</h3>
-              <span class="feature-card__tag is-quality">Quality</span>
-            </div>
-            <p>Feature-level backend regression coverage across auth, commerce, and admin operations.</p>
-          </article>
-
-          <article class="card feature-card">
-            <svg class="feature-card__icon" width="22" height="22" aria-hidden="true"><use href="#icon-responsive" /></svg>
-            <div class="feature-card__heading">
-              <h3>Responsive UI Polish</h3>
-              <span class="feature-card__tag is-quality">Quality</span>
-            </div>
-            <p>Layout, alignment, and typography QA passes across desktop, tablet, and mobile widths.</p>
-          </article>
+        <div class="capability-grid">
+          <article class="capability reveal"><span>01</span><p class="overline">Catalog</p><h3>Merchandising tools</h3><p>Category, product, image, featured state, price, and availability management.</p><ul><li>Primary image control</li><li>Search &amp; filters</li><li>Stock status</li></ul></article>
+          <article class="capability reveal" data-delay="1"><span>02</span><p class="overline">Revenue</p><h3>Orders &amp; coupons</h3><p>Redemption-aware discounts and controlled order status workflows.</p><ul><li>Coupon validation</li><li>Order snapshots</li><li>Status history</li></ul></article>
+          <article class="capability reveal" data-delay="2"><span>03</span><p class="overline">Trust</p><h3>Moderation &amp; audit</h3><p>Review moderation and filterable action history with before-and-after values.</p><ul><li>Verified reviews</li><li>Audit metadata</li><li>Role protection</li></ul></article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="architecture">
-      <div class="container">
-        <div class="section-head">
-          <span class="section-kicker">Architecture</span>
-          <h2>Backend API + React frontend</h2>
-          <p>Clear separation of concerns on both sides of the stack.</p>
+    <section class="section engineering" id="engineering" aria-labelledby="engineering-title">
+      <div class="container engineering-layout">
+        <div class="engineering-copy reveal">
+          <p class="overline">Under the storefront</p>
+          <h2 id="engineering-title">Two applications.<br>One deliberate system.</h2>
+          <p>A clear API boundary keeps the Laravel backend focused on business rules and the React SPA focused on user experience—without mixing responsibilities.</p>
+          <a class="text-link" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react#architecture-overview" target="_blank" rel="noopener noreferrer">Explore the architecture <span aria-hidden="true">→</span></a>
         </div>
 
-        <div class="arch-grid">
-          <div class="card arch-card arch-card--backend">
-            <div class="arch-card__head">
-              <span aria-hidden="true"><svg width="20" height="20"><use href="#icon-server" /></svg></span>
-              <h3>Backend (Laravel 12)</h3>
-            </div>
-            <ul class="arch-list">
-              <li>Thin API controllers delegate business and query behavior.</li>
-              <li>Form Requests validate mutation payloads and listing filters.</li>
-              <li>Service classes coordinate business rules, transactions, and persistence.</li>
-              <li>API Resources and Resource Collections provide stable JSON response shapes.</li>
-              <li>Transactions and row locks protect concurrent commerce operations.</li>
-              <li>Sanctum provides cookie/session authentication for the first-party SPA.</li>
-              <li><code>auth:sanctum</code> and a custom <code>admin</code> middleware protect customer and admin boundaries.</li>
-            </ul>
+        <div class="architecture-card reveal" data-delay="1">
+          <div class="arch-column backend-column">
+            <p class="overline">Laravel API</p><h3>Reliable business core</h3>
+            <ul><li>Thin controllers</li><li>Form Requests</li><li>Service classes</li><li>Transactions &amp; row locks</li><li>API Resources</li><li>Sanctum authentication</li></ul>
           </div>
+          <div class="arch-flow" aria-hidden="true"><span>JSON</span><i>⇄</i><small>COOKIE + CSRF</small></div>
+          <div class="arch-column frontend-column">
+            <p class="overline">React SPA</p><h3>Responsive experience</h3>
+            <ul><li>React Router</li><li>Route guards</li><li>Shared Axios client</li><li>Service modules</li><li>Auth &amp; cart contexts</li><li>Intentional UI states</li></ul>
+          </div>
+        </div>
 
-          <div class="card arch-card arch-card--frontend">
-            <div class="arch-card__head">
-              <span aria-hidden="true"><svg width="20" height="20"><use href="#icon-layers" /></svg></span>
-              <h3>Frontend (React SPA)</h3>
-            </div>
-            <ul class="arch-list">
-              <li>A central React Router configuration defines public, guest-only, customer, and admin routes.</li>
-              <li>Route guards handle authentication, admin roles, and session-bootstrap failures.</li>
-              <li>One Axios client provides the API base URL, credentials, and XSRF support.</li>
-              <li>Service modules isolate API calls from page components.</li>
-              <li>Auth and cart contexts expose reusable state through dedicated hooks.</li>
-              <li>Pages provide validation, action states, loading feedback, and intentional empty states.</li>
-            </ul>
-          </div>
-
-          <div class="card arch-note">
-            <svg width="18" height="18" aria-hidden="true"><use href="#icon-details" /></svg>
-            <p>
-              Database structure is captured separately in
-              <a href="database/README.md">database design and reference docs</a>, which document
-              the planned schema and use the Laravel migrations as the as-built source of truth.
-            </p>
-          </div>
+        <div class="quality-rail reveal">
+          <div><strong>156</strong><span>Backend tests</span><small>passing</small></div>
+          <div><strong>808</strong><span>Assertions</span><small>verified</small></div>
+          <div><strong>PASS</strong><span>Frontend ESLint</span><small>clean</small></div>
+          <div><strong>PASS</strong><span>Production build</span><small>verified</small></div>
         </div>
       </div>
     </section>
 
-    <section class="section section--alt" id="tech-stack">
+    <section class="section gallery" id="gallery" aria-labelledby="gallery-title">
       <div class="container">
-        <div class="section-head">
-          <span class="section-kicker">Tech Stack</span>
-          <h2>What the project is built with</h2>
+        <div class="section-heading reveal">
+          <div><p class="overline">Real product captures</p><h2 id="gallery-title">From storefront polish to back-office clarity.</h2></div>
+          <p>Every image below comes from the working application—not a concept mockup. Open any capture for a closer look.</p>
         </div>
 
-        <div class="stack-groups">
-          <div class="card stack-group">
-            <h3>Backend</h3>
-            <div class="chip-row">
-              <span class="chip">PHP 8.2</span>
-              <span class="chip">Laravel 12</span>
-              <span class="chip">Laravel Sanctum</span>
-              <span class="chip">Eloquent ORM</span>
-            </div>
-          </div>
-
-          <div class="card stack-group">
-            <h3>Frontend</h3>
-            <div class="chip-row">
-              <span class="chip">React 19</span>
-              <span class="chip">React Router 7</span>
-              <span class="chip">Vite 8</span>
-              <span class="chip">Axios</span>
-            </div>
-          </div>
-
-          <div class="card stack-group">
-            <h3>UI</h3>
-            <div class="chip-row">
-              <span class="chip">Bootstrap 5</span>
-              <span class="chip">Bootstrap Icons</span>
-              <span class="chip">SweetAlert2</span>
-              <span class="chip">Custom CSS</span>
-            </div>
-          </div>
-
-          <div class="card stack-group">
-            <h3>Database</h3>
-            <div class="chip-row">
-              <span class="chip">SQLite (local default)</span>
-              <span class="chip">MySQL (supported)</span>
-            </div>
-          </div>
-
-          <div class="card stack-group">
-            <h3>Quality</h3>
-            <div class="chip-row">
-              <span class="chip">PHPUnit</span>
-              <span class="chip">Laravel Pint</span>
-              <span class="chip">ESLint</span>
-              <span class="chip">Vite production build</span>
-            </div>
-          </div>
+        <div class="gallery-grid">
+          <button class="gallery-card gallery-wide reveal" type="button" data-image="screenshots/storefront-products.webp" data-alt="Full storefront products screenshot"><span><i>01</i><strong>Product catalog</strong><b>Open ↗</b></span><img src="screenshots/storefront-products.webp" alt="Storefront product catalog" width="1600" height="900" loading="lazy"></button>
+          <button class="gallery-card reveal" data-delay="1" type="button" data-image="screenshots/cart.webp" data-alt="Full shopping cart screenshot"><span><i>02</i><strong>Shopping cart</strong><b>Open ↗</b></span><img src="screenshots/cart.webp" alt="Shopping cart with quantities and totals" width="1600" height="900" loading="lazy"></button>
+          <button class="gallery-card reveal" type="button" data-image="screenshots/checkout.webp" data-alt="Full checkout screenshot"><span><i>03</i><strong>Checkout</strong><b>Open ↗</b></span><img src="screenshots/checkout.webp" alt="Checkout with shipping, coupon, and order summary" width="1600" height="900" loading="lazy"></button>
+          <button class="gallery-card gallery-wide reveal" data-delay="1" type="button" data-image="screenshots/admin-reports.webp" data-alt="Full admin reports screenshot"><span><i>04</i><strong>Reports &amp; analytics</strong><b>Open ↗</b></span><img src="screenshots/admin-reports.webp" alt="Admin reports and analytics dashboard" width="1600" height="900" loading="lazy"></button>
+          <button class="gallery-card reveal" type="button" data-image="screenshots/admin-products.webp" data-alt="Full admin products screenshot"><span><i>05</i><strong>Product management</strong><b>Open ↗</b></span><img src="screenshots/admin-products.webp" alt="Admin product management" width="1600" height="900" loading="lazy"></button>
+          <button class="gallery-card reveal" data-delay="1" type="button" data-image="screenshots/admin-stock.webp" data-alt="Full stock management screenshot"><span><i>06</i><strong>Stock management</strong><b>Open ↗</b></span><img src="screenshots/admin-stock.webp" alt="Admin stock management" width="1600" height="900" loading="lazy"></button>
         </div>
       </div>
     </section>
 
-    <section class="section" id="quality">
-      <div class="container">
-        <div class="section-head">
-          <span class="section-kicker">Quality</span>
-          <h2>Latest verified project checks</h2>
-          <p>Confirmed results from the project's own testing and QA passes.</p>
-        </div>
-
-        <div class="quality-grid">
-          <div class="card stat-card">
-            <span class="stat-card__icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-quality" /></svg></span>
-            <div>
-              <strong>156 passed &middot; 808 assertions</strong>
-              <span>Backend test suite</span>
-            </div>
-          </div>
-
-          <div class="card stat-card">
-            <span class="stat-card__icon is-info" aria-hidden="true"><svg width="22" height="22"><use href="#icon-code" /></svg></span>
-            <div>
-              <strong>Passed</strong>
-              <span>Frontend ESLint</span>
-            </div>
-          </div>
-
-          <div class="card stat-card">
-            <span class="stat-card__icon is-warning" aria-hidden="true"><svg width="22" height="22"><use href="#icon-layers" /></svg></span>
-            <div>
-              <strong>Passed</strong>
-              <span>Production build (non-blocking chunk warning)</span>
-            </div>
-          </div>
-
-          <div class="card stat-card">
-            <span class="stat-card__icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-audit" /></svg></span>
-            <div>
-              <strong>Passed</strong>
-              <span>git diff --check</span>
-            </div>
-          </div>
-        </div>
-
-        <p class="quality-footnote">
-          The backend suite is feature-oriented and covers authentication, admin authorization,
-          request validation, storefront behavior, cart, checkout, coupons, orders, reviews, stock,
-          reports, and audit logs. The Vite production build reports a known, non-blocking
-          chunk-size warning because the main JavaScript bundle is approximately 645 kB after
-          minification, above Vite's 500 kB default threshold — the build still completes
-          successfully.
-        </p>
-      </div>
-    </section>
-
-    <section class="section section--alt" id="screenshots">
-      <div class="container">
-        <div class="section-head">
-          <span class="section-kicker">Screenshots</span>
-          <h2>Storefront and admin, side by side</h2>
-          <p>Real captures from the running application.</p>
-        </div>
-
-        <div class="screens-group">
-          <h3>Storefront &amp; Shopping</h3>
-          <div class="screens-grid">
-            <figure class="card screen-card">
-              <img src="screenshots/storefront-products.webp" alt="Storefront product catalog with filters and featured product cards" loading="lazy" width="640" height="400" />
-              <figcaption>Product catalog with search, filters, and featured cards</figcaption>
-            </figure>
-            <figure class="card screen-card">
-              <img src="screenshots/product-details.webp" alt="Product details page with image gallery, sale pricing, reviews, and Add to Cart panel" loading="lazy" width="640" height="400" />
-              <figcaption>Product details with gallery, pricing, and reviews</figcaption>
-            </figure>
-            <figure class="card screen-card">
-              <img src="screenshots/cart.webp" alt="Customer cart with product quantities, totals, and checkout action" loading="lazy" width="640" height="400" />
-              <figcaption>Cart with quantities, totals, and checkout action</figcaption>
-            </figure>
-            <figure class="card screen-card">
-              <img src="screenshots/checkout.webp" alt="Checkout form with fictional customer details, applied coupon, and order summary" loading="lazy" width="640" height="400" />
-              <figcaption>Checkout with shipping details, coupon, and order summary</figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <div class="screens-group">
-          <h3>Admin Operations</h3>
-          <div class="screens-grid">
-            <figure class="card screen-card">
-              <img src="screenshots/admin-dashboard.webp" alt="Admin dashboard with commerce metrics, quick actions, and platform status" loading="lazy" width="640" height="400" />
-              <figcaption>Admin dashboard with commerce metrics and quick actions</figcaption>
-            </figure>
-            <figure class="card screen-card">
-              <img src="screenshots/admin-products.webp" alt="Admin product management table with catalog filters and stock status badges" loading="lazy" width="640" height="400" />
-              <figcaption>Product management with catalog filters and stock badges</figcaption>
-            </figure>
-            <figure class="card screen-card">
-              <img src="screenshots/admin-stock.webp" alt="Admin stock management workspace with inventory health and adjustment actions" loading="lazy" width="640" height="400" />
-              <figcaption>Stock management with inventory health and adjustments</figcaption>
-            </figure>
-            <figure class="card screen-card">
-              <img src="screenshots/admin-reports.webp" alt="Admin reports dashboard with sales, order, customer, inventory, and review metrics" loading="lazy" width="640" height="400" />
-              <figcaption>Reports dashboard with sales, inventory, and review metrics</figcaption>
-            </figure>
-          </div>
-        </div>
-
-        <div class="screens-group">
-          <h3>Responsive Experience</h3>
-          <div class="screens-grid screens-grid--mobile">
-            <figure class="card screen-card">
-              <img src="screenshots/mobile-storefront.webp" alt="Responsive mobile storefront with catalog filters and a featured product card" loading="lazy" width="390" height="700" />
-              <figcaption>Responsive mobile storefront layout</figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="repository">
-      <div class="container">
-        <div class="card repo-card">
-          <div>
-            <h2>Explore the full source</h2>
-            <p>Backend, frontend, database references, and QA documentation all live in one repository.</p>
-          </div>
-          <a
-            class="btn btn-primary"
-            href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg width="16" height="16" aria-hidden="true"><use href="#icon-code" /></svg>
-            View on GitHub
-          </a>
-        </div>
+    <section class="section final-cta">
+      <div class="container cta-card reveal">
+        <div><p class="overline">Open-source portfolio project</p><h2>See the decisions behind the experience.</h2><p>Explore the Laravel API, React frontend, database references, and quality documentation in one repository.</p></div>
+        <a class="button button-dark" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <a href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">
-          github.com/farhanrahmananik/ecommerce-platform-laravel-react
-        </a>
-        <div class="footer-meta">
-          <span>Portfolio Project by Farhan Rahman Anik</span>
-          <span>Static Portfolio Page</span>
-          <span>Not a Live Deployment</span>
-        </div>
-      </div>
+    <div class="container footer-layout">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">EP</span><span><strong>E-Commerce</strong><small>Laravel × React</small></span></a>
+      <p>Designed and developed by <a href="https://github.com/farhanrahmananik" target="_blank" rel="noopener noreferrer">Farhan Rahman Anik</a>.</p>
+      <p>© <span id="year"></span> · Portfolio project · Not a live store</p>
     </div>
   </footer>
+
+  <button class="to-top" id="toTopButton" type="button" aria-label="Go to top">
+    <span aria-hidden="true">↑</span>
+  </button>
+
+  <dialog class="image-dialog" id="imageDialog">
+    <button class="dialog-close" type="button" aria-label="Close screenshot preview">×</button>
+    <img src="" alt="">
+  </dialog>
 
   <script src="assets/js/github-pages.js"></script>
 </body>

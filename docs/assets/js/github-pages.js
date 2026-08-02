@@ -1,82 +1,92 @@
-/*
-  GitHub Pages portfolio landing page behavior.
-  Vanilla JS only: mobile navigation toggle with basic keyboard accessibility.
-  No external dependencies.
-*/
 (function () {
-  'use strict';
+  "use strict";
 
-  var toggle = document.getElementById('navToggle');
-  var menu = document.getElementById('navMenu');
+  var header = document.querySelector(".site-header");
+  var toggle = document.getElementById("navToggle");
+  var nav = document.getElementById("primaryNav");
+  var heroPreview = document.getElementById("heroPreview");
+  var dialog = document.getElementById("imageDialog");
+  var toTopButton = document.getElementById("toTopButton");
 
-  if (!toggle || !menu) {
-    return;
+  function updateHeader() {
+    if (header) header.classList.toggle("is-scrolled", window.scrollY > 12);
+    if (toTopButton) toTopButton.classList.toggle("is-shown", window.scrollY > 520);
   }
 
-  function openMenu() {
-    menu.classList.add('is-open');
-    toggle.setAttribute('aria-expanded', 'true');
+  function closeNav() {
+    if (!toggle || !nav) return;
+    nav.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
   }
 
-  function closeMenu() {
-    menu.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      var isOpen = nav.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    nav.querySelectorAll("a").forEach(function (link) { link.addEventListener("click", closeNav); });
+    document.addEventListener("click", function (event) {
+      if (nav.classList.contains("is-open") && !nav.contains(event.target) && !toggle.contains(event.target)) closeNav();
+    });
+    window.addEventListener("resize", function () { if (window.innerWidth > 820) closeNav(); });
   }
 
-  function isOpen() {
-    return menu.classList.contains('is-open');
-  }
-
-  toggle.addEventListener('click', function () {
-    if (isOpen()) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+  document.querySelectorAll("[data-hero-image]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      if (!heroPreview || button.classList.contains("is-active")) return;
+      document.querySelectorAll("[data-hero-image]").forEach(function (item) { item.classList.remove("is-active"); });
+      button.classList.add("is-active");
+      heroPreview.classList.add("is-switching");
+      window.setTimeout(function () {
+        heroPreview.src = button.dataset.heroImage;
+        heroPreview.alt = button.dataset.heroAlt || "Platform preview";
+        heroPreview.classList.remove("is-switching");
+      }, 150);
+    });
   });
 
-  // Close the menu after choosing a link, so the anchor scroll target is visible.
-  menu.addEventListener('click', function (event) {
-    if (event.target.closest('a')) {
-      closeMenu();
-    }
-  });
-
-  // Close on Escape and return focus to the toggle button.
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && isOpen()) {
-      closeMenu();
-      toggle.focus();
-    }
-  });
-
-  // Close when clicking outside the open menu.
-  document.addEventListener('click', function (event) {
-    if (!isOpen()) {
-      return;
-    }
-
-    var clickedInsideMenu = menu.contains(event.target);
-    var clickedToggle = toggle.contains(event.target);
-
-    if (!clickedInsideMenu && !clickedToggle) {
-      closeMenu();
-    }
-  });
-
-  // Collapse the mobile menu automatically if the viewport grows into desktop
-  // width. Matches the CSS breakpoint where the toggle itself is hidden.
-  var desktopQuery = window.matchMedia('(min-width: 992px)');
-
-  function handleViewportChange(event) {
-    if (event.matches) {
-      closeMenu();
-    }
+  var reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px" });
+    reveals.forEach(function (element) { observer.observe(element); });
+  } else {
+    reveals.forEach(function (element) { element.classList.add("is-visible"); });
   }
 
-  if (typeof desktopQuery.addEventListener === 'function') {
-    desktopQuery.addEventListener('change', handleViewportChange);
-  } else if (typeof desktopQuery.addListener === 'function') {
-    desktopQuery.addListener(handleViewportChange);
+  document.querySelectorAll(".gallery-card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      if (!dialog || typeof dialog.showModal !== "function") return;
+      var image = dialog.querySelector("img");
+      image.src = card.dataset.image;
+      image.alt = card.dataset.alt || "Application screenshot";
+      dialog.showModal();
+    });
+  });
+
+  if (dialog) {
+    dialog.querySelector(".dialog-close").addEventListener("click", function () { dialog.close(); });
+    dialog.addEventListener("click", function (event) { if (event.target === dialog) dialog.close(); });
   }
+
+  if (toTopButton) {
+    toTopButton.addEventListener("click", function () {
+      var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (window.location.hash) window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+    });
+  }
+
+  document.addEventListener("keydown", function (event) { if (event.key === "Escape") closeNav(); });
+  var year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
 })();

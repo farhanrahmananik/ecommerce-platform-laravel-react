@@ -3,225 +3,204 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101a31">
+  <meta name="theme-color" content="#ffffff">
   <title>Full-stack E-Commerce Platform | Laravel 12 + React 19</title>
-  <meta name="description" content="A production-style e-commerce platform pairing a Laravel 12 API with a React 19 storefront, complete commerce workflows, admin operations, reporting, and verified test coverage.">
+  <meta name="description" content="A production-style e-commerce platform built with a Laravel 12 API and React 19 storefront, including customer journeys, admin operations, reporting, and verified tests.">
   <link rel="canonical" href="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='7' fill='%23101a31'/%3E%3Cpath d='M7 8h10l-1 10H8L7 8Zm2 0V6a3 3 0 0 1 6 0v2' fill='none' stroke='%23ff6646' stroke-width='1.8'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/css/github-pages.css">
-
-  <meta property="og:title" content="Full-stack E-Commerce Platform — Laravel + React">
-  <meta property="og:description" content="A complete shopper journey and operational control center, engineered as one production-style portfolio project.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/">
-  <meta property="og:site_name" content="Farhan Rahman Anik — Portfolio">
-  <meta property="og:image" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/assets/img/og-preview-v2.png?v=20260802">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Laravel and React full-stack e-commerce platform portfolio project">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Full-stack E-Commerce Platform — Laravel + React">
-  <meta name="twitter:description" content="Storefront experience, checkout, admin operations, inventory, reports, auditability, and 156 tests passing.">
-  <meta name="twitter:image" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/assets/img/og-preview-v2.png?v=20260802">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/icons/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
+
+  <meta property="og:title" content="Full-stack E-Commerce Platform — Laravel + React">
+  <meta property="og:description" content="A complete customer journey and operations workspace in one production-style portfolio project.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/">
+  <meta property="og:image" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/assets/img/og-preview-v2.png?v=20260808">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Laravel and React full-stack e-commerce platform">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Full-stack E-Commerce Platform — Laravel + React">
+  <meta name="twitter:description" content="Storefront, checkout, operations, inventory, reporting, and 156 tests passing.">
+  <meta name="twitter:image" content="https://farhanrahmananik.github.io/ecommerce-platform-laravel-react/assets/img/og-preview-v2.png?v=20260808">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header" id="top">
-    <div class="container nav-shell">
-      <a class="brand" href="#top" aria-label="E-Commerce Platform home">
-        <span class="brand-mark" aria-hidden="true">EP</span>
-        <span><strong>E-Commerce</strong><small>Laravel × React</small></span>
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-row">
+      <a class="brand" href="." aria-label="E-Commerce Platform home">
+        <span aria-hidden="true">EP</span>
+        <strong>E-Commerce Platform</strong>
       </a>
 
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav">
-        <span class="sr-only">Toggle navigation</span><i></i><i></i><i></i>
+        <span class="sr-only">Toggle navigation</span><i></i><i></i>
       </button>
 
       <nav class="primary-nav" id="primaryNav" aria-label="Primary navigation">
+        <a href="#platform">Platform</a>
         <a href="#experience">Experience</a>
         <a href="#operations">Operations</a>
         <a href="#engineering">Engineering</a>
-        <a href="#gallery">Gallery</a>
-        <a class="nav-github" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <a class="github-link" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
-      <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-copy reveal">
-          <p class="eyebrow"><span aria-hidden="true"></span> Full-stack commerce · Portfolio project</p>
-          <h1 id="hero-title">Built to sell.<br><em>Engineered to scale.</em></h1>
-          <p class="hero-lede">A complete shopper journey and operational control center—powered by a Laravel 12 API and a responsive React 19 experience.</p>
+          <p class="label">LARAVEL 12 · REACT 19 · PORTFOLIO PROJECT</p>
+          <h1 id="hero-title">Commerce,<br>from both sides.</h1>
+          <p class="hero-lede">A responsive customer storefront and a secure operations workspace, connected by a production-minded Laravel API.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">Explore the source <span aria-hidden="true">↗</span></a>
-            <a class="button button-ghost" href="#experience">Tour the platform <span aria-hidden="true">↓</span></a>
+            <a class="button button-primary" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+            <a class="button button-secondary" href="#platform">Explore platform <span aria-hidden="true">↓</span></a>
           </div>
-          <ul class="hero-proof" aria-label="Platform highlights">
-            <li><span>156</span> tests passing</li>
-            <li><span>808</span> assertions</li>
-            <li><span>17+</span> capabilities</li>
-          </ul>
         </div>
 
-        <div class="hero-stage reveal" data-delay="1">
-          <div class="stage-controls" aria-label="Choose hero preview">
-            <button class="is-active" type="button" data-hero-image="screenshots/storefront-products.webp" data-hero-alt="Storefront catalog preview">Storefront</button>
-            <button type="button" data-hero-image="screenshots/admin-dashboard.webp" data-hero-alt="Admin dashboard preview">Admin workspace</button>
-          </div>
-          <div class="browser-frame">
-            <div class="browser-bar"><span aria-hidden="true"><i></i><i></i><i></i></span><b>commerce.local</b><em>LIVE</em></div>
-            <img id="heroPreview" src="screenshots/storefront-products.webp" alt="Storefront catalog preview" width="1600" height="900" fetchpriority="high">
-          </div>
-          <div class="float-card order-card" aria-hidden="true"><i>✓</i><span><small>ORDER CONFIRMED</small><strong>#EC-1048 · $248.00</strong></span></div>
-          <div class="float-card stock-card" aria-hidden="true"><small>INVENTORY HEALTH</small><strong>94%</strong><span><i style="--w:94%"></i></span></div>
+        <div class="hero-preview reveal" data-delay="1">
+          <div class="browser-bar"><span aria-hidden="true"><i></i><i></i><i></i></span><p>commerce.local</p><strong>LIVE</strong></div>
+          <div class="preview-crop preview-storefront"><img src="screenshots/storefront-products.webp" alt="Responsive product storefront" width="1600" height="900" fetchpriority="high"></div>
         </div>
       </div>
-      <div class="container platform-strip reveal" data-delay="2">
-        <span>POWERING THE EXPERIENCE</span>
-        <ul><li>Laravel 12</li><li>React 19</li><li>Sanctum</li><li>React Router 7</li><li>MySQL</li><li>Vite 8</li></ul>
+
+      <div class="container stat-row reveal" data-delay="2" aria-label="Project metrics">
+        <div><strong>156</strong><span>Backend tests</span></div>
+        <div><strong>808</strong><span>Assertions</span></div>
+        <div><strong>4</strong><span>User roles</span></div>
+        <div><strong>17+</strong><span>Core capabilities</span></div>
+      </div>
+    </section>
+
+    <section class="section platform" id="platform" aria-labelledby="platform-title">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="label">01 · THE PLATFORM</p>
+          <h2 id="platform-title">One system for buying<br>and running the store.</h2>
+          <p>Customers get a focused shopping journey. Admin-capable teams get the controls needed to manage catalog, inventory, orders, reviews, reports, and audit history.</p>
+        </header>
+
+        <div class="feature-grid">
+          <article class="feature reveal"><span>01</span><h3>Storefront</h3><p>Product discovery, responsive details, approved reviews, stock-aware cart, coupons, and checkout.</p></article>
+          <article class="feature reveal" data-delay="1"><span>02</span><h3>Customer</h3><p>Authentication, session restoration, order history, order details, and verified-purchase reviews.</p></article>
+          <article class="feature reveal" data-delay="2"><span>03</span><h3>Operations</h3><p>Catalog, inventory, coupons, orders, moderation, reports, and filterable audit logs.</p></article>
+        </div>
       </div>
     </section>
 
     <section class="section experience" id="experience" aria-labelledby="experience-title">
-      <div class="container">
-        <div class="section-heading reveal">
-          <div><p class="overline">The customer experience</p><h2 id="experience-title">A shopper journey with no dead ends.</h2></div>
-          <p>Discovery, decision, checkout, and post-purchase actions work as one continuous experience—with thoughtful validation, loading, empty, and recovery states.</p>
+      <div class="container split-layout">
+        <div class="split-copy reveal">
+          <p class="label">02 · CUSTOMER EXPERIENCE</p>
+          <h2 id="experience-title">A clear path<br>to purchase.</h2>
+          <p>Every step provides the information and feedback needed to move forward without guesswork.</p>
+          <ol class="steps">
+            <li><span>01</span><div><strong>Discover</strong><small>Search, category, featured, sorting, and pagination filters.</small></div></li>
+            <li><span>02</span><div><strong>Decide</strong><small>Product galleries, pricing, inventory, and approved reviews.</small></div></li>
+            <li><span>03</span><div><strong>Purchase</strong><small>Stock-aware cart, coupon validation, and protected checkout.</small></div></li>
+            <li><span>04</span><div><strong>Return</strong><small>Order history and verified-purchase product reviews.</small></div></li>
+          </ol>
         </div>
 
-        <ol class="journey reveal" aria-label="Customer shopping journey">
-          <li><span>01</span><div><strong>Discover</strong><small>Search, filter &amp; sort</small></div></li>
-          <li><span>02</span><div><strong>Decide</strong><small>Gallery, pricing &amp; reviews</small></div></li>
-          <li><span>03</span><div><strong>Purchase</strong><small>Cart, coupon &amp; checkout</small></div></li>
-          <li><span>04</span><div><strong>Return</strong><small>Orders &amp; verified reviews</small></div></li>
-        </ol>
+        <button class="screen-card reveal" data-delay="1" type="button" data-image="screenshots/product-details.webp" data-alt="Full product details screenshot" aria-label="Open product details screenshot">
+          <span><strong>Product details</strong><b>View full size ↗</b></span>
+          <span class="preview-crop preview-product"><img src="screenshots/product-details.webp" alt="Product details with gallery, sale pricing, reviews, and add to cart" width="1600" height="900" loading="lazy"></span>
+        </button>
+      </div>
+    </section>
 
-        <div class="showcase showcase-storefront">
-          <div class="showcase-visual reveal">
-            <div class="visual-label"><span>SHOPPER VIEW</span><b>Responsive storefront</b></div>
-            <img src="screenshots/product-details.webp" alt="Product details page with image gallery, pricing, reviews, and add to cart panel" width="1600" height="900" loading="lazy">
-            <div class="phone-frame" aria-hidden="true"><div></div><img src="screenshots/mobile-storefront.webp" alt="" width="390" height="700" loading="lazy"></div>
-          </div>
-          <div class="showcase-copy reveal" data-delay="1">
-            <p class="overline">Storefront</p>
-            <h3>Designed around buying confidence.</h3>
-            <p>Clear pricing, visible stock states, approved review summaries, and stock-aware cart validation help customers move from curiosity to checkout without friction.</p>
-            <div class="feature-lines">
-              <div><span>01</span><p><strong>Flexible product discovery</strong><small>Search, category, featured, sorting, and pagination filters.</small></p></div>
-              <div><span>02</span><p><strong>Stock-aware commerce</strong><small>Quantities are validated against real inventory before checkout.</small></p></div>
-              <div><span>03</span><p><strong>Trusted product feedback</strong><small>Only verified purchasers can create managed product reviews.</small></p></div>
-            </div>
-          </div>
+    <section class="section checkout" aria-labelledby="checkout-title">
+      <div class="container checkout-grid">
+        <button class="screen-card reveal" type="button" data-image="screenshots/checkout.webp" data-alt="Full checkout screenshot" aria-label="Open checkout screenshot">
+          <span><strong>Checkout</strong><b>View full size ↗</b></span>
+          <span class="preview-crop preview-checkout"><img src="screenshots/checkout.webp" alt="Checkout with customer details, coupon, and order summary" width="1600" height="900" loading="lazy"></span>
+        </button>
+        <div class="checkout-copy reveal" data-delay="1">
+          <p class="label">03 · CHECKOUT</p>
+          <h2 id="checkout-title">The final step stays simple.</h2>
+          <p>Customer details, delivery, billing, coupons, totals, and order placement remain visible in one secure flow.</p>
+          <ul class="tag-list"><li>Stock validation</li><li>Coupon rules</li><li>Order snapshots</li><li>Database transactions</li></ul>
         </div>
       </div>
     </section>
 
     <section class="section operations" id="operations" aria-labelledby="operations-title">
       <div class="container">
-        <div class="section-heading section-heading-light reveal">
-          <div><p class="overline">The operations layer</p><h2 id="operations-title">One workspace. Every commerce signal.</h2></div>
-          <p>From catalog maintenance to fulfillment and reporting, admin-capable teams get a secure operational view with traceable actions.</p>
-        </div>
+        <header class="section-head section-head-dark reveal">
+          <p class="label">04 · OPERATIONS</p>
+          <h2 id="operations-title">Everything behind<br>the storefront.</h2>
+          <p>A role-protected workspace gives teams one clear view of daily commerce operations.</p>
+        </header>
 
-        <div class="operations-stage reveal">
-          <div class="admin-frame">
-            <div class="admin-frame-bar"><span><i></i><i></i><i></i></span><strong>ADMIN CONTROL CENTER</strong><em>SECURE</em></div>
-            <img src="screenshots/admin-dashboard.webp" alt="Admin dashboard with commerce metrics, quick actions, and platform status" width="1600" height="900" loading="lazy">
-          </div>
-          <div class="operations-stats" aria-label="Admin capability highlights">
-            <div><span>CATALOG</span><strong>Products &amp; categories</strong><small>Images, pricing, visibility, and organization</small></div>
-            <div><span>INVENTORY</span><strong>Stock that stays accountable</strong><small>Adjustments with full movement history</small></div>
-            <div><span>FULFILLMENT</span><strong>Controlled order flow</strong><small>Search, filters, detail, and status transitions</small></div>
-            <div><span>INTELLIGENCE</span><strong>Reports with context</strong><small>Sales, products, stock, reviews, and audit logs</small></div>
-          </div>
-        </div>
+        <button class="admin-screen reveal" type="button" data-image="screenshots/admin-dashboard.webp" data-alt="Full administration dashboard screenshot" aria-label="Open administration dashboard screenshot">
+          <span><strong>Admin dashboard</strong><b>Secure workspace · View full size ↗</b></span>
+          <span class="preview-crop preview-admin"><img src="screenshots/admin-dashboard.webp" alt="Administration dashboard with store metrics and quick actions" width="1600" height="900" loading="lazy"></span>
+        </button>
 
-        <div class="capability-grid">
-          <article class="capability reveal"><span>01</span><p class="overline">Catalog</p><h3>Merchandising tools</h3><p>Category, product, image, featured state, price, and availability management.</p><ul><li>Primary image control</li><li>Search &amp; filters</li><li>Stock status</li></ul></article>
-          <article class="capability reveal" data-delay="1"><span>02</span><p class="overline">Revenue</p><h3>Orders &amp; coupons</h3><p>Redemption-aware discounts and controlled order status workflows.</p><ul><li>Coupon validation</li><li>Order snapshots</li><li>Status history</li></ul></article>
-          <article class="capability reveal" data-delay="2"><span>03</span><p class="overline">Trust</p><h3>Moderation &amp; audit</h3><p>Review moderation and filterable action history with before-and-after values.</p><ul><li>Verified reviews</li><li>Audit metadata</li><li>Role protection</li></ul></article>
+        <div class="operations-list reveal">
+          <div><span>01</span><p><strong>Catalog</strong><small>Categories, products, images, pricing, and availability.</small></p></div>
+          <div><span>02</span><p><strong>Inventory</strong><small>Stock adjustments and complete movement history.</small></p></div>
+          <div><span>03</span><p><strong>Fulfillment</strong><small>Order search, details, and controlled status changes.</small></p></div>
+          <div><span>04</span><p><strong>Intelligence</strong><small>Sales, products, stock, reviews, and audit logs.</small></p></div>
         </div>
       </div>
     </section>
 
     <section class="section engineering" id="engineering" aria-labelledby="engineering-title">
-      <div class="container engineering-layout">
-        <div class="engineering-copy reveal">
-          <p class="overline">Under the storefront</p>
-          <h2 id="engineering-title">Two applications.<br>One deliberate system.</h2>
-          <p>A clear API boundary keeps the Laravel backend focused on business rules and the React SPA focused on user experience—without mixing responsibilities.</p>
-          <a class="text-link" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react#architecture-overview" target="_blank" rel="noopener noreferrer">Explore the architecture <span aria-hidden="true">→</span></a>
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="label">05 · ENGINEERING</p>
+          <h2 id="engineering-title">A clean boundary<br>between two applications.</h2>
+          <p>Laravel owns business rules and persistence. React owns navigation and interaction. The API keeps responsibilities explicit.</p>
+        </header>
+
+        <div class="architecture">
+          <article class="reveal"><span>BACKEND</span><h3>Laravel 12 API</h3><ul><li>Form Requests</li><li>Service classes</li><li>Transactions &amp; row locks</li><li>API Resources</li><li>Sanctum authentication</li></ul></article>
+          <div class="connection reveal" aria-hidden="true"><span>JSON</span><i>⇄</i><small>COOKIE + CSRF</small></div>
+          <article class="reveal" data-delay="1"><span>FRONTEND</span><h3>React 19 SPA</h3><ul><li>React Router</li><li>Route guards</li><li>Shared Axios client</li><li>Service modules</li><li>Auth &amp; cart contexts</li></ul></article>
         </div>
 
-        <div class="architecture-card reveal" data-delay="1">
-          <div class="arch-column backend-column">
-            <p class="overline">Laravel API</p><h3>Reliable business core</h3>
-            <ul><li>Thin controllers</li><li>Form Requests</li><li>Service classes</li><li>Transactions &amp; row locks</li><li>API Resources</li><li>Sanctum authentication</li></ul>
-          </div>
-          <div class="arch-flow" aria-hidden="true"><span>JSON</span><i>⇄</i><small>COOKIE + CSRF</small></div>
-          <div class="arch-column frontend-column">
-            <p class="overline">React SPA</p><h3>Responsive experience</h3>
-            <ul><li>React Router</li><li>Route guards</li><li>Shared Axios client</li><li>Service modules</li><li>Auth &amp; cart contexts</li><li>Intentional UI states</li></ul>
-          </div>
-        </div>
-
-        <div class="quality-rail reveal">
-          <div><strong>156</strong><span>Backend tests</span><small>passing</small></div>
-          <div><strong>808</strong><span>Assertions</span><small>verified</small></div>
-          <div><strong>PASS</strong><span>Frontend ESLint</span><small>clean</small></div>
-          <div><strong>PASS</strong><span>Production build</span><small>verified</small></div>
-        </div>
+        <div class="quality-row reveal" aria-label="Quality checks"><div><strong>156</strong><span>Tests passing</span></div><div><strong>808</strong><span>Assertions verified</span></div><div><strong>PASS</strong><span>Frontend ESLint</span></div><div><strong>PASS</strong><span>Production build</span></div></div>
       </div>
     </section>
 
-    <section class="section gallery" id="gallery" aria-labelledby="gallery-title">
+    <section class="section gallery" aria-labelledby="gallery-title">
       <div class="container">
-        <div class="section-heading reveal">
-          <div><p class="overline">Real product captures</p><h2 id="gallery-title">From storefront polish to back-office clarity.</h2></div>
-          <p>Every image below comes from the working application—not a concept mockup. Open any capture for a closer look.</p>
-        </div>
+        <header class="section-head reveal">
+          <p class="label">06 · PRODUCT CAPTURES</p>
+          <h2 id="gallery-title">Real screens.<br>No concept mockups.</h2>
+          <p>Each capture comes from the working application. Preview cards are tightly framed; full-size view preserves the complete screenshot.</p>
+        </header>
 
         <div class="gallery-grid">
-          <button class="gallery-card gallery-wide reveal" type="button" data-image="screenshots/storefront-products.webp" data-alt="Full storefront products screenshot"><span><i>01</i><strong>Product catalog</strong><b>Open ↗</b></span><img src="screenshots/storefront-products.webp" alt="Storefront product catalog" width="1600" height="900" loading="lazy"></button>
-          <button class="gallery-card reveal" data-delay="1" type="button" data-image="screenshots/cart.webp" data-alt="Full shopping cart screenshot"><span><i>02</i><strong>Shopping cart</strong><b>Open ↗</b></span><img src="screenshots/cart.webp" alt="Shopping cart with quantities and totals" width="1600" height="900" loading="lazy"></button>
-          <button class="gallery-card reveal" type="button" data-image="screenshots/checkout.webp" data-alt="Full checkout screenshot"><span><i>03</i><strong>Checkout</strong><b>Open ↗</b></span><img src="screenshots/checkout.webp" alt="Checkout with shipping, coupon, and order summary" width="1600" height="900" loading="lazy"></button>
-          <button class="gallery-card gallery-wide reveal" data-delay="1" type="button" data-image="screenshots/admin-reports.webp" data-alt="Full admin reports screenshot"><span><i>04</i><strong>Reports &amp; analytics</strong><b>Open ↗</b></span><img src="screenshots/admin-reports.webp" alt="Admin reports and analytics dashboard" width="1600" height="900" loading="lazy"></button>
-          <button class="gallery-card reveal" type="button" data-image="screenshots/admin-products.webp" data-alt="Full admin products screenshot"><span><i>05</i><strong>Product management</strong><b>Open ↗</b></span><img src="screenshots/admin-products.webp" alt="Admin product management" width="1600" height="900" loading="lazy"></button>
-          <button class="gallery-card reveal" data-delay="1" type="button" data-image="screenshots/admin-stock.webp" data-alt="Full stock management screenshot"><span><i>06</i><strong>Stock management</strong><b>Open ↗</b></span><img src="screenshots/admin-stock.webp" alt="Admin stock management" width="1600" height="900" loading="lazy"></button>
+          <button class="gallery-card reveal" type="button" data-image="screenshots/storefront-products.webp" data-alt="Full storefront catalog screenshot"><span><strong>Product catalog</strong><b>Open ↗</b></span><span class="preview-crop preview-storefront"><img src="screenshots/storefront-products.webp" alt="Product catalog" width="1600" height="900" loading="lazy"></span></button>
+          <button class="gallery-card reveal" data-delay="1" type="button" data-image="screenshots/cart.webp" data-alt="Full shopping cart screenshot"><span><strong>Shopping cart</strong><b>Open ↗</b></span><span class="preview-crop preview-cart"><img src="screenshots/cart.webp" alt="Shopping cart" width="1600" height="900" loading="lazy"></span></button>
+          <button class="gallery-card reveal" type="button" data-image="screenshots/admin-products.webp" data-alt="Full product management screenshot"><span><strong>Product management</strong><b>Open ↗</b></span><span class="preview-crop preview-admin"><img src="screenshots/admin-products.webp" alt="Product management" width="1600" height="900" loading="lazy"></span></button>
+          <button class="gallery-card reveal" data-delay="1" type="button" data-image="screenshots/admin-reports.webp" data-alt="Full reports and analytics screenshot"><span><strong>Reports &amp; analytics</strong><b>Open ↗</b></span><span class="preview-crop preview-admin"><img src="screenshots/admin-reports.webp" alt="Reports and analytics" width="1600" height="900" loading="lazy"></span></button>
         </div>
       </div>
     </section>
 
-    <section class="section final-cta">
-      <div class="container cta-card reveal">
-        <div><p class="overline">Open-source portfolio project</p><h2>See the decisions behind the experience.</h2><p>Explore the Laravel API, React frontend, database references, and quality documentation in one repository.</p></div>
-        <a class="button button-dark" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="container closing-row reveal">
+        <div><p class="label">OPEN-SOURCE PORTFOLIO PROJECT</p><h2 id="closing-title">Explore the complete build.</h2><p>Review the Laravel API, React frontend, database references, and project documentation on GitHub.</p></div>
+        <a class="button button-light" href="https://github.com/farhanrahmananik/ecommerce-platform-laravel-react" target="_blank" rel="noopener noreferrer">View repository <span aria-hidden="true">↗</span></a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-layout">
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">EP</span><span><strong>E-Commerce</strong><small>Laravel × React</small></span></a>
-      <p>Designed and developed by <a href="https://github.com/farhanrahmananik" target="_blank" rel="noopener noreferrer">Farhan Rahman Anik</a>.</p>
-      <p>© <span id="year"></span> · Portfolio project · Not a live store</p>
-    </div>
+    <div class="container footer-row"><a class="brand" href="."><span aria-hidden="true">EP</span><strong>E-Commerce Platform</strong></a><p>Built by <a href="https://github.com/farhanrahmananik" target="_blank" rel="noopener noreferrer">Farhan Rahman Anik</a></p><p>© <span id="year"></span> · Not a live store</p></div>
   </footer>
 
-  <button class="to-top" id="toTopButton" type="button" aria-label="Go to top">
-    <span aria-hidden="true">↑</span>
-  </button>
+  <button class="to-top" id="toTopButton" type="button" aria-label="Go to top"><span aria-hidden="true">↑</span></button>
 
-  <dialog class="image-dialog" id="imageDialog">
-    <button class="dialog-close" type="button" aria-label="Close screenshot preview">×</button>
+  <dialog class="image-dialog" id="imageDialog" aria-label="Full-size application screenshot">
+    <button class="dialog-close" type="button" aria-label="Close screenshot">×</button>
     <img src="" alt="">
   </dialog>
 
